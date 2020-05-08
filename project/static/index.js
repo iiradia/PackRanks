@@ -1,6 +1,16 @@
-var gepornot = document.get_element_by_id("gepornot");
-var selected_type = e.options[e.selectedIndex].text;
+//var gepornot = document.getElementById("gepornot");
+//var selected_type = gepornot.options[gepornot.selectedIndex].text;
 
 function gepOrNotSelect() {
-    $.get(selected_type)
+    $.ajax({
+        type: "POST",
+        url: "/select",
+        data: JSON.stringify({
+            "gepordept" : $('#gepornot').val()
+        }),
+        contentType: "application/json;charset=UTF-8",
+        success: function(response) {
+            document.write(response)
+        }
+    })
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EasyA GEP Selector</title>
+</head>
+<body>
+<h1>Select a GEP</h1>
+<div class="typeofgep">
+    <label for="typeofgep">Please select the type of GEP you are looking for.</label>
+    <select id="typeofgep" name = "typeofgep">
+        <option value="hesf">Health and Exercise Studies</option>
+        <option value="hum">Humanities</option>
+        <option value="idp">Interdisciplinary Perspectives</option>
+        <option value="math">Mathematical Sciences</option>
+        <option value="natsci">Natural Sciences</option>
+        <option value="social">Social Sciences</option>
+        <option value="usd">US Diversity</option>
+        <option value="addtl">Additional Breadth</option>
+        <option value="visual">Visual and Performing Arts</option>
+    </select>
+    <button type="button" id="whichgep" name="whichgep" onclick="displayGEPInfo();">Select</button>
+</div>
+<script type="text/javascript">
+    function displayGEPInfo() {
+        var displayStr = "";
+        if ($('#typeofgep').val() == "hesf") {
+            displayStr = "";
+        }
+        else if ($('#typeofgep').val() == "hum") {
+            displayStr = "";
+        }
+        else if ($('#typeofgep').val() == "idp") {
+            displayStr = "";
+        }
+        else if ($('#typeofgep').val() == "math") {
+            displayStr = "";
+        }
+        document.getElementById("courses").innerHTML = displayStr;
+    }
+</script>
+<div class="courseinfo" id='courseinfo'>
+    <h1 id='courses'></h1>
+</div>
+</bosdy>
+</html>             
