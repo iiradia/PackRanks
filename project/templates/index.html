@@ -5,21 +5,93 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EasyA!</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="static/index.js"></script>
 </head>
 <body>
-<h1>Welcome to EasyA!</h1>
-<h4>This tool allows you to find which NC State GEP or elective courses will be the best
-    for you to take!</h4>
-<div class="gepornot">
-    <label for="gepornot">Are you looking for a GEP or a course from a specific department?</label>
-    <select id="gepornot" name = "gepornot">
-        <option value="/gep">GEP</option>
-        <option value="/dept">Course Department</option>
-    </select>
-    <button type="button" id="goto" onclick = "gepOrNotSelect()">Go</button>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+        <a class="navbar-brand" href="#">EasyA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    <style type="text/css">
+        div#typeofgep {
+          display:none;
+        }
+        div#typeofdept {
+          display:none;
+        }
+    </style>
+    <script>
+        function goToGEPorDept() {
+            if ($("#gepornot").val() == "/gep") {
+                $("#typeofdept").hide();
+                $("#typeofgep").show();
+            }
+            else {
+                $("#typeofgep").hide();
+                $("#typeofdept").show();
+            }
+        };
+    </script>
+    <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Welcome to EasyA!</h1>
+        <p class="lead">This tool allows you to find which NC State GEP or elective courses will be the best for you to take!</p>
+    </div>
+    <div class="text-center">
+        <label for="gepornot" class="lead">Are you looking for a GEP or a course from a specific department?</label>
+        <select id="gepornot" name="gepornot" class="bg-light">
+            <option value="/gep">GEP</option>
+            <option value="/dept">Course Department</option>
+        </select>
+        <button type="button" class="btn btn-danger"s id="goto" onclick="goToGEPorDept();">Go</button>
+    </div>
+    <div id="typeofgep" class="text-center">
+        <h2 class="mt-5">Select a GEP</h2>
+        <label for="typeofgep">Please select the type of GEP you are looking for.</label>
+        <select id="typeofgep" name = "typeofgep" class="bg-light">
+            <option value="hesf">Health and Exercise Studies</option>
+            <option value="hum">Humanities</option>
+            <option value="idp">Interdisciplinary Perspectives</option>
+            <option value="math">Mathematical Sciences</option>
+            <option value="natsci">Natural Sciences</option>
+            <option value="social">Social Sciences</option>
+            <option value="usd">US Diversity</option>
+            <option value="addtl">Additional Breadth</option>
+            <option value="visual">Visual and Performing Arts</option>
+        </select>
+        <button type="button" class="btn btn-danger" id="whichgep" name="whichgep">Select</button>
+    </div>
+    <div id="typeofdept" class="text-center">
+        <h2 class="mt-5">Select a Department</h2>
+        <label for="typeofdept">Please select the department of the course/elective you are looking for.</label>
+        <select id="typeofdept" name = "typeofdept" class="bg-light">
+            <!-- TOBEIMPLEMENTED-->
+        </select>
+        <button type="button" class="btn btn-danger" id="whichdept" name="whichdept">Select</button>
+    </div>
 </body>
 </html>                                		                            
