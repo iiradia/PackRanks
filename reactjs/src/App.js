@@ -1,7 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+/**
+ * App.js organizes all components to be rendered and exports them to index.js. 
+ */
 function App() {
   return (
     <div className="App">
