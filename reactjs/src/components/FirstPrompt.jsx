@@ -6,26 +6,45 @@ import GEP from './GEP';
 import Dept from './Dept';
 
 class FirstPrompt extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            gep: false,
+            dept: false
+        };
+
+        this.goToGEPorDept = this.goToGEPorDept.bind(this);
+    }
+
     goToGEPorDept() {
+        let FirstPrompt = this;
         if (document.getElementById('gepornot').value === "/gep") {
             //If gep was selected, show it.s
-            return <GEP />;
+            this.setState({gep: true});
+            this.setState({dept: false})
         }
         else {
             //If dept was selected, show it.
-            return <Dept />;
+            this.setState({dept: true});
+            this.setState({gep: false})
         }
     };
     render() {
         return(
-            <div class="text-center">
-                <label for="gepornot" class="lead">Are you looking for a GEP or a course from a specific department?</label>
-                <select id="gepornot" name="gepornot" class="bg-light">
-                    {/* options for user to select */}
-                    <option value="/gep">GEP</option>
-                    <option value="/dept">Course Department</option>
-                </select>
-                <button type="button" class="btn btn-danger"s id="goto" onClick={this.goToGEPorDept}>Go</button>
+            <div>
+                <div class="text-center">
+                    <label for="gepornot" class="lead">Are you looking for a GEP or a course from a specific department?</label>
+                    <select id="gepornot" name="gepornot" class="bg-light">
+                        {/* options for user to select */}
+                        <option value="/gep">GEP</option>
+                        <option value="/dept">Course Department</option>
+                    </select>
+                    <button type="button" class="btn btn-danger"s id="goto" onClick={this.goToGEPorDept}>Go</button>
+                </div>
+                <div>
+                    {this.state.gep && <GEP />}
+                    {this.state.dept && <Dept />}
+                </div>
             </div>
         );
     }
