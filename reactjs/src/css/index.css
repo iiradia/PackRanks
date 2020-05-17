@@ -1,0 +1,23 @@
+/*@font-face {
+    font-family: Balsamiq; 
+    src: url("../fonts/BalsamiqSans-Regular.ttf");
+  }*/
+h1 {
+    font-family: Balsamiq;
+    color:#cc0000
+}
+p {
+    color: #cc0000
+}
+h2 {
+    color: #cc0000
+}
+label {
+    color: #cc0000
+}
+nav {
+    background-color: #cc0000
+}
+button {
+    background-color: #cc0000 !important;
+}
