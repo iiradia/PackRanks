@@ -44,6 +44,7 @@ class FirstPrompt extends React.Component {
                 <div>
                     {this.state.gep && <GEP />}
                     {this.state.dept && <Dept />}
+                    
                 </div>
             </div>
         );
