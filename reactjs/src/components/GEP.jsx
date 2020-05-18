@@ -1,13 +1,19 @@
 import React from 'react';
+import Table from "./Table";
+import ReactDOM from "react-dom";
 
 class GEP extends React.Component {
 
     constructor() {
         super();
         this.getTable = this.getTable.bind(this)
+
+        this.state = {
+            courses: null
+        };
     }
     getTable() {
-        let GEP = this;
+        const GEP = this;
         let url = "http://localhost:5000/gep";
         fetch( 
             url, {
@@ -17,28 +23,38 @@ class GEP extends React.Component {
         ).then(
            response => response.json()
         ).then(
-            data => console.log(data)
-        );
+            data => this.setState({
+                courses: data
+            },
+            () => ReactDOM.render(<Table data={this.state.courses} />, document.getElementById('id_table'))
+            )
+        )
     }
+
     render() {
         return(
-            <div id="type" class="text-center">
-                <h2 class="mt-5">Select a GEP</h2>
-                <label for="typeofgep">Please select the type of GEP you are looking for.</label>
-                {/* selectable options for GEPs */}
-                <select id="typeofgep" name = "typeofgep" class="bg-light">
-                    <option value="HES">Health and Exercise Studies</option>
-                    <option value="HUM">Humanities</option>
-                    <option value="IDP">Interdisciplinary Perspectives</option>
-                    <option value="MATH">Mathematical Sciences</option>
-                    <option value="SCI">Natural Sciences</option>
-                    <option value="SS">Social Sciences</option>
-                    <option value="USD">US Diversity</option>
-                    <option value="ADDTL">Additional Breadth</option>
-                    <option value="VPA">Visual and Performing Arts</option>
-                </select>
-                {/* button to select a specific GEP TODO: implement onclick */}
-                <button type="button" class="btn btn-danger" id="whichgep" name="whichgep" onClick={this.getTable}>Select</button>
+            <div id = "id_table">
+                <div id="type" class="text-center">
+                    <h2 class="mt-5">Select a GEP</h2>
+                    <label for="typeofgep">Please select the type of GEP you are looking for.</label>
+                    {/* selectable options for GEPs */}
+                    <select id="typeofgep" name = "typeofgep" class="bg-light">
+                        <option value="HES">Health and Exercise Studies</option>
+                        <option value="HUM">Humanities</option>
+                        <option value="IDP">Interdisciplinary Perspectives</option>
+                        <option value="MATH">Mathematical Sciences</option>
+                        <option value="SCI">Natural Sciences</option>
+                        <option value="SS">Social Sciences</option>
+                        <option value="USD">US Diversity</option>
+                        <option value="ADDTL">Additional Breadth</option>
+                        <option value="VPA">Visual and Performing Arts</option>
+                    </select>
+                    {/* button to select a specific GEP TODO: implement onclick */}
+                    <button type="button" class="btn btn-danger" id="whichgep" name="whichgep" onClick={this.getTable}>Select</button>
+                </div>
+                { /* <div> */ }
+                 { /*   { !(this.state.courses === null) && <Table data= {this.state.courses}/>} */ }
+                { /* </div> */ }
             </div>
         );
     }
