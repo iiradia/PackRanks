@@ -27,16 +27,46 @@ def gepRoute():
         geps_req = ["HUM", "SS"]
 
     #access  collection with the correct data
-    catalog_data = grades_db.catalogncsu.find({
-        "gep": {"$regex": gep_requested}
-    })
+    if gep_requested != "HES":
+        catalog_data = grades_db.catalogncsu.aggregate([
+            {"$match" :{"gep" :{"$regex": gep_requested},
+            "course_type": "Lecture"}},
+            {"$sort": {"rating":-1}},
+            {"$limit": 5}
+        ])
+    else:
+        catalog_data = grades_db.catalogncsu.aggregate([
+            {"$match" :{"gep" :{"$regex": gep_requested}}},
+            {"$sort": {"rating":-1}},
+            {"$limit": 5}
+        ])
 
-    for course_record in catalog_data:
-        print(course_record)
+    #json to return
+    relevant_data = []
+    relevant_keys = [
+        "course_name",
+        "professor",
+        "section",
+        "semester",
+        "prereq_string",
+        "location",
+        "course_dates",
+        "ratemyprof_link"
+    ]
+
+    for record in catalog_data:
+
+        course_data = { key: record[key] for key in relevant_keys}
+        
+        open_seats = str(record["seats_open"])
+        total_seats = str(record["seats_total"])
+        course_data["seats"] = f"{open_seats}/{total_seats}"
+
+        relevant_data.append(course_data)
         
     #del catalog_data["_id"]
-
-    return {"request data":catalog_data["course_number"]}
+    print(relevant_data)
+    return relevant_data
 
 
 if __name__ == "__main__":

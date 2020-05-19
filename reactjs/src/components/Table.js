@@ -1,6 +1,14 @@
 import React from 'react'
 
-export default class Table extends React.Component {
+// Put data into each row 
+const RenderRow = (props) =>{
+    return props.keys.map((key, index)=>{
+    return <td key={props.data[key]}>{props.data[key]}</td>
+    })
+   }
+
+class Table extends React.Component {
+ 
     
     constructor(props){
         super(props);
@@ -9,12 +17,7 @@ export default class Table extends React.Component {
         this.getKeys = this.getKeys.bind(this);
     }
 
-    // Put data into each row 
-    RenderRow = (props) =>{
-        return props.keys.map((key, index)=>{
-        return <td key={props.data[key]}>{props.data[key]}</td>
-        })
-       }
+    
     
     // Gets the keys of the whole table 
     getKeys = function(){
