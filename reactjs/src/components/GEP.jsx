@@ -18,7 +18,7 @@ class GEP extends React.Component {
         fetch( 
             url, {
                 method: "GET",
-                headers: {"GEP": document.getElementById("typeofgep").value}
+                headers: {"GEP": document.getElementById("typeofgep").value, "term": this.props.whichterm}
            }
         ).then(
            response => response.json()
@@ -33,7 +33,7 @@ class GEP extends React.Component {
 
     render() {
         return(
-            <div id = "id_table">
+            <div>
                 <div id="type" class="text-center">
                     <h2 class="mt-5">Select a GEP</h2>
                     <label for="typeofgep">Please select the type of GEP you are looking for.</label>
@@ -52,9 +52,9 @@ class GEP extends React.Component {
                     {/* button to select a specific GEP TODO: implement onclick */}
                     <button type="button" class="btn btn-danger" id="whichgep" name="whichgep" onClick={this.getTable}>Select</button>
                 </div>
-                { /* <div> */ }
-                 { /*   { !(this.state.courses === null) && <Table data= {this.state.courses}/>} */ }
-                { /* </div> */ }
+                <div id = "id_table">
+
+                </div>
             </div>
         );
     }

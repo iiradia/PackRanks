@@ -21,6 +21,7 @@ def gepRoute():
 
     #get which GEP was requested
     gep_requested = request.headers.get("GEP")
+    term_requested = request.headers.get("term")
 
     #if additional breadth, either hum or ss
     if gep_requested == "ADDTL":
@@ -29,16 +30,35 @@ def gepRoute():
     #access  collection with the correct data
     if gep_requested != "HES":
         catalog_data = grades_db.catalogncsu.aggregate([
-            {"$match" :{"gep" :{"$regex": gep_requested},
-            "course_type": "Lecture"}},
-            {"$sort": {"rating":-1}},
-            {"$limit": 5}
+                {
+                    "$match" : {
+                        "gep" :{"$regex": gep_requested},
+                        "course_type": "Lecture", 
+                        "semester": {"$regex": term_requested}
+                    }
+                },
+                {
+                    "$sort": {"rating":-1}
+                },
+                {
+                    "$limit": 5
+                }
         ])
     else:
+        print(f".{term_requested}.")
         catalog_data = grades_db.catalogncsu.aggregate([
-            {"$match" :{"gep" :{"$regex": gep_requested}}},
-            {"$sort": {"rating":-1}},
-            {"$limit": 5}
+                {
+                    "$match" : {
+                        "gep" : {"$regex": gep_requested},
+                        "semester": {"$regex": term_requested},
+                    }
+                },
+                {
+                    "$sort": {"rating": -1}
+                },
+                {
+                    "$limit": 5
+                }
         ])
 
     #json to return
@@ -65,7 +85,6 @@ def gepRoute():
         relevant_data.append(course_data)
         
     #del catalog_data["_id"]
-    print(relevant_data)
     return relevant_data
 
 
