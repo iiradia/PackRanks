@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import FirstPrompt from './components/FirstPrompt';
 import MainWelcome from './components/MainWelcome';
+import "./css/app.css";
 /**
  * App.js organizes all components to be rendered and exports them to index.js. 
  */

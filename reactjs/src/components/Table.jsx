@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
+import "../css/table.css"
 
 // Put data into each row 
 const RenderRow = (props) =>{
@@ -46,7 +47,7 @@ class table extends React.Component {
     render() {
         return (
         <div>
-            <Table variant="dark">
+            <Table striped bordered hover>
             <thead>
                 <tr>{this.getHeader()}</tr>
             </thead>

@@ -1,0 +1,14 @@
+.table td {
+    border: #cc3000 solid 2.5px !important;
+}
+.table thead {
+    border: #cc3000 solid 2.5px !important;
+    text: #cc3000 !important;
+}
+.table tr {
+    border: #cc3000 solid 2.5px !important;
+}
+.table th{
+    border: #cc3000 solid 2.5px !important;
+    color: #cc3000;
+}
