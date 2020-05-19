@@ -53,7 +53,6 @@ class GEP extends React.Component {
                     <button type="button" class="btn btn-danger" id="whichgep" name="whichgep" onClick={this.getTable}>Select</button>
                 </div>
                 <div id = "id_table">
-
                 </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import React from 'react'
+import Table from 'react-bootstrap/Table'
 
 // Put data into each row 
 const RenderRow = (props) =>{
@@ -7,7 +8,7 @@ const RenderRow = (props) =>{
     })
    }
 
-class Table extends React.Component {
+class table extends React.Component {
  
     
     constructor(props){
@@ -45,14 +46,14 @@ class Table extends React.Component {
     render() {
         return (
         <div>
-            <table>
+            <Table variant="dark">
             <thead>
                 <tr>{this.getHeader()}</tr>
             </thead>
             <tbody>
                 {this.getRowsData()}
             </tbody>
-        </table>
+        </Table>
         </div>
     
      );
@@ -60,4 +61,4 @@ class Table extends React.Component {
    }
 
 
-export default Table; 
+export default table; 
