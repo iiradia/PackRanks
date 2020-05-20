@@ -18,3 +18,15 @@
     color: white;
     background-color: red;
 }
+
+a:link {
+    color: red;
+}
+
+a:visited {
+    color: #999999;
+}
+
+a:hover {
+    color: red;
+}

@@ -35,14 +35,7 @@ class table extends React.Component {
     // Gets the headers of table from the keys 
     getHeader = function(){
         var keys = this.getKeys();
-
-
-
-
         return keys.map((key, index)=>{
-
-
-
             return <th key={key}>{key.toUpperCase()}</th>
         })
     }
