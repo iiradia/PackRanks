@@ -5,7 +5,13 @@ import "../css/table.css"
 // Put data into each row 
 const RenderRow = (props) =>{
     return props.keys.map((key, index)=>{
-    return <td key={props.data[key]}>{props.data[key]}</td>
+        if(key === "ratemyprof_link" && props.data[key] !== 'None'){
+            return <td key = {props.data[key]}><a href={props.data[key]}>Rate My Professor Link</a></td>
+        }
+
+        else{
+            return <td key={props.data[key]}>{props.data[key]}</td>
+        }
     })
    }
 
@@ -30,7 +36,13 @@ class table extends React.Component {
     getHeader = function(){
         var keys = this.getKeys();
 
+
+
+
         return keys.map((key, index)=>{
+
+
+
             return <th key={key}>{key.toUpperCase()}</th>
         })
     }
@@ -40,14 +52,16 @@ class table extends React.Component {
         var items = this.props.data;
         var keys = this.getKeys();
         return items.map((row, index)=>{
+
           return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
+
         })
       }
     
     render() {
         return (
         <div>
-            <Table striped bordered hover>
+            <Table striped bordered hover varaint = "dark">
             <thead>
                 <tr>{this.getHeader()}</tr>
             </thead>

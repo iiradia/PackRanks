@@ -1,14 +1,20 @@
 .table td {
-    border: #cc3000 solid 2.5px !important;
+    border: black solid 2.5px !important;
+    color: red;
+    background-color: white;
 }
 .table thead {
-    border: #cc3000 solid 2.5px !important;
-    text: #cc3000 !important;
+    border: black solid 2.5px !important;
+    color: red;
+    background-color: white;
 }
 .table tr {
-    border: #cc3000 solid 2.5px !important;
+    border: black solid 2.5px !important;
+    color: red;
+    background-color: white;
 }
 .table th{
-    border: #cc3000 solid 2.5px !important;
-    color: #cc3000;
+    border: black solid 2.5px !important;
+    color: white;
+    background-color: red;
 }
