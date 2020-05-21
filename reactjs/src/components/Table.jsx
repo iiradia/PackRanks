@@ -5,8 +5,8 @@ import "../css/table.css"
 // Put data into each row 
 const RenderRow = (props) =>{
     return props.keys.map((key, index)=>{
-        if(key === "ratemyprof_link" && props.data[key] !== 'None'){
-            return <td key = {props.data[key]}><a href={props.data[key]}>Rate My Professor Link</a></td>
+        if(key === "RateMyProfessor Link" && props.data[key] !== 'None'){
+            return <td key = {props.data[key]}><a href={props.data[key]} target="_blank">Rate My Professor Link</a></td>
         }
 
         else{
@@ -47,7 +47,7 @@ class table extends React.Component {
         return items.map((row, index)=>{
 
           return <tr key={index}><RenderRow key={index} data={row} keys={keys}/></tr>
-
+        
         })
       }
     

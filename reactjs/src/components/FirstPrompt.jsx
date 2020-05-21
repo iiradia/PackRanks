@@ -35,26 +35,36 @@ class FirstPrompt extends React.Component {
         return(
             <div>
                 <div>
-                    <div class="text-center">
+                    <div id="termDivLabel" class="text-center">
                         <label for="whichterm" class="lead">Which term are you looking to enroll in? </label>
-                        <select id="whichterm" name="whichterm" class="bg-light">
-                            {/* options for user to select */}
-                            <option value="Summer Term 1">2020 Summer Session 1</option>
-                            <option value="Summer Term 2">2020 Summer Session 2</option>
-                            <option value="Fall">2020 Fall Term</option>
-                        </select>
+                        <div id="termDiv">
+                            <select id="whichterm" name="whichterm" class="bg-light">
+                                {/* options for user to select */}
+                                <option value="Summer Term 1">2020 Summer Session 1</option>
+                                <option value="Summer Term 2">2020 Summer Session 2</option>
+                                <option value="Fall">2020 Fall Term</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div>
-                    <div class="text-center">
+                    <div id="gepDivLabel" class="text-center">
                         <label for="gepornot" class="lead">Are you looking for a GEP or a course from a specific department?</label>
-                        <select id="gepornot" name="gepornot" class="bg-light">
-                            {/* options for user to select */}
-                            <option value="/gep">GEP</option>
-                            <option value="/dept">Course Department</option>
-                        </select>
+                        <div id="gepDiv">
+                            <select id="gepornot" name="gepornot" class="bg-light">
+                                {/* options for user to select */}
+                                <option value="/gep">GEP</option>
+                                <option value="/dept">Course Department</option>
+                            </select>
+                            </div>
+                        
+                    </div>
+
+                    {/* Button to go to /gep or /dept */ }
+                    <div id="goButton">
                         <button type="button" class="btn btn-danger"s id="goto" onClick={this.goToGEPorDept}>Go</button>
                     </div>
+                                       
                     <div>
                         {this.state.gep && <GEP whichterm={this.state.which_term} />}
                         {this.state.dept && <Dept whichterm={this.state.which_term} />}

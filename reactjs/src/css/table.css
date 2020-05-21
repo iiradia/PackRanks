@@ -1,6 +1,6 @@
 .table td {
     border: black solid 2.5px !important;
-    color: red;
+    color: #cc3000;
     background-color: white;
 }
 .table thead {
@@ -10,7 +10,7 @@
 }
 .table tr {
     border: black solid 2.5px !important;
-    color: red;
+    color: #cc3000;
     background-color: white;
 }
 .table th{
@@ -20,13 +20,13 @@
 }
 
 a:link {
-    color: red;
+    color: #cc3000;
 }
 
 a:visited {
-    color: #999999;
+    color: #cc3000;
 }
 
 a:hover {
-    color: red;
+    color: #cc3000;
 }

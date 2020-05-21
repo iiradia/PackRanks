@@ -7,6 +7,52 @@ CORS(app)
 from pymongo import MongoClient
 import pandas as pd
 
+
+def save_course_data(catalog_data):
+    """
+    Helper method for /gep and /dept route to save
+    data into dictionaries with correct formatting.
+    """
+    #json to return
+    relevant_data = []
+    course_data = {}
+    relevant_keys = [
+        "course_name",
+        "professor",
+        "section",
+        "semester",
+        "prereq_string",
+        "location",
+        "course_dates",
+        "ratemyprof_link"
+    ]
+
+    #iterate through top 5
+    for record in catalog_data:
+        #assign values
+        course_data = {}
+
+        course_data["Semester"] = record[relevant_keys[3]]
+        course_data["Course"] = record[relevant_keys[0]]
+        course_data["Professor"] = record[relevant_keys[1]]
+        course_data["Section"] = record[relevant_keys[2]]
+        course_data["Prerequisites"] = record[relevant_keys[4]]
+        course_data["RateMyProfessor Link"] = record[relevant_keys[-1]]
+        course_data["Location"] = record[relevant_keys[5]]
+        course_data["Course Dates"] = record[relevant_keys[6]]
+
+        MAX_RATING = 15
+        LOWEST_RATING = -1.5
+
+        open_seats = str(record["seats_open"])
+        total_seats = str(record["seats_total"])
+        course_data["seats"] = f"{open_seats}/{total_seats}"
+
+        relevant_data.append(course_data)
+    
+    return relevant_data
+
+
 @app.route("/getdepts")
 def getDeptList():
     """
@@ -60,7 +106,6 @@ def gepRoute():
                 }
         ])
     else:
-        print(f".{term_requested}.")
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {
@@ -77,38 +122,8 @@ def gepRoute():
                 }
         ])
 
-    #json to return
-    relevant_data = []
-    course_data = {}
-    relevant_keys = [
-        "course_name",
-        "professor",
-        "section",
-        "semester",
-        "prereq_string",
-        "location",
-        "course_dates",
-        "ratemyprof_link"
-    ]
-
-    #iterate through top 5
-    for record in catalog_data:
-        #assign values
-        course_data = {}
-
-        course_data["Semester"] = record[relevant_keys[3]]
-        course_data["Course"] = record[relevant_keys[0]]
-        course_data["Professor"] = record[relevant_keys[1]]
-        course_data["Section"] = record[relevant_keys[2]]
-        course_data["Prerequisites"] = record[relevant_keys[4]]
-        course_data["RateMyProfessor Link"] = record[relevant_keys[-1]]
-        course_data["Location"] = record[relevant_keys[5]]
-        course_data["Course Dates"] = record[relevant_keys[6]]   
-        open_seats = str(record["seats_open"])
-        total_seats = str(record["seats_total"])
-        course_data["seats"] = f"{open_seats}/{total_seats}"
-
-        relevant_data.append(course_data)
+    #save data to dictionary
+    relevant_data = save_course_data(catalog_data)
         
     #del catalog_data["_id"]
     return relevant_data
@@ -135,7 +150,7 @@ def deptRoute():
     level_requested = request.headers.get("level")
     if level_requested != "ANY":
         level_requested = int(level_requested)
-        level_less_than = level_requested + 100
+        level_less_than = level_requested + 99
 
     #access  collection with the correct data
     if level_requested != "ANY":
@@ -177,44 +192,11 @@ def deptRoute():
                 }
         ])
 
-    #json to return
-    relevant_data = []
-    course_data = {}
-    relevant_keys = [
-        "course_name",
-        "professor",
-        "section",
-        "semester",
-        "prereq_string",
-        "location",
-        "course_dates",
-        "ratemyprof_link"
-    ]
-    len_catalog = 0
-    #iterate through top 5
-    for record in catalog_data:
-        #assign values
-        course_data = {}
-
-        course_data["Semester"] = record[relevant_keys[3]]
-        course_data["Course"] = record[relevant_keys[0]]
-        course_data["Professor"] = record[relevant_keys[1]]
-        course_data["Section"] = record[relevant_keys[2]]
-        course_data["Prerequisites"] = record[relevant_keys[4]]
-        course_data["RateMyProfessor Link"] = record[relevant_keys[-1]]
-        course_data["Location"] = record[relevant_keys[5]]
-        course_data["Course Dates"] = record[relevant_keys[6]]   
-        open_seats = str(record["seats_open"])
-        total_seats = str(record["seats_total"])
-        course_data["seats"] = f"{open_seats}/{total_seats}"
-
-        relevant_data.append(course_data)
-        len_catalog += 1
-        
-    print(relevant_data)
-    print(len_catalog)
+    #save data to dictionary
+    relevant_data = save_course_data(catalog_data)
+     
     #del catalog_data["_id"]
-    if len_catalog == 0:
+    if len(relevant_data) == 0:
         return []
     return relevant_data
 

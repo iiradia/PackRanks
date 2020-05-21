@@ -36,7 +36,7 @@ class GEP extends React.Component {
             <div>
                 <div id="type" class="text-center">
                     <h2 class="mt-5">Select a GEP</h2>
-                    <label for="typeofgep">Please select the type of GEP you are looking for.</label>
+                    <label for="typeofgep" class="lead">Please select the type of GEP you are looking for.</label>
                     {/* selectable options for GEPs */}
                     <select id="typeofgep" name = "typeofgep" class="bg-light">
                         <option value="HES">Health and Exercise Studies</option>

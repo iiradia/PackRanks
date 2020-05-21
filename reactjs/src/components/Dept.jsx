@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import ReactDOM from 'react-dom';
 import Table from "./Table";
-//import '../css/dept.css';
+import '../css/dept.css';
 
 // need to do:
     // obtain value of selected dept
@@ -15,12 +15,12 @@ class Dept extends React.Component {
         this.DeptList = this.DeptList.bind(this)
         this.courseTable = this.courseTable.bind(this)
 
-        this.setState({
+        this.state = {
             dept_list: null,
             courses: null,
             select_value: null,
             level_value: null
-        })
+        }
         /* Call depts function */
         this.getDepts();
     }
@@ -95,7 +95,13 @@ class Dept extends React.Component {
         return (
         <div className="app">
             <div className="container">
-                <Select className="deptSelect" id='dept_list_select' options={deptFinal} onChange={dept => this.setState({select_value:dept.value})} /> {/* add attribute onChange={department => ___} */}
+                <div style={{width:"400px", margin:"0 auto"}}>
+                    <Select className="deptSelect"
+                            id='dept_list_select' 
+                            options={deptFinal} 
+                            onChange={dept => this.setState({select_value:dept.value})}
+                    /> {/* add attribute onChange={department => ___} */}
+                </div>
             </div>
         </div>
         )
@@ -113,7 +119,7 @@ class Dept extends React.Component {
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
                 {/* Gives options for specific department the user is looking for */}
-                <label for="typeofdept">Please select the department of the course/elective you are looking for.</label>
+                <label for="typeofdept" class="lead">Please select the department of the course/elective you are looking for.</label>
                 {/* <select id="typeofdept" name = "typeofdept" class="bg-light"> */}
                     {/* <!-- TOBEIMPLEMENTED--> */}
 
@@ -122,11 +128,26 @@ class Dept extends React.Component {
                     </div>
                 
                 {/* prompt for levels */ }
-                <label for="levelprompt">Please select the level of the course/elective you are looking for.</label>
-                <Select className="levelSelect" id="levelprompt" options={levelOptions} onChange={dept => this.setState({level_value:dept.value})} /> {/* add attribute onChange={department => ___} */}
-                   
-                {/* </select> */}
-                <button type="button" class="btn btn-danger" id="whichdept" name="whichdept" onClick={this.courseTable}>Select</button>
+                <label for="levelprompt" class="lead">Please select the level of the course/elective you are looking for.</label>
+                    
+                { /* Select level between 100 and 800 */ }
+                <div id="levelS">
+                    <Select className="levelSelect" 
+                            id="levelprompt" 
+                            options={levelOptions}
+                            onChange={dept => this.setState({level_value:dept.value})}       
+                    /> {/* add attribute onChange={department => ___} */}
+                </div>
+                {/* Button to generate table */}
+                <div>
+                    <button type="button"
+                            class="btn btn-danger" 
+                            id="whichdept" 
+                            name="whichdept" 
+                            onClick={this.courseTable}>
+                        Select
+                    </button>
+                </div>
 
                 { /* Div for course table */ }
                 <div id="id_dept_table">

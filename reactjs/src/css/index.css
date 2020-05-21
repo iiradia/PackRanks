@@ -22,3 +22,21 @@ button {
     background-color: #cc0000 !important;
 }
 
+#termDiv {
+    padding-left: 20px;
+}
+#gepDiv {
+    padding-left: 20px;
+}
+#gepDivLabel {
+    display: flex;
+    justify-content: center;
+}
+#termDivLabel {
+    display: flex;
+    justify-content: center;
+}
+#goButton {
+    display: flex;
+    justify-content: center;
+}

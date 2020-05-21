@@ -2,7 +2,9 @@ import React from 'react';
 //import NavbarTitle from './NavbarTitle';
 //import NavbarLinks from './NavbarLinks';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import Bootstrap from '../css/navbar.css';
+import '../css/navbar.css';
+import LoginPage from './Login/LoginPage';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 class Navigation extends React.Component {
     render() {
@@ -13,6 +15,15 @@ class Navigation extends React.Component {
                     <Nav className="navbar-nav ml-auto">
                         <Nav.Link href="#home">Home</Nav.Link>
                         <Nav.Link href="#login">Login</Nav.Link>
+                        
+                        {/*<Router>
+                            <Nav.Link>
+                                <Link to="/login">Login</Link>
+                            </Nav.Link>
+                            <Switch>
+                                <Route path="/login" component={LoginPage}/>
+                            </Switch>
+                        </Router>*/}
                         <Nav.Link href="#about">About</Nav.Link>
                         <Nav.Link href="#contact">Contact</Nav.Link>
                     </Nav>
