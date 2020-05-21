@@ -114,5 +114,110 @@ def gepRoute():
     return relevant_data
 
 
+
+@app.route("/dept")
+def deptRoute():
+    """
+    This function receives a call from the Dept component of 
+    the ReactJS and returns a JSON of the top 5 courses from the 
+    database based on the metrics calculated.
+    It takes into account the level, department, and term that 
+    the course is offered in.
+    """
+    #access MongoDb database
+    crowdsourced = MongoClient("mongodb+srv://dbUser:dbpass@crowdsourced-ogexe.mongodb.net/test")
+    grades_db = crowdsourced.Coursesnc
+
+    #get which GEP was requested
+    print(request.headers)
+    dept_requested = request.headers.get("Dept")
+    term_requested = request.headers.get("term")
+    level_requested = request.headers.get("level")
+    if level_requested != "ANY":
+        level_requested = int(level_requested)
+        level_less_than = level_requested + 100
+
+    #access  collection with the correct data
+    if level_requested != "ANY":
+        catalog_data = grades_db.catalogncsu.aggregate([
+                {
+                    "$match" : {
+                        "department" : dept_requested,
+                        "course_number": {
+                            "$gte": level_requested,
+                            "$lte": level_less_than
+                        },
+                        "course_type": "Lecture", 
+                        "semester": {"$regex": term_requested},
+                        "seats_open": {"$gt":0}
+                    }
+                },
+                {
+                    "$sort": {"rating":-1}
+                },
+                {
+                    "$limit": 5
+                }
+        ])
+    else:
+        catalog_data = grades_db.catalogncsu.aggregate([
+                {
+                    "$match" : {
+                        "department" : dept_requested,
+                        "course_type": "Lecture", 
+                        "semester": {"$regex": term_requested},
+                        "seats_open": {"$gt":0}
+                    }
+                },
+                {
+                    "$sort": {"rating":-1}
+                },
+                {
+                    "$limit": 5
+                }
+        ])
+
+    #json to return
+    relevant_data = []
+    course_data = {}
+    relevant_keys = [
+        "course_name",
+        "professor",
+        "section",
+        "semester",
+        "prereq_string",
+        "location",
+        "course_dates",
+        "ratemyprof_link"
+    ]
+    len_catalog = 0
+    #iterate through top 5
+    for record in catalog_data:
+        #assign values
+        course_data = {}
+
+        course_data["Semester"] = record[relevant_keys[3]]
+        course_data["Course"] = record[relevant_keys[0]]
+        course_data["Professor"] = record[relevant_keys[1]]
+        course_data["Section"] = record[relevant_keys[2]]
+        course_data["Prerequisites"] = record[relevant_keys[4]]
+        course_data["RateMyProfessor Link"] = record[relevant_keys[-1]]
+        course_data["Location"] = record[relevant_keys[5]]
+        course_data["Course Dates"] = record[relevant_keys[6]]   
+        open_seats = str(record["seats_open"])
+        total_seats = str(record["seats_total"])
+        course_data["seats"] = f"{open_seats}/{total_seats}"
+
+        relevant_data.append(course_data)
+        len_catalog += 1
+        
+    print(relevant_data)
+    print(len_catalog)
+    #del catalog_data["_id"]
+    if len_catalog == 0:
+        return []
+    return relevant_data
+
+
 if __name__ == "__main__":
     app.run()

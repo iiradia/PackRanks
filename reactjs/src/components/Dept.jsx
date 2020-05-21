@@ -1,6 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 import ReactDOM from 'react-dom';
+import Table from "./Table";
+//import '../css/dept.css';
 
 // need to do:
     // obtain value of selected dept
@@ -11,14 +13,55 @@ class Dept extends React.Component {
         super();
         this.getDepts = this.getDepts.bind(this)
         this.DeptList = this.DeptList.bind(this)
+        this.courseTable = this.courseTable.bind(this)
 
         this.setState({
-            dept_list: null
+            dept_list: null,
+            courses: null,
+            select_value: null,
+            level_value: null
         })
+        /* Call depts function */
+        this.getDepts();
     }
-    
+
+    courseTable() {
+        const Dept = this;
+        let dept_url = "http://localhost:5000/dept";
+        //let select_value = document.getElementById("dept_list_select").value;
+        //let level_value = document.getElementById("levelprompt").value;
+        fetch( 
+            dept_url, {
+                method: "GET",
+                headers: {
+                    "Dept": this.state.select_value,
+                    "term": this.props.whichterm,
+                    "level": this.state.level_value
+                }
+           }
+        ).then(
+           response => response.json()
+        ).then(
+            //Ternary operator that checks whether course is offered or not.
+            data => {data.length > 0 ? this.setState({
+                    courses: data
+                },
+            () => ReactDOM.render(<Table data={this.state.courses} />,
+                document.getElementById('id_dept_table')
+                )
+            ) 
+            : 
+            ReactDOM.render(
+                <h3>There is no course in {this.state.select_value} offered during {this.props.whichterm} with level {this.state.level_value}.</h3>,
+                 document.getElementById('id_dept_table')
+            )
+        }
+        )
+    }
+
+    /* Get List of departments and render select component */
     getDepts() {
-        const GEP = this;
+        const Dept = this;
         let url = "http://localhost:5000/getdepts";
         return fetch( 
             url, {
@@ -33,6 +76,7 @@ class Dept extends React.Component {
         )
     }
     
+    /* Return select component with list of departments */
     DeptList(){
         const departments = this.state.dept_list;
         //console.log(departments);
@@ -51,32 +95,22 @@ class Dept extends React.Component {
         return (
         <div className="app">
             <div className="container">
-                <Select id='deptList' options={deptFinal} onChange={department => console.log(department.label, department.value)} /> {/* add attribute onChange={department => ___} */}
+                <Select className="deptSelect" id='dept_list_select' options={deptFinal} onChange={dept => this.setState({select_value:dept.value})} /> {/* add attribute onChange={department => ___} */}
             </div>
         </div>
         )
     };
 
     render() {
-        // this.getDepts()
-        // const departments = this.state.dept_list;
-        // const departments = this.getDepts().then((result) => {return result});
-        // console.log(departments)
-        // const deptOptions = departments.map((department, i) => (
-        //     { label: department, value: i }
-        // ));
-
-        // const DeptList = () => (
-        //     <div className="app">
-        //         <div className="container">
-        //             <Select id='deptList' options={deptOptions} onChange={department => console.log(department.label, department.value)} /> {/* add attribute onChange={department => ___} */}
-        //         </div>
-        //     </div>
-        // );
-        this.getDepts();
-
+    
+        /* Save list of levels and options for dropdown */
+        const levelList = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
+        const levelOptions = levelList.map((level) => (
+            {label: level, value: level}
+        ));
+    
         return(
-            <div id="typeofdept" class="text-center">
+            <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
                 {/* Gives options for specific department the user is looking for */}
                 <label for="typeofdept">Please select the department of the course/elective you are looking for.</label>
@@ -86,8 +120,18 @@ class Dept extends React.Component {
                     <div id="deptlist">
 
                     </div>
+                
+                {/* prompt for levels */ }
+                <label for="levelprompt">Please select the level of the course/elective you are looking for.</label>
+                <Select className="levelSelect" id="levelprompt" options={levelOptions} onChange={dept => this.setState({level_value:dept.value})} /> {/* add attribute onChange={department => ___} */}
+                   
                 {/* </select> */}
-                <button type="button" class="btn btn-danger" id="whichdept" name="whichdept">Select</button>
+                <button type="button" class="btn btn-danger" id="whichdept" name="whichdept" onClick={this.courseTable}>Select</button>
+
+                { /* Div for course table */ }
+                <div id="id_dept_table">
+
+                </div>
             </div>
         );
     }
