@@ -3,7 +3,7 @@ import React from 'react';
 //import NavbarLinks from './NavbarLinks';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import '../css/navbar.css';
-import LoginPage from './Login/LoginPage';
+//import LoginPage from './Login/LoginPage';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
 class Navigation extends React.Component {

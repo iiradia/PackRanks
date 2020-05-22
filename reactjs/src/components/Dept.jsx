@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import ReactDOM from 'react-dom';
 import Table from "./Table";
-import '../css/dept.css';
+//import '../css/dept.css';
 
 // need to do:
     // obtain value of selected dept
@@ -100,7 +100,7 @@ class Dept extends React.Component {
                             id='dept_list_select' 
                             options={deptFinal} 
                             onChange={dept => this.setState({select_value:dept.value})}
-                    /> {/* add attribute onChange={department => ___} */}
+                    />
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@ class Dept extends React.Component {
                             id="levelprompt" 
                             options={levelOptions}
                             onChange={dept => this.setState({level_value:dept.value})}       
-                    /> {/* add attribute onChange={department => ___} */}
+                    />
                 </div>
                 {/* Button to generate table */}
                 <div>

@@ -1,6 +1,8 @@
 import React from 'react';
+import Select from 'react-select';
 import Table from "./Table";
 import ReactDOM from "react-dom";
+//import '../css/gep.css'
 
 class GEP extends React.Component {
 
@@ -9,7 +11,8 @@ class GEP extends React.Component {
         this.getTable = this.getTable.bind(this)
 
         this.state = {
-            courses: null
+            courses: null,
+            select_value: null
         };
     }
     getTable() {
@@ -18,7 +21,8 @@ class GEP extends React.Component {
         fetch( 
             url, {
                 method: "GET",
-                headers: {"GEP": document.getElementById("typeofgep").value, "term": this.props.whichterm}
+                //headers: {"GEP": document.getElementById("gep_list_select").value, "term": this.props.whichterm}
+                headers: {"GEP": this.state.select_value, "term": this.props.whichterm}
            }
         ).then(
            response => response.json()
@@ -32,23 +36,55 @@ class GEP extends React.Component {
     }
 
     render() {
+        const gepOptions = ['Health and Exercise Studies', 'Humanities', 'Interdisciplinary Perspectives', 
+                            'Mathematical Sciences', 'Natural Sciences', 'Social Sciences', 'US Diversity',
+                            'Additional Breadth', 'Visual and Performing Arts'];
+        const gepLabels = gepOptions.map((option) => (
+            {label: option}
+        ));
+
+        const gepOptionValues = ["HES", "HUM", "IDP", "MATH", "SCI", "SS", "USD", "ADDTL", "VPA"];
+        const gepValues = gepOptionValues.map((optionValue) => (
+            {value: optionValue}
+        ));
+
+        const gepFinal = [];
+        for (var i = 0; i < gepLabels.length; i++) {
+            gepFinal[i] = {label: gepLabels[i].label,
+                           value: gepValues[i].value}
+        }
+        // const GEPList = () => (
+        //     <div className="app">
+        //         <div className="container">
+        //             <div style={{width:"300px", margin:"0 auto"}}>
+        //                 <Select className="gepSelect"
+        //                         id='gep_list_select' 
+        //                         options={gepFinal} 
+        //                         //onChange={this.setState({select_value: document.getElementById('gep_list_select').value})}
+        //                         onChange={optionValue => this.setState({select_value: optionValue.value})}
+        //                 />
+        //                 {console.log(this.state.select_value)}
+        //             </div>
+        //         </div>
+        //     </div>
+        // );
+
         return(
             <div>
                 <div id="type" class="text-center">
                     <h2 class="mt-5">Select a GEP</h2>
                     <label for="typeofgep" class="lead">Please select the type of GEP you are looking for.</label>
                     {/* selectable options for GEPs */}
-                    <select id="typeofgep" name = "typeofgep" class="bg-light">
-                        <option value="HES">Health and Exercise Studies</option>
-                        <option value="HUM">Humanities</option>
-                        <option value="IDP">Interdisciplinary Perspectives</option>
-                        <option value="MATH">Mathematical Sciences</option>
-                        <option value="SCI">Natural Sciences</option>
-                        <option value="SS">Social Sciences</option>
-                        <option value="USD">US Diversity</option>
-                        <option value="ADDTL">Additional Breadth</option>
-                        <option value="VPA">Visual and Performing Arts</option>
-                    </select>
+                    {/* <GEPList /> */}
+                    <div id="typeofgep" style={{width:"300px", margin:"0 auto"}}>
+                        <Select className="gepSelect"
+                                id='gep_list_select' 
+                                options={gepFinal} 
+                                //onChange={this.setState({select_value: document.getElementById('gep_list_select').value})}
+                                onChange={optionValue => this.setState({select_value: optionValue.value})}
+                        />
+                    </div>
+                    {/* {console.log(this.state.select_value)} */}
                     {/* button to select a specific GEP TODO: implement onclick */}
                     <button type="button" class="btn btn-danger" id="whichgep" name="whichgep" onClick={this.getTable}>Select</button>
                 </div>
