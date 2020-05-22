@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import ReactDOM from 'react-dom';
 import Table from "./Table";
-//import '../css/dept.css';
+import '../css/dept.css';
 
 // need to do:
     // obtain value of selected dept
@@ -108,13 +108,6 @@ class Dept extends React.Component {
     };
 
     render() {
-    
-        /* Save list of levels and options for dropdown */
-        const levelList = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
-        const levelOptions = levelList.map((level) => (
-            {label: level, value: level}
-        ));
-    
         return(
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
@@ -126,18 +119,7 @@ class Dept extends React.Component {
                     <div id="deptlist">
 
                     </div>
-                
-                {/* prompt for levels */ }
-                <label for="levelprompt" class="lead">Please select the level of the course/elective you are looking for.</label>
-                    
-                { /* Select level between 100 and 800 */ }
-                <div id="levelS">
-                    <Select className="levelSelect" 
-                            id="levelprompt" 
-                            options={levelOptions}
-                            onChange={dept => this.setState({level_value:dept.value})}       
-                    />
-                </div>
+
                 {/* Button to generate table */}
                 <div>
                     <button type="button"
