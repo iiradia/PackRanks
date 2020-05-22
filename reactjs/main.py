@@ -225,20 +225,18 @@ def deptRoute():
     #print(request.headers)
     dept_requested = request.headers.get("Dept")
     term_requested = request.headers.get("term")
-    level_requested = request.headers.get("level")
-    if level_requested != "ANY":
-        level_requested = int(level_requested)
-        level_less_than = level_requested + 99
+    level_min = request.headers.get("level_min")
+    level_max = request.headers.get("level_max")
 
     #access  collection with the correct data
-    if level_requested != "ANY":
+    if level_min != "ANY" and level_max != "ANY":
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {
                         "department" : dept_requested,
                         "course_number": {
-                            "$gte": level_requested,
-                            "$lte": level_less_than
+                            "$gte": level_min,
+                            "$lte": level_max
                         },
                         "course_type": "Lecture", 
                         "semester": {"$regex": term_requested},
@@ -267,6 +265,88 @@ def deptRoute():
                 {
                     "$sort": {"rating":-1}
                 },
+                {
+                    "$limit": 5
+                }
+        ])
+    elif level_min == "ANY" and level_max != "ANY":
+        catalog_data = grades_db.catalogncsu.aggregate([
+                {
+                    "$match" : {
+                        "department" : dept_requested,
+                        "course_number": {
+                            "$lte": level_max
+                        },
+                        "course_type": "Lecture", 
+                        "semester": {"$regex": term_requested},
+                        "seats_open": {"$gt":0}
+                    }
+                },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
+                {
+                    "$sort": {"rating":-1}
+                },
+                {
+                    "$limit": 5
+                }
+        ])
+        
+
+    elif level_max == "ANY" and level_min != "ANY":
+
+        catalog_data = grades_db.catalogncsu.aggregate([
+                {
+                    "$match" : {
+                        "department" : dept_requested,
+                        "course_number": {
+                            "$gte": level_min
+                        },
+                        "course_type": "Lecture", 
+                        "semester": {"$regex": term_requested},
+                        "seats_open": {"$gt":0}
+                    }
+                },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
+                {
+                    "$sort": {"rating":-1}
+                },
+
                 {
                     "$limit": 5
                 }

@@ -3,6 +3,9 @@ import Select from 'react-select';
 import ReactDOM from 'react-dom';
 import Table from "./Table";
 import '../css/dept.css';
+import CourseLevel from './CourseLevel'; 
+
+
 
 // need to do:
     // obtain value of selected dept
@@ -36,6 +39,8 @@ class Dept extends React.Component {
                 headers: {
                     "Dept": this.state.select_value,
                     "term": this.props.whichterm,
+                    "level_min": 
+                    "level_max":
                     "level": this.state.level_value
                 }
            }
@@ -119,6 +124,8 @@ class Dept extends React.Component {
                     <div id="deptlist">
 
                     </div>
+
+                    <CourseLevel/>
 
                 {/* Button to generate table */}
                 <div>

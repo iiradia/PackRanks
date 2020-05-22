@@ -1,19 +1,72 @@
+import React from 'react'; 
+import CreatableSelect from 'react-select/lib/Creatable';
+import '../css/courselevel.css'; 
+
+class CourseLevel extends React.Component{
+    constructor() {
+        this.state = {
+            level_min: null, 
+            level_max: null
+        }
+    }
+
+    /*handleOnChangeMin = e => {
+        const levelMin = e.target.level_min;
+        this.setState({
+            level_min: levelMin
+        });
+        this.props.onChange(levelMin)
+    }
+    handleOnChangeMax = e => {
+        const levelMax = e.target.level_max;
+        this.setState({
+            level_max: levelMax,
+        });
+        this.props.onChange(levelMax)
+    }*/
+    render(){
+          /* Save list of levels and options for dropdown */
+        const levelListMin = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
+
+         const levelOptionsMin = levelListMin.map((level) => (
+        {label: level, value: level}
+         )); 
 
 
-/* Save list of levels and options for dropdown */
-const levelList = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
-const levelOptions = levelList.map((level) => (
-    {label: level, value: level}
-));
+         const levelListMax = ["ANY", "199", "299", "399", "499", "599", "699", "799","899"];
 
-{/* prompt for levels */ }
-<label for="levelprompt" class="lead">Please select the level of the course/elective you are looking for.</label>
+         const levelOptionsMax = levelListMax.map((level) => (
+        {label: level, value: level}
+         )); 
 
-{ /* Select level between 100 and 800 */ }
-                <div id="levelS">
-                    <Select className="levelSelect" 
-                            id="levelprompt" 
-                            options={levelOptions}
-                            onChange={dept => this.setState({level_value:dept.value})}       
-                    />
-                </div>
+
+
+        return(
+               <div> 
+                   {/* prompt for levels */ }
+                    <label for="level_min" class="lead">Minimum Course Level:</label>
+                    { /* Select level between 100 and 800 */ }
+                    <div id="level_min_option">
+                        <CreatableSelect 
+                                id="level_min" 
+                                options={levelOptionsMin}
+                                onChange={level => this.setState({level_min: level.value})}       
+                        />
+                    </div>
+                     {/* prompt for levels */ }
+                    <label for="level_max" class="lead">Maximum Course Level</label>
+                    { /* Select level between 100 and 800 */ }
+                    <div id="level_max_option">
+                        <CreatableSelect 
+                                id="level_max" 
+                                options={levelOptionsMax}
+                                onChange={level => this.setState({level_max: level.value}}       
+                        />
+                    </div>
+               </div>
+        ); 
+    }
+}
+
+
+export default CourseLevel; 

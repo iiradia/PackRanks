@@ -1,0 +1,30 @@
+#level_min_option {
+    display: inline-flex;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right:40px
+}
+#level_min {
+    width: 130px;
+    margin: 0 auto;
+}
+#level_max_option {
+    display: inline-flex;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+#level_max {
+    width: 130px;
+    margin: 0 auto;
+}
+@font-face {
+    font-family: Balsamiq; 
+    src: url("../fonts/BalsamiqSans-Regular.ttf");
+  }
+h2 {
+    font-family: Balsamiq;
+    color:#cc0000
+}
+label {
+    color: #cc0000
+}
