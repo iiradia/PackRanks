@@ -227,9 +227,15 @@ def deptRoute():
     term_requested = request.headers.get("term")
     level_min = request.headers.get("level_min")
     level_max = request.headers.get("level_max")
+    print(level_min)
+    print(level_max)
+    if level_max < level_min:
+        return ["Invalid"]
 
     #access  collection with the correct data
     if level_min != "ANY" and level_max != "ANY":
+        level_min = int(level_min)
+        level_max = int(level_max)
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {
@@ -270,6 +276,7 @@ def deptRoute():
                 }
         ])
     elif level_min == "ANY" and level_max != "ANY":
+        level_max = int(level_max)
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {
@@ -311,7 +318,7 @@ def deptRoute():
         
 
     elif level_max == "ANY" and level_min != "ANY":
-
+        level_min = int(level_min)
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {

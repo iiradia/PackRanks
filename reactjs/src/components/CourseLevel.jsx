@@ -60,7 +60,7 @@ class CourseLevel extends React.Component{
                         <CreatableSelect 
                                 id="level_max" 
                                 options={levelOptionsMax}
-                                onChange={level => this.setState({level_max: level.value}}       
+                                onChange={level => this.setState({level_max: level.value})}      
                         />
                     </div>
                </div>

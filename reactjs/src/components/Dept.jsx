@@ -3,8 +3,8 @@ import Select from 'react-select';
 import ReactDOM from 'react-dom';
 import Table from "./Table";
 import '../css/dept.css';
-import CourseLevel from './CourseLevel'; 
-
+import CreatableSelect from 'react-select/lib/Creatable';
+import '../css/courselevel.css'; 
 
 
 // need to do:
@@ -17,17 +17,43 @@ class Dept extends React.Component {
         this.getDepts = this.getDepts.bind(this)
         this.DeptList = this.DeptList.bind(this)
         this.courseTable = this.courseTable.bind(this)
+        this.parseData = this.parseData.bind(this)
 
         this.state = {
             dept_list: null,
             courses: null,
             select_value: null,
-            level_value: null
+            level_min: null, 
+            level_max: null
         }
         /* Call depts function */
         this.getDepts();
     }
+    parseData(data) {
+        console.log(data);
+        if (data.length > 0) {
 
+            if (data.length === 1 && data[0] === "Invalid") {
+                ReactDOM.render(<h3>Level minimum cannot be greater than maximum.</h3>
+                    , document.getElementById('id_dept_table'))
+            }
+            else {
+                this.setState({
+                    courses: data
+                    },
+                    () => ReactDOM.render(<Table data={this.state.courses} />,
+                        document.getElementById('id_dept_table')
+                    )
+                ) 
+            }
+        }
+        else {
+            ReactDOM.render(
+                <h3>There is no course in {this.state.select_value} offered during {this.props.whichterm} with level {this.state.level_value}.</h3>,
+                 document.getElementById('id_dept_table')
+            )
+        }    
+    }
     courseTable() {
         const Dept = this;
         let dept_url = "http://localhost:5000/dept";
@@ -39,28 +65,15 @@ class Dept extends React.Component {
                 headers: {
                     "Dept": this.state.select_value,
                     "term": this.props.whichterm,
-                    "level_min": 
-                    "level_max":
-                    "level": this.state.level_value
+                    "level_min": this.state.level_min,
+                    "level_max": this.state.level_max
                 }
            }
         ).then(
            response => response.json()
         ).then(
             //Ternary operator that checks whether course is offered or not.
-            data => {data.length > 0 ? this.setState({
-                    courses: data
-                },
-            () => ReactDOM.render(<Table data={this.state.courses} />,
-                document.getElementById('id_dept_table')
-                )
-            ) 
-            : 
-            ReactDOM.render(
-                <h3>There is no course in {this.state.select_value} offered during {this.props.whichterm} with level {this.state.level_value}.</h3>,
-                 document.getElementById('id_dept_table')
-            )
-        }
+            data => this.parseData(data)
         )
     }
 
@@ -113,6 +126,21 @@ class Dept extends React.Component {
     };
 
     render() {
+          /* Save list of levels and options for dropdown */
+          const levelListMin = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
+
+          const levelOptionsMin = levelListMin.map((level) => (
+         {label: level, value: level}
+          )); 
+ 
+ 
+          const levelListMax = ["ANY", "199", "299", "399", "499", "599", "699", "799","899"];
+ 
+          const levelOptionsMax = levelListMax.map((level) => (
+         {label: level, value: level}
+          )); 
+ 
+
         return(
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
@@ -125,7 +153,28 @@ class Dept extends React.Component {
 
                     </div>
 
-                    <CourseLevel/>
+                    <div> 
+                        {/* prompt for levels */ }
+                            <label for="level_min" class="lead">Minimum Course Level:</label>
+                            { /* Select level between 100 and 800 */ }
+                            <div id="level_min_option">
+                                <CreatableSelect 
+                                        id="level_min" 
+                                        options={levelOptionsMin}
+                                        onChange={level => this.setState({level_min: level.value})}       
+                                />
+                            </div>
+                            {/* prompt for levels */ }
+                            <label for="level_max" class="lead">Maximum Course Level</label>
+                            { /* Select level between 100 and 800 */ }
+                            <div id="level_max_option">
+                                <CreatableSelect 
+                                        id="level_max" 
+                                        options={levelOptionsMax}
+                                        onChange={level => this.setState({level_max: level.value})}      
+                                />
+                            </div>
+                    </div>
 
                 {/* Button to generate table */}
                 <div>
