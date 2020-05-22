@@ -6,6 +6,7 @@ app = FlaskAPI(__name__)
 CORS(app)
 from pymongo import MongoClient
 import pandas as pd
+from math import log10
 
 
 def save_course_data(catalog_data):
@@ -13,6 +14,21 @@ def save_course_data(catalog_data):
     Helper method for /gep and /dept route to save
     data into dictionaries with correct formatting.
     """
+    #access MongoDb database
+    crowdsourced = MongoClient("mongodb+srv://dbUser:dbpass@crowdsourced-ogexe.mongodb.net/test")
+    grades_db = crowdsourced.Coursesnc
+
+    catalog = []
+    #iterate through catalog data
+    for rec in catalog_data:
+
+        #save relevant data for first section
+        prof_data = grades_db.catalogncsu.find_one(
+            {"course_name": rec["_id"]["course_name"],
+            "professor": rec["_id"]["professor"],
+            "section": rec["section"][0]}
+        )
+        catalog.append(prof_data)
     #json to return
     relevant_data = []
     course_data = {}
@@ -24,26 +40,50 @@ def save_course_data(catalog_data):
         "prereq_string",
         "location",
         "course_dates",
-        "ratemyprof_link"
+        "ratemyprof_link",
+        "transformed_rating"
     ]
 
+    new_key_features = [
+        "location_url"
+    ] 
+
     #iterate through top 5
-    for record in catalog_data:
+    for record in catalog:
         #assign values
         course_data = {}
+        DIGITS = 3
+        p = 10**DIGITS
+        #print(record)
+        transformed_rating = record[relevant_keys[-1]]
 
+        #course_data["Rating"] = round(transformed_rating, 3)
+        course_data["Rating"] = int(transformed_rating * p + 0.5)/p
         course_data["Semester"] = record[relevant_keys[3]]
         course_data["Course"] = record[relevant_keys[0]]
-        course_data["Professor"] = record[relevant_keys[1]]
+        course_data["Professor"] = [record[relevant_keys[1]], record[relevant_keys[-2]]]
         course_data["Section"] = record[relevant_keys[2]]
         course_data["Prerequisites"] = record[relevant_keys[4]]
-        course_data["RateMyProfessor Link"] = record[relevant_keys[-1]]
-        course_data["Location"] = record[relevant_keys[5]]
-        course_data["Course Dates"] = record[relevant_keys[6]]
+        #course_data["RateMyProfessor Link"] = record[relevant_keys[-2]]
+        
+        #append location url if available
+        try:
+            course_data["Location"] = [
+                record[relevant_keys[5]],
+                record[new_key_features[0]]
+            ]
+        #else put URL as
+        except:
+            course_data["Location"] = [
+                record[relevant_keys[5]],
+                "None"
+            ]
 
-        MAX_RATING = 15
-        LOWEST_RATING = -1.5
-
+        try:
+            course_data["Course Dates"] = record[relevant_keys[6]]
+        except:
+            course_data["Course Dates"] = "Unknown"
+        
         open_seats = str(record["seats_open"])
         total_seats = str(record["seats_total"])
         course_data["seats"] = f"{open_seats}/{total_seats}"
@@ -98,6 +138,25 @@ def gepRoute():
                         "seats_open": {"$gt":0}
                     }
                 },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
                 {
                     "$sort": {"rating":-1}
                 },
@@ -114,6 +173,25 @@ def gepRoute():
                         "seats_open": {"$gt":0}
                     }
                 },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
                 {
                     "$sort": {"rating": -1}
                 },
@@ -124,7 +202,7 @@ def gepRoute():
 
     #save data to dictionary
     relevant_data = save_course_data(catalog_data)
-        
+
     #del catalog_data["_id"]
     return relevant_data
 
@@ -144,7 +222,7 @@ def deptRoute():
     grades_db = crowdsourced.Coursesnc
 
     #get which GEP was requested
-    print(request.headers)
+    #print(request.headers)
     dept_requested = request.headers.get("Dept")
     term_requested = request.headers.get("term")
     level_requested = request.headers.get("level")
@@ -167,6 +245,25 @@ def deptRoute():
                         "seats_open": {"$gt":0}
                     }
                 },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
                 {
                     "$sort": {"rating":-1}
                 },
@@ -176,6 +273,7 @@ def deptRoute():
         ])
     else:
         catalog_data = grades_db.catalogncsu.aggregate([
+                #match dept as needed
                 {
                     "$match" : {
                         "department" : dept_requested,
@@ -184,6 +282,26 @@ def deptRoute():
                         "seats_open": {"$gt":0}
                     }
                 },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
+                #sort by ratings for each professor/course
                 {
                     "$sort": {"rating":-1}
                 },
@@ -191,7 +309,7 @@ def deptRoute():
                     "$limit": 5
                 }
         ])
-
+            
     #save data to dictionary
     relevant_data = save_course_data(catalog_data)
      

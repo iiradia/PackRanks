@@ -5,12 +5,26 @@ import "../css/table.css"
 // Put data into each row 
 const RenderRow = (props) =>{
     return props.keys.map((key, index)=>{
-        if(key === "RateMyProfessor Link" && props.data[key] !== 'None'){
-            return <td key = {props.data[key]}><a href={props.data[key]} target="_blank">Rate My Professor Link</a></td>
-        }
 
+        /* Check if key is professor */
+        if (key === "Professor" || key === "Location") {
+
+            /* If there is no link, just return professor name. */
+            if (props.data[key][1] === 'None') {
+                return <td key={props.data[key][0]}><strong>{props.data[key][0]}</strong></td>
+            }
+            else { 
+                /* Else, return hyperlink that opens in new tab. */   
+                return <td key={props.data[key][0]}>
+                            <a href={props.data[key][1]} target="_blank">
+                                <strong>{props.data[key][0]}</strong>
+                            </a>
+                        </td>
+            }
+        }
+        /* If normal element, return normal table */
         else{
-            return <td key={props.data[key]}>{props.data[key]}</td>
+            return <td key={props.data[key]}><strong>{props.data[key]}</strong></td>
         }
     })
    }
