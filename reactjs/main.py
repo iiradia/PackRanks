@@ -7,7 +7,7 @@ CORS(app)
 from pymongo import MongoClient
 import pandas as pd
 from math import log10
-
+import re
 
 def save_course_data(catalog_data):
     """
@@ -21,7 +21,7 @@ def save_course_data(catalog_data):
     catalog = []
     #iterate through catalog data
     for rec in catalog_data:
-        print(rec)
+        #print(rec)
         #save relevant data for first section
         prof_data = grades_db.catalogncsu.find_one(
             {"course_name": rec["_id"]["course_name"],
@@ -155,10 +155,11 @@ def gepRoute():
 
     #if additional breadth, either hum or ss
     if gep_requested == "ADDTL":
+        print("ADDLT")
         geps_req = ["HUM", "SS"]
-
+    print(gep_requested)
     #access  collection with the correct data
-    if gep_requested != "HES":
+    if gep_requested != "HES" and gep_requested != "ADDTL":
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {
@@ -195,6 +196,50 @@ def gepRoute():
                     "$limit": 5
                 }
         ])
+        
+        relevant_data = save_course_data(catalog_data)
+        return relevant_data
+    elif gep_requested == "ADDTL":
+        #print("Searching addtl")
+        catalog_data = grades_db.catalogncsu.aggregate([
+                {
+                    "$match" : {
+                        "gep" : {"$in": ["['HUM']", "['SS']"]},
+                        "course_type": "Lecture", 
+                        "semester": {"$regex": term_requested},
+                        "seats_open": {"$gt":0}
+                    }
+                },
+                #group by professor and add unique sections and ratings 
+                #to aggregation
+                {
+                    "$group": {
+                        "_id": {
+                            "course_name": "$course_name",
+                            "professor": "$professor",
+                            "semester": "$semester"
+                        },
+                        "section": {
+                            "$addToSet": "$section"
+                        },
+                        "rating": {
+                            "$addToSet": "$rating"
+                        }
+                    }
+                },
+                {
+                    "$unwind": "$rating"
+                },
+                {
+                    "$sort": {"rating":-1}
+                },
+                {
+                    "$limit": 5
+                }
+        ])
+        relevant_data = save_course_data(catalog_data)
+        return relevant_data
+
     else:
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
@@ -231,10 +276,16 @@ def gepRoute():
                     "$limit": 5
                 }
         ])
+        
+        relevant_data = save_course_data(catalog_data)
+        return relevant_data
 
+    #print("Saving")
+    #for i in catalog_data:
+    #    print(f"Found {i}")
     #save data to dictionary
     relevant_data = save_course_data(catalog_data)
-
+    print(relevant_data)
     #del catalog_data["_id"]
     return relevant_data
 
