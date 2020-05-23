@@ -18,7 +18,22 @@
     color: white;
     background-color: red;
 }
-
+#ctool {
+    border: white !important;
+    color: #cc3000 !important;
+    font-weight:bold !important;
+    background-color: white !important;
+}
+#cdiv {
+    border: white !important;
+    color: #cc3000 !important;
+    background-color: white !important;
+}
+#hovertxt {
+    opacity:1;
+    z-index:100;
+    position: absolute;
+}
 a:link {
     color: #cc3000;
 }

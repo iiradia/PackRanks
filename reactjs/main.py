@@ -21,14 +21,30 @@ def save_course_data(catalog_data):
     catalog = []
     #iterate through catalog data
     for rec in catalog_data:
-
+        print(rec)
         #save relevant data for first section
         prof_data = grades_db.catalogncsu.find_one(
             {"course_name": rec["_id"]["course_name"],
             "professor": rec["_id"]["professor"],
+            "semester": rec["_id"]["semester"],
             "section": rec["section"][0]}
         )
         catalog.append(prof_data)
+    if len(catalog) < 5:
+        for rec in catalog_data:
+            while len(catalog) < 5:
+                for sec in rec["section"][1:]:
+
+                    prof_data =  grades_db.catalogncsu.find_one(
+                        {
+                            "course_name": rec["_id"]["course_name"],
+                            "professor": rec["_id"]["professor"],
+                            "semester": rec["_id"]["semester"],
+                            "section": rec["section"][sec]
+                        }
+                    )
+                    print(f"Adding {prof_data}")
+                    catalog.append(prof_data)
     #json to return
     relevant_data = []
     course_data = {}
@@ -45,7 +61,10 @@ def save_course_data(catalog_data):
     ]
 
     new_key_features = [
-        "location_url"
+        "location_url",
+        "course_title",
+        "credit_hours",
+        "description"
     ] 
 
     #iterate through top 5
@@ -59,8 +78,17 @@ def save_course_data(catalog_data):
 
         #course_data["Rating"] = round(transformed_rating, 3)
         course_data["Rating"] = int(transformed_rating * p + 0.5)/p
-        course_data["Semester"] = record[relevant_keys[3]]
+        
+        course_data["Name"] = record[new_key_features[1]]
+        #create course with tooltip info
         course_data["Course"] = record[relevant_keys[0]]
+        """course_data["Course"]["code"] = record[relevant_keys[0]]
+        course_data["Course"]["course_title"] = record[new_key_features[1]]
+        course_data["Course"]["credit_hours"] = record[new_key_features[2]]
+        course_data["Course"]["descr"] = record[new_key_features[3]]
+        """
+        course_data["Credit Hours"] = record[new_key_features[2]]
+
         course_data["Professor"] = [record[relevant_keys[1]], record[relevant_keys[-2]]]
         course_data["Section"] = record[relevant_keys[2]]
         course_data["Prerequisites"] = record[relevant_keys[4]]
@@ -79,15 +107,17 @@ def save_course_data(catalog_data):
                 "None"
             ]
 
-        try:
-            course_data["Course Dates"] = record[relevant_keys[6]]
-        except:
-            course_data["Course Dates"] = "Unknown"
-        
+        #try:
+        #    course_data["Course Dates"] = record[relevant_keys[6]]
+        #except:
+        #    course_data["Course Dates"] = "Unknown"
         open_seats = str(record["seats_open"])
         total_seats = str(record["seats_total"])
         course_data["seats"] = f"{open_seats}/{total_seats}"
 
+        course_data["Semester"] = record[relevant_keys[3]]
+        
+        
         relevant_data.append(course_data)
     
     return relevant_data
@@ -144,7 +174,8 @@ def gepRoute():
                     "$group": {
                         "_id": {
                             "course_name": "$course_name",
-                            "professor": "$professor"
+                            "professor": "$professor",
+                            "semester": "$semester"
                         },
                         "section": {
                             "$addToSet": "$section"
@@ -179,7 +210,8 @@ def gepRoute():
                     "$group": {
                         "_id": {
                             "course_name": "$course_name",
-                            "professor": "$professor"
+                            "professor": "$professor",
+                            "semester": "$semester"
                         },
                         "section": {
                             "$addToSet": "$section"
@@ -227,9 +259,7 @@ def deptRoute():
     term_requested = request.headers.get("term")
     level_min = request.headers.get("level_min")
     level_max = request.headers.get("level_max")
-    print(level_min)
-    print(level_max)
-    if level_max < level_min:
+    if level_max < level_min and str.isnumeric(level_max) and str.isnumeric(level_min):
         return ["Invalid"]
 
     #access  collection with the correct data
@@ -255,7 +285,8 @@ def deptRoute():
                     "$group": {
                         "_id": {
                             "course_name": "$course_name",
-                            "professor": "$professor"
+                            "professor": "$professor",
+                            "semester": "$semester"
                         },
                         "section": {
                             "$addToSet": "$section"
@@ -295,7 +326,8 @@ def deptRoute():
                     "$group": {
                         "_id": {
                             "course_name": "$course_name",
-                            "professor": "$professor"
+                            "professor": "$professor",
+                            "semester": "$semester"
                         },
                         "section": {
                             "$addToSet": "$section"
@@ -337,7 +369,8 @@ def deptRoute():
                     "$group": {
                         "_id": {
                             "course_name": "$course_name",
-                            "professor": "$professor"
+                            "professor": "$professor",
+                            "semester": "$semester"
                         },
                         "section": {
                             "$addToSet": "$section"
@@ -375,7 +408,8 @@ def deptRoute():
                     "$group": {
                         "_id": {
                             "course_name": "$course_name",
-                            "professor": "$professor"
+                            "professor": "$professor",
+                            "semester": "$semester"
                         },
                         "section": {
                             "$addToSet": "$section"

@@ -48,9 +48,17 @@ class Dept extends React.Component {
             }
         }
         else {
+            let minimum = this.state.level_min;
+            let maximum = this.state.level_max;
+            if (minimum === "ANY") {
+                minimum = "100";
+            }
+            if (maximum === "ANY") {
+                maximum = "899";
+            }
             ReactDOM.render(
-                <h3>There is no course in {this.state.select_value} offered during {this.props.whichterm} with level {this.state.level_value}.</h3>,
-                 document.getElementById('id_dept_table')
+                <h3>There is no course in {this.state.select_value} offered during {this.props.whichterm} between level {minimum} and {maximum}.</h3>,
+                document.getElementById('id_dept_table')
             )
         }    
     }
@@ -177,7 +185,7 @@ class Dept extends React.Component {
                     </div>
 
                 {/* Button to generate table */}
-                <div>
+                <div id="whichdeptdiv">
                     <button type="button"
                             class="btn btn-danger" 
                             id="whichdept" 

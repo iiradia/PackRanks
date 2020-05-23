@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import Table from "./Table";
 import ReactDOM from "react-dom";
-//import '../css/gep.css'
+import '../css/gep.css'
 
 class GEP extends React.Component {
 
@@ -86,7 +86,17 @@ class GEP extends React.Component {
                     </div>
                     {/* {console.log(this.state.select_value)} */}
                     {/* button to select a specific GEP TODO: implement onclick */}
-                    <button type="button" class="btn btn-danger" id="whichgep" name="whichgep" onClick={this.getTable}>Select</button>
+                    <div id="whichgepdiv">
+                        <button 
+                            type="button" 
+                            class="btn btn-danger" 
+                            id="whichgep" 
+                            name="whichgep" 
+                            onClick={this.getTable}>
+                            Select
+                        </button>
+                    </div>
+                    
                 </div>
                 <div id = "id_table">
                 </div>
