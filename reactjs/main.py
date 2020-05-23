@@ -19,31 +19,41 @@ def save_course_data(catalog_data):
     grades_db = crowdsourced.Coursesnc
 
     catalog = []
+    catalog_full = []
     #iterate through catalog data
     for rec in catalog_data:
         #print(rec)
+        catalog_full.append(rec)
+        for i in range(len(rec["section"])):
+        #print(rec)
         #save relevant data for first section
-        prof_data = grades_db.catalogncsu.find_one(
-            {"course_name": rec["_id"]["course_name"],
-            "professor": rec["_id"]["professor"],
-            "semester": rec["_id"]["semester"],
-            "section": rec["section"][0]}
-        )
-        catalog.append(prof_data)
-    if len(catalog) < 5:
-        for rec in catalog_data:
-            while len(catalog) < 5:
-                for sec in rec["section"][1:]:
+            prof_data = grades_db.catalogncsu.find_one(
+                {"course_name": rec["_id"]["course_name"],
+                "professor": rec["_id"]["professor"],
+                "semester": rec["_id"]["semester"],
+                "section": rec["section"][i]}
+            )
+            if prof_data["seats_open"] > 0:
+                catalog.append(prof_data)
+                break
+            else:
+                continue
 
-                    prof_data =  grades_db.catalogncsu.find_one(
-                        {
-                            "course_name": rec["_id"]["course_name"],
-                            "professor": rec["_id"]["professor"],
-                            "semester": rec["_id"]["semester"],
-                            "section": rec["section"][sec]
-                        }
-                    )
-                    print(f"Adding {prof_data}")
+    #print(catalog)
+    if len(catalog) < 5:
+        for rec in catalog_full:
+            for sec in range(len(rec["section"])):
+                prof_data =  grades_db.catalogncsu.find_one(
+                    {
+                        "course_name": rec["_id"]["course_name"],
+                        "professor": rec["_id"]["professor"],
+                        "semester": rec["_id"]["semester"],
+                        "section": rec["section"][sec]
+                    }
+                )
+                #print(prof_data)
+                if prof_data not in catalog and len(catalog)<5:
+                    print(f"Adding")
                     catalog.append(prof_data)
     #json to return
     relevant_data = []
@@ -77,7 +87,7 @@ def save_course_data(catalog_data):
         transformed_rating = record[relevant_keys[-1]]
 
         #course_data["Rating"] = round(transformed_rating, 3)
-        course_data["Rating"] = int(transformed_rating * p + 0.5)/p
+        course_data["Rating"] = round(transformed_rating)
         
         course_data["Name"] = record[new_key_features[1]]
         #create course with tooltip info
@@ -113,7 +123,7 @@ def save_course_data(catalog_data):
         #    course_data["Course Dates"] = "Unknown"
         open_seats = str(record["seats_open"])
         total_seats = str(record["seats_total"])
-        course_data["seats"] = f"{open_seats}/{total_seats}"
+        course_data["seats open"] = f"{open_seats}/{total_seats}"
 
         course_data["Semester"] = record[relevant_keys[3]]
         
@@ -165,8 +175,7 @@ def gepRoute():
                     "$match" : {
                         "gep" :{"$regex": gep_requested},
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -206,8 +215,7 @@ def gepRoute():
                     "$match" : {
                         "gep" : {"$in": ["['HUM']", "['SS']"]},
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -245,8 +253,7 @@ def gepRoute():
                 {
                     "$match" : {
                         "gep" : {"$regex": gep_requested},
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -317,6 +324,7 @@ def deptRoute():
     if level_min != "ANY" and level_max != "ANY":
         level_min = int(level_min)
         level_max = int(level_max)
+        print(level_min, level_max)
         catalog_data = grades_db.catalogncsu.aggregate([
                 {
                     "$match" : {
@@ -326,8 +334,7 @@ def deptRoute():
                             "$lte": level_max
                         },
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -367,8 +374,7 @@ def deptRoute():
                             "$lte": level_max
                         },
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -410,8 +416,7 @@ def deptRoute():
                             "$gte": level_min
                         },
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -449,8 +454,7 @@ def deptRoute():
                     "$match" : {
                         "department" : dept_requested,
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "seats_open": {"$gt":0}
+                        "semester": {"$regex": term_requested}
                     }
                 },
                 #group by professor and add unique sections and ratings 
