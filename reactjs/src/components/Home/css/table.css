@@ -1,0 +1,43 @@
+.table td {
+    border: black solid 2.5px !important;
+    color: #cc3000;
+    background-color: white;
+}
+.table thead {
+    border: black solid 2.5px !important;
+    color: #cc3000;
+    background-color: white;
+}
+.table tr {
+    border: black solid 2.5px !important;
+    color: #cc3000;
+    background-color: white;
+}
+.table th{
+    border: black solid 2.5px !important;
+    color: white;
+    background-color: #cc3000;
+}
+#ctool {
+    border: white !important;
+    color: #cc3000 !important;
+    font-weight:bold !important;
+    background-color: white !important;
+}
+#cdiv {
+    border: white !important;
+    color: #cc3000 !important;
+    background-color: white !important;
+}
+#hovertxt {
+    opacity:1;
+    z-index:100;
+    position: absolute;
+}
+
+#tablelinks {
+    color: #cc3000;
+    font-size: 16px;
+    text-decoration: underline !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important; 
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.js"],"names":["ReactHover"],"mappings":";;;;;;;AAAA;;;;eACeA,sB","sourcesContent":["import ReactHover from './ReactHover'\nexport default ReactHover\n"],"file":"index.js"}

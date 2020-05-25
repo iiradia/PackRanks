@@ -1,0 +1,12 @@
+#googleicon {
+    float:none !important;
+    position:static !important;
+    display:block !important;
+    margin: 0 auto !important;
+    background-color: white !important;
+    text-align: center !important;
+    
+}
+#notamember {
+    padding-right: 10px;
+}

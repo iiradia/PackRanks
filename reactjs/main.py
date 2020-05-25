@@ -8,6 +8,7 @@ from pymongo import MongoClient
 import pandas as pd
 from math import log10
 import re
+import contact
 
 def save_course_data(catalog_data):
     """

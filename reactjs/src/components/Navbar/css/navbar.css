@@ -1,0 +1,29 @@
+/*@font-face {
+    font-family: Balsamiq;
+    src: url("../fonts/BalsamiqSans-Regular.ttf");
+}  */
+nav {
+    background-color: #cc0000
+}
+#homelink {
+    color: white;
+    font-size: 16px;
+    text-decoration: none !important;
+}
+
+#loginlink {
+    color: white;
+    font-size: 16px;
+    text-decoration: none !important;
+}
+
+#aboutlink {
+    color: white;
+    font-size: 16px;
+    text-decoration: none !important;
+}
+#contactlink {
+    color: white;
+    font-size: 16px;
+    text-decoration: none !important;
+}
