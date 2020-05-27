@@ -1,0 +1,52 @@
+{
+  "name": "reactjs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "bootstrap": "^4.5.0",
+    "create-react-class": "^15.6.3",
+    "jwt-decode": "^2.2.0",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-bootstrap-table-next": "^4.0.2",
+    "react-dom": "^16.13.1",
+    "react-google-button": "^0.7.1",
+    "react-google-login": "^5.1.20",
+    "react-google-recaptcha": "^2.0.1",
+    "react-hover": "^1.4.0",
+    "react-json-table": "^0.1.1",
+    "react-json-to-table": "^0.1.5",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-simplert": "0.0.2",
+    "react-sticky-box": "^0.9.3",
+    "react-tooltip": "^4.2.6",
+    "ts-react-json-table": "^0.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
