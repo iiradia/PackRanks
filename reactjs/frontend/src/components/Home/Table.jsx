@@ -97,6 +97,23 @@ const RenderRow = (props) =>{
         //ADD ELSE IF HERE AND CORRECT LOGIC TO PRODUCE TOOLTIP/CALL THE onWishlist() function
         //with props.data as param
         /* If normal element, return normal table */
+
+
+        else if(key === 'Section' && localStorage.token !== undefined && props.type !== "homepage"){
+            return <td key={props.data[key]} id="sectionLink">   
+                    <a id="tablelinks" onClick= {() => {onWishlist(props.data)}}>
+                        <p data-for="ctool" id="tablelinks" data-tip="Add to Wishlist">
+                            <strong>{props.data[key]}</strong>
+                        </p>
+                        <div id="cdiv">
+                            <ReactTooltip id="ctool"/> 
+                        </div>
+                    </a>  
+                </td>
+        }
+
+
+
         else{
             return <td key={props.data[key]}><strong>{props.data[key]}</strong></td>
         }
