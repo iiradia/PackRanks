@@ -13,12 +13,26 @@ class GEP extends React.Component {
 
         this.state = {
             courses: null,
-            select_value: null
+            select_value: null,
+            loading: false
         };
     }
+
+    /*renderTable() {
+        this.setState({
+            loading: false
+        },
+        ReactDOM.render(
+            <Table data={this.state.courses}/>,
+            document.getElementById("id_table")
+        ))
+    }*/
+
     getTable() {
         const GEP = this;
         let url = "http://localhost:5000/gep";
+        this.setState({loading: true})
+
         fetch( 
             url, {
                 method: "GET",
@@ -53,6 +67,14 @@ class GEP extends React.Component {
         for (var i = 0; i < gepLabels.length; i++) {
             gepFinal[i] = {label: gepLabels[i].label,
                            value: gepValues[i].value}
+        }
+
+        if(this.state.loading) {
+            this.setState({loading:false})
+            ReactDOM.render(
+                <p id="loadingMsg" class="lead">Loading...</p>,
+                document.getElementById("id_table")
+            )
         }
         // const GEPList = () => (
         //     <div className="app">

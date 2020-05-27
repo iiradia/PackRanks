@@ -7,3 +7,10 @@
 #typeofgepLabel {
     color: #cc0000;
 }
+#loadingMsg {
+    margin-top: 20px;
+    text-align: center;
+    color: #cc0000;
+    font-weight: bold;
+    font-size: 30px !important;
+}

@@ -25,7 +25,8 @@ class Dept extends React.Component {
             courses: null,
             select_value: null,
             level_min: null, 
-            level_max: null
+            level_max: null,  
+            loading: false 
         }
         /* Call depts function */
         this.getDepts();
@@ -66,6 +67,7 @@ class Dept extends React.Component {
     courseTable() {
         const Dept = this;
         let dept_url = "http://localhost:5000/dept";
+        this.setState({loading:true})
         //let select_value = document.getElementById("dept_list_select").value;
         //let level_value = document.getElementById("levelprompt").value;
         fetch( 
@@ -150,7 +152,15 @@ class Dept extends React.Component {
           const levelOptionsMax = levelListMax.map((level) => (
          {label: level, value: level}
           )); 
- 
+          
+        if(this.state.loading) {
+            this.setState({loading:false})
+            ReactDOM.render(
+                <p id="loadingMsg" class="lead">Loading...</p>,
+                document.getElementById("id_dept_table")
+            )
+        }
+
 
         return(
             <div class="text-center">
