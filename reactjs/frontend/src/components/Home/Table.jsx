@@ -56,9 +56,19 @@ const onWishlist= (props) => {
     ).then(
        response => response.json()
     ).then(
-        data => data.success ? alert("Successfully added course to wishlist")
-        : alert("Failed to add course to your wishlist, please try again.")
-    )
+    (data) => {
+        if (data.success) {
+            alert("Successfully added course to wishlist!")
+        }
+        else {
+            if (data.duplicate) {
+                alert("This course is already on your wishlist!")
+            }
+            else {
+                alert("Failed to add course to your wishlist, please try again.")
+            }
+        }
+    })
 }
 
 // Put data into each row 

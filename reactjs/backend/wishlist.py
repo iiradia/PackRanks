@@ -66,6 +66,15 @@ def add_course_to_wishlist():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    #current wishlist
+    current_wishlist = grades_db.users.find_one(user_query)["wishlist"]
+
+    #check for duplicates in wishlist
+    for wishlist_item in current_wishlist:
+        if wishlist_item == wishlist_course_data:
+            return json.dumps({"success":False, "duplicate":True}), 404, {"ContentType": "application/json"}
+
     #update db with wishlist course
     add_wishlist = grades_db.users.update_one(
         user_query,
@@ -96,7 +105,6 @@ def view_wishlist():
     user_db_data = grades_db.users.find_one(
         user_query
     )
-    print(user_query)
 
     #collect wishlist from data
     wishlist = user_db_data["wishlist"]
