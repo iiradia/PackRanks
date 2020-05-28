@@ -25,12 +25,21 @@ class AboutPage extends React.Component {
                                 <h1 id="aboutustitle">About <span>PackRanks</span></h1>
                                 <h2><br/>How We Help You</h2>
                                 <p class="about-paddingB">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet dolor libero, eget venenatis mauris finibus dictum. Vestibulum quis elit eget neque porttitor congue non sit amet dolor. Proin pretium purus a lorem ornare
+                                    Here at NC State, we as students have many resources to help us find the best fit classes to register for. However, these resources are often scattered and there is no accessible way to filter through the data we have available in order to find good classes in a reasonable amount of time.
                                 </p>
-                                <p>sed lobortis pulvinar. Integer laoreet mi id eros porta euismod. Suspendisse potenti. Nulla eros mauris, convallis et sem tempus, viverra hendrerit sapien</p>
+                                <p>With PackRanks, we solved that issue by compiling a list of the best possible classes that are offered in a certain term and creating a simple way for students to filter through the options. In addition, we provide all of the information you need in one convenient place, so you never have to 
+                                    spend hours looking through multiple different websites again.</p>
+                                <p>Now, you can find the classes that are the most beneficial for you simply by searching for a specific term and course department.
+                                Also, you can save the classes you are most interested in to your personalized Wishlist so that you don't forget your course plans!
+                                </p>
+                                <p>
+                                    We hope that you will benefit a lot from PackRanks, and if you have any suggestions for new features you would like to see 
+                                    or improvements with the website, please feel free to reach out!
+                                </p>
                                 
+                                {/*
                                 <h2>Our Core Values</h2>
-                                <p>To be determined.<br/></p>
+                                <p>To be determined.<br/></p>*/}
 
                                 <h2>Our Rating System</h2>
                                 <p>We take the thinking out of the equation, just do! No but seriously, we have a proprietary model to determine ratings for each course. At this stage, in order to prioritize the safety and integrity of user information, we are in stealth mode and cannot disclose any more details.<br/> Clearly, the intended use of this application is to consolidate all of the public data that is available on NC State courses and make it easier for you to register for the classes that are best for you! Our ultimate goal is to provide a meaningful service for NC State current and incoming students, and that's why we vow to keep all of the information on this website completely free forever. For further serious inquiries, please feel free to contact us using the link provided below. GO PACK!! </p>

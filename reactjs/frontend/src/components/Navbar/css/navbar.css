@@ -27,3 +27,29 @@ nav {
     font-size: 16px;
     text-decoration: none !important;
 }
+
+#homepagelink {
+    color: white;
+    font-size: 16px;
+    text-decoration: none !important;
+    background-color: #cc0000 !important;
+}
+
+#signoutlink {
+    color:white;
+    font-size: 16px;
+    text-decoration: none !important;
+    background-color: #cc0000 !important
+}
+#wishlistlink {
+    color: white;
+    font-size: 16px;
+    text-decoration: none !important;
+    background-color: #cc0000 !important
+}
+#contactlink.loggedIn:after {
+    content: "|";
+    position: absolute;
+    top: 16px;
+    margin-left: 5px;
+}

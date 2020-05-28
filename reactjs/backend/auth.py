@@ -1,20 +1,76 @@
 from flask_api import FlaskAPI
 from flask import request
-from flask_jwt_extended import (
-    create_access_token, create_refresh_token
-)
 from pymongo import MongoClient
 from __main__ import app
 import json
 import hashlib
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
 crowdsourced = MongoClient("mongodb+srv://dbUser:dbpass@crowdsourced-ogexe.mongodb.net/test")
 grades_db = crowdsourced.Coursesnc
-EASYA_EMAIL = "easyamongodb@gmail.com"
-EASYA_PASS = "crowdsourcing2020!"
+#import helpers
+from auth_helpers import (
+    get_user_token, send_signup_email
+)
+
+@app.route("/googleauth", methods=["POST"])
+def google_auth():
+    """
+    Method to handle user signing in via Google.
+    This method will either connect the user to their account in the database,
+    or create a new account for them.
+    """
+    google_user_data = eval(request.get_data())
+
+    user_query = {
+        "email": google_user_data["email"]
+    }
+    #attempt to find user with information given
+    google_user = grades_db.users.find_one(user_query)
+
+    if google_user == None:
+        """
+        Options:  
+            - here we can add a user to the database with no password, and 
+            thus no one can access their account unless they sign in with their Google account
+
+            - alternatively, we could redirect a user to a signup page on the frontend
+            where they can enter a password
+        """
+        #save user information
+        user = {
+            "first_name": google_user_data["first_name"],
+            "last_name": google_user_data["last_name"],
+            "email": google_user_data["email"],
+            "hashed_pw":"",
+            "wishlist": []
+        }
+
+        #add user to db
+        grades_db.users.insert_one(user)
+
+        #send the user an email
+        send_signup_email(google_user_data["first_name"], google_user_data["email"])
+
+        #try to find existing user
+        current_user = grades_db.users.find_one(user)
+
+        #get user info
+        user_info = get_user_token(current_user)
+        user_info["type"] = "SignUp"
+        
+        #return that user was signed up
+        return json.dumps(user_info), 200, {"ContentType":"application/json"}
+
+    else:
+        """
+        Send user to their homepage
+        """
+        user_info = get_user_token(google_user)
+
+        return json.dumps(user_info), 200,
+        {'ContentType':'application/json'}
+
+
+    return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -37,7 +93,6 @@ def login():
     user_query = {
         "email":login_data["email"]
     }
-
     #try to find existing user
     current_user = grades_db.users.find_one(user_query)
     if current_user == None or current_user["hashed_pw"] != hashed_pw:
@@ -45,19 +100,10 @@ def login():
 
     #if no existing user, add to db
     else:
-        #what to return to frontend
-        del current_user["hashed_pw"]
-        del current_user["_id"]
-        access_token = create_access_token(identity=current_user)
-        refresh_token = create_refresh_token(identity=current_user)
+        #get current user's info
+        user_info = get_user_token(current_user)
 
-        json_to_return = {
-            "success":True,
-            "token":access_token,
-            "refresh":refresh_token
-        }
-
-        return json.dumps(json_to_return), 200,
+        return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
 
 
@@ -100,26 +146,7 @@ def sign_up():
         last_name = user["last_name"]
         email = user["email"]
 
-        sender = f"PackRanks <{EASYA_EMAIL}>"
-        recipient =  email
-        subject = f"Welcome to PackRanks, {first_name}!"
-
-        text =  f"Hi {first_name},\n\nThanks for signing up for PackRanks! We're excited to see what content we can provide for you.\n\nIf you ever have any questions or concerns about our application, hit us up at {EASYA_EMAIL}. Our inbox is always open! Anyway, we'll let you go use PackRanks now. Thanks again for your support!\n\nGO PACK!!\nYour Friends at PackRanks"
-
-        message = f"Subject: {subject}\n\n{text}"
-    
-        msg = MIMEMultipart()
-        msg["From"] = sender
-        msg["To"] = recipient
-        msg["Subject"] = subject
-        msg.attach(MIMEText(text, "plain"))
-
-
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.ehlo()
-        server.login(EASYA_EMAIL, EASYA_PASS)
-        #server.starttls()
-        server.sendmail(sender, recipient, msg.as_string())
-        server.close()
+        #send an email to user who signed up
+        send_signup_email(first_name, email)
 
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 

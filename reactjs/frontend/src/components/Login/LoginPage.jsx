@@ -60,7 +60,7 @@ class LoginPage extends React.Component {
       }
       
       if (validInput) {
-        console.log(this.state);
+
         let url = "http://localhost:5000/login";
         fetch(url,
         {
@@ -74,10 +74,6 @@ class LoginPage extends React.Component {
         ).then((data) => {
             {/*Successfully logged in*/}
             if (data.success === true) {
-              {/*this.props.liftStateUp({
-                first_name:data.first_name,
-                last_name:data.last_name
-              });*/}
               localStorage.setItem("token", data.token);
                 this.props.history.push({
                     pathname: "/homepage"
@@ -98,24 +94,40 @@ class LoginPage extends React.Component {
     this.setState({login_email:event.target.value})
   }
 
+  //Handles google successful login.
   googleSuccess(response) {
-    console.log(response);
-    const profile_obj = response.profileObj;
-    {/* Save user data to state. */ }
-    this.setState(
-      {
-        first_name: profile_obj.givenName,
-        last_name: profile_obj.familyName,
-        email: profile_obj.email
-      }
-    )
-    console.log(this.state);
 
-    this.props.liftStateUp(this.state);
-    { /* Route user back to homepage. */ }
-    this.props.history.push({
-        pathname: "/"
-      });
+    //get data from google
+    const profile_obj = response.profileObj;
+    
+    let url = "http://localhost:5000/googleauth";
+    //call Flask API with google user data.
+    fetch(url,
+      {
+              method: "POST",
+              body: JSON.stringify({
+                first_name: profile_obj.givenName,
+                last_name: profile_obj.familyName,
+                email: profile_obj.email
+              })
+      }).then(
+          (response) => (response.json())
+      ).then((data) => {
+          {/*Successfully logged in*/}
+          if (data.success === true) {
+            if (data.type === "SignUp") {
+              alert("Thank you for signing up for PackRanks! You will now be sent to your user homepage!")
+            }
+            localStorage.setItem("token", data.token);
+              this.props.history.push({
+                  pathname: "/homepage"
+              })
+          }
+          else {
+              //Handle error in login here.
+              alert("Email or password is incorrect.")
+          }
+      })
   }
 
   googleFailure(response) {
@@ -231,7 +243,9 @@ class LoginPage extends React.Component {
                         cookiePolicy={'single_host_origin'}
                     />
                   </div>
-                
+                  <div className = "text-center p-t-10">
+                    <span className="txt1">You will automatically be signed up for PackRanks!</span>
+                  </div>
                   <div className="text-center w-full p-t-30">
                     <span id="notamember" className="txt1">
                       Not a member?
