@@ -26,7 +26,7 @@ class UserPage extends React.Component {
         //console.log(this.props.profile_data);
         if (localStorage.token) {
             let identity = jwt(localStorage.token).identity;
-            userwelcome = <h1 id="welcome" class="mt-5">Welcome to your account, <strong>{identity.first_name}</strong>!</h1>
+            userwelcome = <h1 id="welcome" class="mt-5">Welcome, <strong>{identity.first_name}</strong>!</h1>
         }
 
         return(

@@ -22,7 +22,7 @@ class MainWelcome extends React.Component {
         if (localStorage.token) {
             let identity = jwt(localStorage.token).identity;
             let profile_data = this.props.profile_data.data;
-            userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name} {identity.last_name}</strong>!</h1>
+            userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name}</strong>!</h1>
         }
         else {
             userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}!</h1>
@@ -44,7 +44,8 @@ class MainWelcome extends React.Component {
                     {userwelcome}
 
                     {/*<p class="lead"><strong>For Engineers, By Engineers</strong></p>*/}
-                    <p id="lab" class="lead">This tool allows you to find which NC State GEP or elective courses will be the best for you to take!</p>
+                    <p id="lab" class="lead">If you are new to PackRanks, click the "Help" link above to find a step-by-step tutorial!<br/>
+                    This tool allows you to find which NC State GEP or elective courses will be the best for you to take!</p>
                 </div>
         );
     }

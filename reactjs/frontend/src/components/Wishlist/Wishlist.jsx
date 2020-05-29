@@ -64,10 +64,12 @@ class Wishlist extends React.Component {
         ).then(
             data => this.setState({
                 courses: data
-            }, 
-            data.length > 0 ?
-            () => {ReactDOM.render(<Table data={this.state.courses} type="homepage" />, document.getElementById('wishlist'))}
-            : alert("You have no saved wishlist courses.")
+            },
+            () => {
+                if (data.length > 0) {
+                    ReactDOM.render(<Table data={this.state.courses} type="homepage" />, document.getElementById('wishlist'))
+                }
+            }
             )
         )
     }

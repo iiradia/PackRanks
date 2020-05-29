@@ -8,9 +8,11 @@ from pymongo import MongoClient
 from __main__ import app
 import json
 import jwt
-
+DBSTR = ""
+with open ("email_data.json", "r") as data:
+    DBSTR = json.load(data)["DBSTR"]
 #save to database
-crowdsourced = MongoClient("mongodb+srv://dbUser:dbpass@crowdsourced-ogexe.mongodb.net/test")
+crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
 SECRET = 'lCObatvHLVE4v514SS54YQ'
 

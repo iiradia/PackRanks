@@ -10,6 +10,7 @@ h1 {
     color: #cc0000;
 }
 #lab {
+    padding-top: 0px !important;
     color: #cc0000;
 }
 #getlabel {

@@ -4,7 +4,12 @@ from pymongo import MongoClient
 from __main__ import app
 import json
 import hashlib
-crowdsourced = MongoClient("mongodb+srv://dbUser:dbpass@crowdsourced-ogexe.mongodb.net/test")
+
+DBSTR = ""
+with open ("email_data.json", "r") as data:
+    DBSTR = json.load(data)["DBSTR"]
+
+crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
 #import helpers
 from auth_helpers import (
@@ -36,13 +41,22 @@ def google_auth():
             where they can enter a password
         """
         #save user information
-        user = {
-            "first_name": google_user_data["first_name"],
-            "last_name": google_user_data["last_name"],
-            "email": google_user_data["email"],
-            "hashed_pw":"",
-            "wishlist": []
-        }
+        try:
+            user = {
+                "first_name": google_user_data["first_name"],
+                "last_name": google_user_data["last_name"],
+                "email": google_user_data["email"],
+                "hashed_pw":"",
+                "wishlist": []
+            }
+        except:
+            user = {
+                "first_name": google_user_data["first_name"],
+                "last_name": "",
+                "email": google_user_data["email"],
+                "hashed_pw":"",
+                "wishlist": []
+            }
 
         #add user to db
         grades_db.users.insert_one(user)

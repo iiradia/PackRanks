@@ -6,3 +6,5 @@ MarkupSafe==1.1.1
 Werkzeug==1.0.1
 flask_api
 flask_jwt_extended
+pymongo
+selenium

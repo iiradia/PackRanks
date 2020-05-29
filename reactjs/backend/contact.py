@@ -8,8 +8,12 @@ from __main__ import app
 import json
 import smtplib
 
-EASYA_EMAIL = "easyamongodb@gmail.com"
-EASYA_PASS = "crowdsourcing2020!"
+EMAIL = ""
+PASS = ""
+with open("email_data.json", "r") as data:
+    json_data = json.load(data)
+    EMAIL = json_data["EMAIL"]
+    PASS = json_data["PASS"]
 
 @app.route("/contact", methods=["POST"])
 def contact_us():
@@ -19,16 +23,20 @@ def contact_us():
     message.
     """
 
-    contact_data = eval(request.get_data())
+    contact_data = json.loads(request.get_data().decode("utf-8"))
+    #print(contact_data)
+    #del contact_data["re_captcha"]
+
+    #print(contact_data)
     first_name = contact_data["first_name"]
     last_name = contact_data["last_name"]
     email = contact_data["email"]
     phone = contact_data["phone_no"]
     msg = contact_data["message"]
 
-    sender = EASYA_EMAIL
-    recipient = EASYA_EMAIL
-    subject = f"EasyA Message From - {first_name} {last_name}"
+    sender = EMAIL
+    recipient = EMAIL
+    subject = f"PackRanks Message From - {first_name} {last_name}"
 
     text = f"{msg}\n\nFrom, {first_name} {last_name}.\n\nSent via {email}. Phone Number: {phone}"
 
@@ -39,7 +47,7 @@ def contact_us():
 
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     server.ehlo()
-    server.login(EASYA_EMAIL, EASYA_PASS)
+    server.login(EMAIL, PASS)
     #server.starttls()
     server.sendmail(sender, recipient, message)
     server.close()

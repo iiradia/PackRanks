@@ -6,6 +6,7 @@ import MainWelcome from './components/Home/MainWelcome';
 import "./css/app.css";
 import Login from './components/Login/LoginPage';
 import About from "./components/About/AboutPage";
+import Help from './components/Help/HelpPage';
 import Contact from "./components/Contact/ContactPage";
 import SignUp from './components/SignUp/SignUp'
 import UserPage from './components/User/UserPage';
@@ -50,7 +51,7 @@ class App extends React.Component {
           { /* Route to main page */ }
           <Route exact path = "/">
             <header className="App-header"> 
-                <Navbar />     
+                <Navbar /> 
                 <MainWelcome profile_data={this.state}/>
                 <FirstPrompt />
             </header>
@@ -66,6 +67,12 @@ class App extends React.Component {
           <Route exact path = "/about">     
             <Navbar />
             <About />
+          </Route>
+
+          { /* Route to Help page. */}
+          <Route exact path = "/help">
+            <Navbar />
+            <Help />
           </Route>
 
           { /* Route to contact page. */ }

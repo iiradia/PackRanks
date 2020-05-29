@@ -62,11 +62,10 @@ class Navigation extends React.Component {
                 <div className="container">
                     <Navbar.Brand href="/">PackRanks</Navbar.Brand>
                     <Nav className="navbar-nav ml-auto">
-                        <Nav.Link id="homelink" href="/">Home</Nav.Link>
-                        {/*<Nav.Link id="loginlink" href="/login">Login</Nav.Link>*/}
-                        <div id="loginnavlink">
 
-                        </div>
+                        
+                        <Nav.Link id="homelink" href="/">Home</Nav.Link>
+                        
                         
                         {/*<Router>
                             <Nav.Link>
@@ -78,12 +77,19 @@ class Navigation extends React.Component {
                         </Router>*/}
                         <Nav.Link id="aboutlink" href="/about">About</Nav.Link>
                         
+
+                        <Nav.Link id="instructionlink" href="/help">Help</Nav.Link>
+
                         {/* Where to render contact */ }
                         <div id="contact">
                         </div>
                         
                         {/* Where to render account homepage dropdown links. */}
                         <div id="homepage">
+
+                        </div>
+                        {/*<Nav.Link id="loginlink" href="/login">Login</Nav.Link>*/}
+                        <div id="loginnavlink">
 
                         </div>
 
