@@ -7,11 +7,6 @@ import CreatableSelect from 'react-select/lib/Creatable';
 import './css/courselevel.css'; 
 import {Button} from "react-bootstrap";
 
-
-// need to do:
-    // obtain value of selected dept
-    // send value of dept to CourseLevel
-    // get list of depts from backend
 class Dept extends React.Component {
     constructor() {
         super();
@@ -26,7 +21,9 @@ class Dept extends React.Component {
             select_value: null,
             level_min: null, 
             level_max: null,  
-            loading: false 
+            loading: false,
+            inputValueMin: "",  //new
+            inputValueMax: ""  //new
         }
         /* Call depts function */
         this.getDepts();
@@ -68,24 +65,80 @@ class Dept extends React.Component {
         const Dept = this;
         let dept_url = "http://localhost:5000/dept";
         this.setState({loading:true})
-        //let select_value = document.getElementById("dept_list_select").value;
-        //let level_value = document.getElementById("levelprompt").value;
-        fetch( 
-            dept_url, {
-                method: "GET",
-                headers: {
-                    "Dept": this.state.select_value,
-                    "term": this.props.whichterm,
-                    "level_min": this.state.level_min,
-                    "level_max": this.state.level_max
-                }
-           }
-        ).then(
-           response => response.json()
-        ).then(
-            //Ternary operator that checks whether course is offered or not.
-            data => this.parseData(data)
-        )
+
+        //new
+        /* Quadruple if-block to call using correct states */
+        if (!this.state.level_max && !this.state.level_min) {
+            //console.log("setting inputValueMax state")
+            fetch(
+                dept_url, {
+                    method: "GET",
+                    headers: {
+                        "Dept": this.state.select_value,
+                        "term": this.props.whichterm,
+                        "level_min": this.state.inputValueMin,
+                        "level_max": this.state.inputValueMax
+                    }
+            }
+            ).then(
+            response => response.json()
+            ).then(
+                //Ternary operator that checks whether course is offered or not.
+                data => this.parseData(data)
+            )
+        } else if (!this.state.level_min) {
+            fetch(
+                dept_url, {
+                    method: "GET",
+                    headers: {
+                        "Dept": this.state.select_value,
+                        "term": this.props.whichterm,
+                        "level_min": this.state.inputValueMin,
+                        "level_max": this.state.level_max
+                    }
+            }
+            ).then(
+            response => response.json()
+            ).then(
+                //Ternary operator that checks whether course is offered or not.
+                data => this.parseData(data)
+            )
+        } else if (!this.state.level_max) {
+            fetch(
+                dept_url, {
+                    method: "GET",
+                    headers: {
+                        "Dept": this.state.select_value,
+                        "term": this.props.whichterm,
+                        "level_min": this.state.level_min,
+                        "level_max": this.state.inputValueMax
+                    }
+            }
+            ).then(
+            response => response.json()
+            ).then(
+                //Ternary operator that checks whether course is offered or not.
+                data => this.parseData(data)
+            )
+        } else {
+            fetch(
+                dept_url, {
+                    method: "GET",
+                    headers: {
+                        "Dept": this.state.select_value,
+                        "term": this.props.whichterm,
+                        "level_min": this.state.level_min,
+                        "level_max": this.state.level_max
+                    }
+            }
+            ).then(
+            response => response.json()
+            ).then(
+                //Ternary operator that checks whether course is offered or not.
+                data => this.parseData(data)
+            )
+        }
+        //new
     }
 
     /* Get List of departments and render select component */
@@ -110,7 +163,7 @@ class Dept extends React.Component {
     /* Return select component with list of departments */
     DeptList(){
         const departments = this.state.dept_list;
-        //console.log(departments);
+
         const deptOptions = departments.dept.map((dept) => (
             {label: dept}
         ));
@@ -122,7 +175,7 @@ class Dept extends React.Component {
             deptFinal[i] = {label: deptOptions[i].label,
                             value: deptValues[i].value}
         }
-        //console.log(deptFinal);
+
         return (
         <div className="app">
             <div className="container">
@@ -137,6 +190,21 @@ class Dept extends React.Component {
         </div>
         )
     };
+
+    //new
+    handleInputChangeMin(inputValueMin, action) {
+        if (action.action !== "input-blur" && action.action !== "menu-close") {
+            console.log({ inputValueMin });
+            this.setState({ inputValueMin });
+        }
+    }
+    handleInputChangeMax(inputValueMax, action) {
+        if (action.action !== "input-blur" && action.action !== "menu-close") {
+            console.log({ inputValueMax });
+            this.setState({ inputValueMax });
+        }
+    }
+    //new
 
     render() {
           /* Save list of levels and options for dropdown */
@@ -161,15 +229,17 @@ class Dept extends React.Component {
             )
         }
 
-
+        // new
+        const { inputValueMin } = this.state;
+        const { inputValueMax } = this.state;
+        // new
+        
         return(
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
+
                 {/* Gives options for specific department the user is looking for */}
                 <label for="typeofdept" class="lead">Please select the department of the course/elective you are looking for.</label>
-                {/* <select id="typeofdept" name = "typeofdept" class="bg-light"> */}
-                    {/* <!-- TOBEIMPLEMENTED--> */}
-
                     <div id="deptlist">
 
                     </div>
@@ -179,21 +249,29 @@ class Dept extends React.Component {
                             <label for="level_min" class="lead">Minimum Course Level:</label>
                             { /* Select level between 100 and 800 */ }
                             <div id="level_min_option">
-                                <CreatableSelect 
-                                        id="level_min" 
-                                        options={levelOptionsMin}
-                                        onChange={level => this.setState({level_min: level.value})}       
+                                <Select
+                                    id="level_min"
+                                    options={levelOptionsMin}
+                                    onChange={level => this.setState({level_min: level.value})}
+                                    inputValue={inputValueMin}
+                                    onInputChange={this.handleInputChangeMin.bind(this)}
                                 />
+                                {console.log(this.state.level_min)}
                             </div>
+
                             {/* prompt for levels */ }
                             <label for="level_max" class="lead">Maximum Course Level</label>
+
                             { /* Select level between 100 and 800 */ }
                             <div id="level_max_option">
-                                <CreatableSelect 
-                                        id="level_max" 
-                                        options={levelOptionsMax}
-                                        onChange={level => this.setState({level_max: level.value})}      
+                                <Select
+                                    id="level_max" 
+                                    options={levelOptionsMax}
+                                    onChange={level => this.setState({level_max: level.value})}
+                                    inputValue={inputValueMax}
+                                    onInputChange={this.handleInputChangeMax.bind(this)}
                                 />
+                                {console.log(this.state.level_max)}
                             </div>
                     </div>
 
