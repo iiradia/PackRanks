@@ -40,12 +40,12 @@ def prepare_course(record):
     course_data["Name"] = record[new_key_features[1]]
     #create course with tooltip info
     try:
-        course_data["Course"] = [
+        course_data["Catalog Link"] = [
             record[relevant_keys[0]],
             record[new_key_features[4]]
         ]
     except:
-        course_data["Course"] = [
+        course_data["Catalog Link"] = [
             record[relevant_keys[0]],
             None
         ]
@@ -57,7 +57,7 @@ def prepare_course(record):
     """
     #course_data["Credit Hours"] = record[new_key_features[2]]
 
-    course_data["Professor"] = [record[relevant_keys[1]], record[relevant_keys[-2]]]
+    course_data["RateMyProfessor Link"] = [record[relevant_keys[1]], record[relevant_keys[-2]]]
     course_data["Section"] = record[relevant_keys[2]]
     course_data["Prerequisites"] = record[relevant_keys[4]]
     #course_data["RateMyProfessor Link"] = record[relevant_keys[-2]]
@@ -81,7 +81,14 @@ def prepare_course(record):
     #    course_data["Course Dates"] = "Unknown"
     open_seats = str(record["seats_open"])
     total_seats = str(record["seats_total"])
-    course_data["seats open"] = f"{open_seats}/{total_seats}"
+    waitlist = str(record["seats_waitlisted"])
+    
+    if record["seats_status"] == "Open":
+        course_data["Seats"] = f"Open: {open_seats}/{total_seats}"
+    elif record["seats_status"] == "Waitlisted":
+        course_data["Seats"] = f"Waitlisted: {waitlist}\n\n{open_seats}/{total_seats}"
+    else:
+        course_data["Seats"] = "Closed"
 
     course_data["Semester"] = record[relevant_keys[3]]
 

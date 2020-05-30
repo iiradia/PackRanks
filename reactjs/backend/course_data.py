@@ -9,11 +9,12 @@ from math import log10
 import re
 from prep_course_for_table import prepare_course
 
+NUM_COURSES = 10
 DBSTR = ""
 with open("email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
 
-def save_course_data(catalog_data):
+def save_course_data(catalog_data, num_to_show):
     """
     Helper method for /gep and /dept route to save
     data into dictionaries with correct formatting.
@@ -26,7 +27,7 @@ def save_course_data(catalog_data):
     catalog_full = []
     #iterate through catalog data
     for rec in catalog_data:
-        print(rec)
+        #print(rec)
         catalog_full.append(rec)
         for i in range(len(rec["section"])):
         #print(rec)
@@ -37,14 +38,15 @@ def save_course_data(catalog_data):
                 "semester": rec["_id"]["semester"],
                 "section": rec["section"][i]}
             )
-            if prof_data["seats_open"] > 0:
-                catalog.append(prof_data)
+            if prof_data["seats_open"] > 0 or prof_data["seats_status"] == "Waitlisted":
+                if len(catalog) < num_to_show:
+                    catalog.append(prof_data)
                 break
             else:
                 continue
 
     #print(catalog)
-    if len(catalog) < 5:
+    if len(catalog) < num_to_show:
         for rec in catalog_full:
             for sec in range(len(rec["section"])):
                 prof_data =  grades_db.catalogncsu.find_one(
@@ -56,8 +58,8 @@ def save_course_data(catalog_data):
                     }
                 )
                 #print(prof_data)
-                if prof_data not in catalog and len(catalog)<5:
-                    print(f"Adding")
+                if prof_data not in catalog and len(catalog)<num_to_show:
+                    #print(f"Adding")
                     catalog.append(prof_data) 
 
     relevant_data = []
@@ -102,6 +104,7 @@ def gepRoute():
     #get which GEP was requested
     gep_requested = request.headers.get("GEP")
     term_requested = request.headers.get("term")
+    num_to_show = int(request.headers.get("num_courses"))
 
     #if additional breadth, either hum or ss
     if gep_requested == "ADDTL":
@@ -142,11 +145,11 @@ def gepRoute():
                     "$sort": {"rating":-1}
                 },
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
         
-        relevant_data = save_course_data(catalog_data)
+        relevant_data = save_course_data(catalog_data, num_to_show)
         return relevant_data
     elif gep_requested == "ADDTL":
         #print("Searching addtl")
@@ -182,10 +185,10 @@ def gepRoute():
                     "$sort": {"rating":-1}
                 },
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
-        relevant_data = save_course_data(catalog_data)
+        relevant_data = save_course_data(catalog_data, num_to_show)
         return relevant_data
 
     else:
@@ -220,18 +223,18 @@ def gepRoute():
                     "$sort": {"rating": -1}
                 },
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
         
-        relevant_data = save_course_data(catalog_data)
+        relevant_data = save_course_data(catalog_data, num_to_show)
         return relevant_data
 
     #print("Saving")
     #for i in catalog_data:
     #    print(f"Found {i}")
     #save data to dictionary
-    relevant_data = save_course_data(catalog_data)
+    relevant_data = save_course_data(catalog_data, num_to_show)
     print(relevant_data)
     #del catalog_data["_id"]
     return relevant_data
@@ -257,6 +260,7 @@ def deptRoute():
     term_requested = request.headers.get("term")
     level_min = request.headers.get("level_min")
     level_max = request.headers.get("level_max")
+    num_to_show = int(request.headers.get("num_courses"))
     if level_max < level_min and str.isnumeric(level_max) and str.isnumeric(level_min):
         return ["Invalid"]
 
@@ -301,7 +305,7 @@ def deptRoute():
                     "$sort": {"rating":-1}
                 },
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
     elif level_min == "ANY" and level_max != "ANY":
@@ -341,7 +345,7 @@ def deptRoute():
                     "$sort": {"rating":-1}
                 },
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
         
@@ -384,7 +388,7 @@ def deptRoute():
                 },
 
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
     else:
@@ -422,12 +426,12 @@ def deptRoute():
                     "$sort": {"rating":-1}
                 },
                 {
-                    "$limit": 5
+                    "$limit": NUM_COURSES
                 }
         ])
             
     #save data to dictionary
-    relevant_data = save_course_data(catalog_data)
+    relevant_data = save_course_data(catalog_data, num_to_show)
      
     #del catalog_data["_id"]
     if len(relevant_data) == 0:
