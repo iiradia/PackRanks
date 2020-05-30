@@ -86,10 +86,13 @@ def prepare_course(record):
     if record["seats_status"] == "Open":
         course_data["Seats"] = f"Open: {open_seats}/{total_seats}"
     elif record["seats_status"] == "Waitlisted":
-        course_data["Seats"] = f"Waitlisted: {waitlist}\n\n{open_seats}/{total_seats}"
+        course_data["Seats"] = f"Waitlisted: {waitlist}"
+    elif record["seats_status"] == "Reserved": 
+        course_data["Seats"] = f"Reserved: {open_seats}/{total_seats}"
     else:
         course_data["Seats"] = "Closed"
 
+    course_data["Times"] = record["meeting_time"]
     course_data["Semester"] = record[relevant_keys[3]]
 
     return course_data

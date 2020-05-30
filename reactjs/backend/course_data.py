@@ -27,7 +27,7 @@ def save_course_data(catalog_data, num_to_show):
     catalog_full = []
     #iterate through catalog data
     for rec in catalog_data:
-        #print(rec)
+        print(rec)
         catalog_full.append(rec)
         for i in range(len(rec["section"])):
         #print(rec)
@@ -38,7 +38,7 @@ def save_course_data(catalog_data, num_to_show):
                 "semester": rec["_id"]["semester"],
                 "section": rec["section"][i]}
             )
-            if prof_data["seats_open"] > 0 or prof_data["seats_status"] == "Waitlisted":
+            if prof_data["seats_open"] > 0 or prof_data["seats_status"] == "Waitlisted" or prof_data["seats_status"] == "Reserved":
                 if len(catalog) < num_to_show:
                     catalog.append(prof_data)
                 break
@@ -118,7 +118,8 @@ def gepRoute():
                     "$match" : {
                         "gep" :{"$regex": gep_requested},
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -158,7 +159,8 @@ def gepRoute():
                     "$match" : {
                         "gep" : {"$in": ["['HUM']", "['SS']"]},
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -196,7 +198,8 @@ def gepRoute():
                 {
                     "$match" : {
                         "gep" : {"$regex": gep_requested},
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -261,8 +264,17 @@ def deptRoute():
     level_min = request.headers.get("level_min")
     level_max = request.headers.get("level_max")
     num_to_show = int(request.headers.get("num_courses"))
-    if level_max < level_min and str.isnumeric(level_max) and str.isnumeric(level_min):
-        return ["Invalid"]
+    
+    
+    if (not str.isnumeric(level_min) and level_min!="ANY") or (not str.isnumeric(level_max) and level_max!="ANY") :
+        return ["NotNumeric"]
+
+    if (level_min!="ANY" and level_max!="ANY"):
+        level_l = [int(level_min), int(level_max)]
+        if level_l[1] < level_l[0]:
+            return ["Min>Max"]
+        if len([i for i in level_l if i<100 or i>899 and i!="ANY"])>0: 
+            return ["NotNumeric"]
 
     #access  collection with the correct data
     if level_min != "ANY" and level_max != "ANY":
@@ -278,7 +290,8 @@ def deptRoute():
                             "$lte": level_max
                         },
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -318,7 +331,8 @@ def deptRoute():
                             "$lte": level_max
                         },
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -360,7 +374,8 @@ def deptRoute():
                             "$gte": level_min
                         },
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
@@ -398,7 +413,8 @@ def deptRoute():
                     "$match" : {
                         "department" : dept_requested,
                         "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested}
+                        "semester": {"$regex": term_requested},
+                        "professor": { "$ne": "Staff"}
                     }
                 },
                 #group by professor and add unique sections and ratings 
