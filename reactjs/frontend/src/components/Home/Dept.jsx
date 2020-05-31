@@ -255,6 +255,7 @@ class Dept extends React.Component {
                                     onChange={level => this.setState({level_min: level.value})}
                                     inputValue={inputValueMin}
                                     onInputChange={this.handleInputChangeMin.bind(this)}
+                                    noOptionsMessage={() => null}
                                 />
                                 {console.log(this.state.level_min)}
                             </div>
@@ -270,6 +271,7 @@ class Dept extends React.Component {
                                     onChange={level => this.setState({level_max: level.value})}
                                     inputValue={inputValueMax}
                                     onInputChange={this.handleInputChangeMax.bind(this)}
+                                    noOptionsMessage={() => null}
                                 />
                                 {console.log(this.state.level_max)}
                             </div>
