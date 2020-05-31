@@ -1,33 +1,34 @@
 .table td {
     border: black solid 2.5px !important;
-    color: #cc3000;
+    color: #cc0000;
     background-color: white;
 }
 .table thead {
     border: black solid 2.5px !important;
-    color: #cc3000;
+    color: #cc0000;
     background-color: white;
 }
 .table tr {
     border: black solid 2.5px !important;
-    color: #cc3000;
+    color: #cc0000;
     background-color: white;
 }
 .table th{
     border: black solid 2.5px !important;
     color: white;
-    background-color: #cc3000;
+    background-color: #cc0000;
 }
 #ctool {
     border: white !important;
-    color: #cc3000 !important;
+    color: #cc0000 !important;
     font-weight:bold !important;
     background-color: white !important;
 }
 #cdiv {
     border: white !important;
-    color: #cc3000 !important;
+    color: #cc0000 !important;
     background-color: white !important;
+    position: absolute !important;
 }
 #hovertxt {
     opacity:1;
@@ -36,13 +37,33 @@
 }
 
 #tablelinks {
-    color: #cc3000 !important;
+    color: #cc0000 !important;
     font-size: 16px !important;
     text-decoration: underline !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important; 
 }
+#sectionT {
+    color: #cc0000 !important;
+    font-size: 16px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important; 
+}
+#wishlistN {
+    font-size: 16px !important;
+    color: #cc0000 !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important; 
+}
 #sectionLink {
     border: black solid 2.5px !important;
-    color: #cc3000;
+    color: #cc0000;
     background-color: white;
+}
+#bugFlawMsg {
+    word-wrap: break-word;
+    width: 1000px;
+    margin: 0 auto;
+}
+#ratingTable {
+    color: linear-gradient(red, yellow, blue) !important;
 }

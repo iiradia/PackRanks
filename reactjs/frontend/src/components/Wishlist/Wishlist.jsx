@@ -13,27 +13,86 @@ class Wishlist extends React.Component {
         super();
         
         this.removeCourses = this.removeCourses.bind(this);
+        this.renderWishlistTerms = this.renderWishlistTerms.bind(this);
 
         this.viewWishlist();
     }
 
+    renderWishlistTerms(data) {
+        /* Method to show the different terms in wishlist
+        as tables
+        */
+       //Loop through each term returned by flask
+       let i = 0;
+        Object.keys(data).map( (key) => { 
+            console.log(key);
+            const term_div = document.getElementById("wishlist").appendChild(document.createElement('div'));
+            /* Set id of the key on the term div */
+            term_div.setAttribute("id", key);
+            //<Table data={data[key]} type="homepage" />
+            //Render many rows of the table based on terms 
+            ReactDOM.render(
+                <div id={key+"section"}>
+                    <h2 id="termWishlistHeader">{key}</h2>
+                    <Table id="termWishlist" data={data[key]} type="homepage" />
+                </div>,
+                term_div
+            )
+            i += 1;
+        })
+        if (i === 0) {
+            ReactDOM.render(<h3 id="termWishlistHeader">Empty wishlist.</h3>, document.getElementById("wishlist"))
+        }
+
+    }
     removeCourses() {
         //set courses to delete to selected courses
         let cToDelete = JSON.parse(localStorage.getItem("checkedCourses"))
+        
         //filter out courses that should be removed from array 
-        let newCourses = this.state.courses.filter(({Course, Semester, Section}) =>
-            !cToDelete.some(exclude => exclude.Course[0] === Course[0] &&exclude.Semester===Semester&&exclude.Section===Section)
-        );
-        console.log(newCourses);
+        //console.log(this.state.courses);
+        
+        //Iterate through items that should be deleted
+        for (var i = 0; i < cToDelete.length; i++) {
+
+            //save course that should be deleted
+            let currDelete = cToDelete[i];
+            //save the current semester and all courses
+            //currently in the wishlist for that semester
+            let currSem = cToDelete[i]["Semester"];
+            let currentTermArray = this.state.courses[currSem];
+            
+            //iterate through courses currently in the wishlist for
+            //that semester
+            for (var courseIdx = 0; courseIdx < currentTermArray.length; courseIdx++) {
+
+                //compare information for course to delete
+                //with information for current course inwishlist
+                const currCourse = currentTermArray[courseIdx]["Catalog Link"][0];
+                const currProf = currentTermArray[courseIdx]["RateMyProfessor Link"][0];
+                const currSection = currentTermArray[courseIdx]["Section"];
+
+                //if information matches, remove course from state
+                // and save state
+                if (currCourse===currDelete["Catalog Link"][0] && currProf===currDelete["RateMyProfessor Link"][0] && currSection===currDelete["Section"]) {
+                    currentTermArray.splice(courseIdx, 1);
+                    this.state[currSem] = currentTermArray;
+                    this.forceUpdate();
+                }
+            }
+        }
+
         //reset checked courses
         localStorage.setItem("checkedCourses", JSON.stringify([]));
         //update db with call to API
         let url = "http://localhost:5000/resetWishlist"
+        //reset the wishlist with the updated state, 
+        //with the removed courses no longer in the state
         fetch( 
             url, {
                 method: "POST",
                 body: JSON.stringify(
-                    {wishlist:newCourses,
+                    {wishlist:this.state.courses,
                     token: localStorage.token
                     }
                 )
@@ -42,13 +101,12 @@ class Wishlist extends React.Component {
         response => response.json()
         )
         ReactDOM.render(<p></p>, document.getElementById("wishlist"))
-        //render new table
-        if (newCourses.length > 0) {
-            ReactDOM.render(<Table data={newCourses} type="homepage" />, document.getElementById('delWish'))
-        }
-        else {
-            ReactDOM.render(<p></p>, document.getElementById("delWish"))
-        }
+        
+        //call function to render remaining courses if there
+        //are any.
+        console.log("removed");
+        console.log(this.state.courses);
+        this.viewWishlist();
     }
 
     viewWishlist() {
@@ -66,9 +124,10 @@ class Wishlist extends React.Component {
                 courses: data
             },
             () => {
-                if (data.length > 0) {
-                    ReactDOM.render(<Table data={this.state.courses} type="homepage" />, document.getElementById('wishlist'))
-                }
+                // Code to show wishlist by terms 
+                //call function to render wishlist items
+                //by the term they are in.
+                this.renderWishlistTerms(data);
             }
             )
         )
@@ -93,6 +152,9 @@ class Wishlist extends React.Component {
                         </Link>
                 </div>
 
+                <div id="termName">
+
+                </div>
                 <div id="wishlist">
 
                 </div>

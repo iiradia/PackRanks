@@ -23,7 +23,8 @@ class Dept extends React.Component {
             level_max: null,  
             loading: false,
             inputValueMin: "",  //new
-            inputValueMax: ""  //new
+            inputValueMax: "" , //new
+            numCourses_value: null
         }
         /* Call depts function */
         this.getDepts();
@@ -32,17 +33,24 @@ class Dept extends React.Component {
         console.log(data);
         if (data.length > 0) {
 
-            if (data.length === 1 && data[0] === "Invalid") {
+            if (data.length === 1 && data[0] === "Min>Max") {
                 ReactDOM.render(<h3>Level minimum cannot be greater than maximum.</h3>
                     , document.getElementById('id_dept_table'))
+            }
+            else if (data.length===1 && data[0] === "NotNumeric") {
+                ReactDOM.render(<h3>Minimum and maximum values must be positive integers between 100 and 899.</h3>,
+                    document.getElementById('id_dept_table'))
             }
             else {
                 this.setState({
                     courses: data
                     },
-                    () => ReactDOM.render(<Table data={this.state.courses} />,
+                    () => {
+                        ReactDOM.render(<p id="tableNoteMsg" class="lead"><em>Note: If you see a higher rated course that is near the bottom of the list, it is either a closed section or it has the same professor as a course higher in the list.</em></p>, document.getElementById("tableNote"))
+                        ReactDOM.render(<Table data={this.state.courses} />,
                         document.getElementById('id_dept_table')
-                    )
+                        )
+                    }
                 ) 
             }
         }
@@ -56,7 +64,7 @@ class Dept extends React.Component {
                 maximum = "899";
             }
             ReactDOM.render(
-                <h3>There is no course in {this.state.select_value} offered during {this.props.whichterm} between level {minimum} and {maximum}.</h3>,
+                <h3>There is no course in {this.state.select_value} offered between level {minimum} and {maximum}.</h3>,
                 document.getElementById('id_dept_table')
             )
         }    
@@ -68,8 +76,10 @@ class Dept extends React.Component {
 
         //new
         /* Quadruple if-block to call using correct states */
-        if (!this.state.level_max && !this.state.level_min) {
+        if (this.state.inputValueMin !== "" && this.state.inputValueMax !== "") {
             //console.log("setting inputValueMax state")
+            this.setState({level_min: this.state.inputValueMin});
+            this.setState({level_max: this.state.inputValueMax});
             fetch(
                 dept_url, {
                     method: "GET",
@@ -77,7 +87,8 @@ class Dept extends React.Component {
                         "Dept": this.state.select_value,
                         "term": this.props.whichterm,
                         "level_min": this.state.inputValueMin,
-                        "level_max": this.state.inputValueMax
+                        "level_max": this.state.inputValueMax,
+                        "num_courses": this.state.numCourses_value
                     }
             }
             ).then(
@@ -86,7 +97,8 @@ class Dept extends React.Component {
                 //Ternary operator that checks whether course is offered or not.
                 data => this.parseData(data)
             )
-        } else if (!this.state.level_min) {
+        } else if (this.state.inputValueMin !== "") {
+            this.setState({level_min: this.state.inputValueMin});
             fetch(
                 dept_url, {
                     method: "GET",
@@ -94,7 +106,8 @@ class Dept extends React.Component {
                         "Dept": this.state.select_value,
                         "term": this.props.whichterm,
                         "level_min": this.state.inputValueMin,
-                        "level_max": this.state.level_max
+                        "level_max": this.state.level_max,
+                        "num_courses": this.state.numCourses_value
                     }
             }
             ).then(
@@ -103,7 +116,8 @@ class Dept extends React.Component {
                 //Ternary operator that checks whether course is offered or not.
                 data => this.parseData(data)
             )
-        } else if (!this.state.level_max) {
+        } else if (this.state.inputValueMax !== "") {
+            this.setState({level_max: this.state.inputValueMax});
             fetch(
                 dept_url, {
                     method: "GET",
@@ -111,7 +125,8 @@ class Dept extends React.Component {
                         "Dept": this.state.select_value,
                         "term": this.props.whichterm,
                         "level_min": this.state.level_min,
-                        "level_max": this.state.inputValueMax
+                        "level_max": this.state.inputValueMax,
+                        "num_courses": this.state.numCourses_value
                     }
             }
             ).then(
@@ -128,7 +143,8 @@ class Dept extends React.Component {
                         "Dept": this.state.select_value,
                         "term": this.props.whichterm,
                         "level_min": this.state.level_min,
-                        "level_max": this.state.level_max
+                        "level_max": this.state.level_max,
+                        "num_courses": this.state.numCourses_value
                     }
             }
             ).then(
@@ -220,6 +236,15 @@ class Dept extends React.Component {
           const levelOptionsMax = levelListMax.map((level) => (
          {label: level, value: level}
           )); 
+
+        const numCourses = [
+            {label: 5, value: 5}, 
+            {label: 6, value: 6},
+            {label: 7, value: 7},
+            {label: 8, value: 8},
+            {label: 9, value: 9},
+            {label: 10, value:10}
+        ]
           
         if(this.state.loading) {
             this.setState({loading:false})
@@ -255,6 +280,7 @@ class Dept extends React.Component {
                                     onChange={level => this.setState({level_min: level.value})}
                                     inputValue={inputValueMin}
                                     onInputChange={this.handleInputChangeMin.bind(this)}
+                                    noOptionsMessage={() => null}
                                 />
                                 {console.log(this.state.level_min)}
                             </div>
@@ -270,9 +296,21 @@ class Dept extends React.Component {
                                     onChange={level => this.setState({level_max: level.value})}
                                     inputValue={inputValueMax}
                                     onInputChange={this.handleInputChangeMax.bind(this)}
+                                    noOptionsMessage={() => null}
                                 />
                                 {console.log(this.state.level_max)}
                             </div>
+                    </div>
+                
+                    {/* Asks user how many courses they would like to view */}
+                    <label for="howmanycourses" class="lead">How many courses would you like to view?</label>
+                    <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
+                        <Select className="numCourseSelect"
+                                id='num_course_select' 
+                                options={numCourses} 
+                                //defaultValue={numCourses[0]}
+                                onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
+                        />
                     </div>
 
                 {/* Button to generate table */}
@@ -287,6 +325,8 @@ class Dept extends React.Component {
                     </Button>
                 </div>
 
+                <div id ="tableNote">
+                </div>
                 { /* Div for course table */ }
                 <div id="id_dept_table">
 

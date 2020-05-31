@@ -12,13 +12,20 @@ class FirstPrompt extends React.Component {
         this.state = {
             gep: false,
             dept: false,
-            which_term: "",
+            which_term: "2020 Summer Session 1",
             goClicked: false
         };
 
         this.goToGEPorDept = this.goToGEPorDept.bind(this);
+        this.setTerm = this.setTerm.bind(this);
+        
     }
 
+    setTerm() {
+        this.setState({
+            which_term: document.getElementById("whichterm").value
+        })
+    }
     goToGEPorDept() {
         let FirstPrompt = this;
         //console.log(document.getElementById("gepornot").value);
@@ -42,7 +49,7 @@ class FirstPrompt extends React.Component {
                     <div id="termDivLabel" class="text-center">
                         <label id="whichtermlabel" for="whichterm" class="lead">Which term are you looking to enroll in? </label>
                         <div id="termDiv">
-                            <select id="whichterm" name="whichterm" class="bg-light">
+                            <select id="whichterm" name="whichterm" class="bg-light" onChange={this.setTerm}>
                                 {/* options for user to select */}
                                 <option value="Summer Term 1">2020 Summer Session 1</option>
                                 <option value="Summer Term 2">2020 Summer Session 2</option>
@@ -75,8 +82,8 @@ class FirstPrompt extends React.Component {
                     </div>*/}
                                        
                     <div>
-                        {this.state.gep && <GEP whichterm={this.state.which_term} />}
-                        {this.state.dept && <Dept whichterm={this.state.which_term} />}
+                        {this.state.gep && <GEP whichterm={this.state.which_term}/>}
+                        {this.state.dept && <Dept whichterm={this.state.which_term}/>}
                         
                     </div>
                 </div>

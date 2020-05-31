@@ -132,7 +132,7 @@ class LoginPage extends React.Component {
 
   googleFailure(response) {
     //console.log(response);
-    alert("Google Login failed. Please try again.");
+    //alert("Google Login failed. Please try again.");
     return (
       ReactDOM.render(
         <Simplert 

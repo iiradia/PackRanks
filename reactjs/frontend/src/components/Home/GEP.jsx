@@ -14,8 +14,10 @@ class GEP extends React.Component {
         this.state = {
             courses: null,
             select_value: null,
-            loading: false
+            loading: false,
+            numCourses_value: null
         };
+
     }
 
     /*renderTable() {
@@ -32,12 +34,11 @@ class GEP extends React.Component {
         const GEP = this;
         let url = "http://localhost:5000/gep";
         this.setState({loading: true})
-
         fetch( 
             url, {
                 method: "GET",
                 //headers: {"GEP": document.getElementById("gep_list_select").value, "term": this.props.whichterm}
-                headers: {"GEP": this.state.select_value, "term": this.props.whichterm}
+                headers: {"GEP": this.state.select_value, "num_courses": this.state.numCourses_value, "term": this.props.whichterm}
            }
         ).then(
            response => response.json()
@@ -45,7 +46,10 @@ class GEP extends React.Component {
             data => this.setState({
                 courses: data
             },
-            () => ReactDOM.render(<Table data={this.state.courses} />, document.getElementById('id_table'))
+            () => {
+                ReactDOM.render(<p id="tableNoteMsg" class="lead"><em>Note: If you see a higher rated course that is near the bottom of the list, it is either a closed section or it has the same professor as a course higher in the list.</em></p>, document.getElementById("tableNote"))
+                ReactDOM.render(<Table data={this.state.courses} />, document.getElementById('id_table'))
+                }
             )
         )
     }
@@ -69,11 +73,20 @@ class GEP extends React.Component {
                            value: gepValues[i].value}
         }
 
+        const numCourses = [
+            {label: 5, value: 5}, 
+            {label: 6, value: 6},
+            {label: 7, value: 7},
+            {label: 8, value: 8},
+            {label: 9, value: 9},
+            {label: 10, value:10}
+        ]
+
         if(this.state.loading) {
             this.setState({loading:false})
             ReactDOM.render(
                 <p id="loadingMsg" class="lead">Loading...</p>,
-                document.getElementById("id_table")
+                document.getElementById("tableNote")
             )
         }
         // const GEPList = () => (
@@ -107,6 +120,17 @@ class GEP extends React.Component {
                                 onChange={optionValue => this.setState({select_value: optionValue.value})}
                         />
                     </div>
+
+                    {/* Asks user how many courses they would like to view */}
+                    <label for="howmanycourses" class="lead">How many courses would you like to view?</label>
+                    <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
+                        <Select className="numCourseSelect"
+                                id='num_course_select' 
+                                options={numCourses} 
+                                //defaultValue={numCourses[0]}
+                                onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
+                        />
+                    </div>
                     {/* {console.log(this.state.select_value)} */}
                     {/* button to select a specific GEP TODO: implement onclick */}
                     <div id="whichgepdiv">
@@ -120,6 +144,9 @@ class GEP extends React.Component {
                         </Button>
                     </div>
                     
+                </div>
+
+                <div id ="tableNote">
                 </div>
                 <div id = "id_table">
                 </div>
