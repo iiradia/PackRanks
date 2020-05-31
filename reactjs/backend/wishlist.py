@@ -8,6 +8,7 @@ from pymongo import MongoClient
 from __main__ import app
 import json
 import jwt
+from collections import defaultdict
 DBSTR = ""
 with open ("email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
@@ -112,4 +113,11 @@ def view_wishlist():
     wishlist = user_db_data["wishlist"]
     #print(wishlist)
 
-    return json.dumps(wishlist), 200, {'ContentType':'application/json'}
+    wishlist_terms = defaultdict(list)
+
+    for i in wishlist:
+        wishlist_terms[i['Semester']].append(i)
+
+    wishlist_terms = dict(wishlist_terms)
+    print(json.dumps(wishlist_terms))
+    return json.dumps(wishlist_terms), 200, {'ContentType':'application/json'}

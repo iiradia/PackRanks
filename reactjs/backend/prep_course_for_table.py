@@ -95,4 +95,11 @@ def prepare_course(record):
     course_data["Times"] = record["meeting_time"]
     course_data["Semester"] = record[relevant_keys[3]]
 
+    other_notes = record["other_notes"]
+    course_data["Notes"] = "None"
+    for note in other_notes:
+        if "paired with" in note:
+            course_data["Notes"] = note
+            break
+
     return course_data
