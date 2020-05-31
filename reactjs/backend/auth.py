@@ -47,7 +47,7 @@ def google_auth():
                 "last_name": google_user_data["last_name"],
                 "email": google_user_data["email"],
                 "hashed_pw":"",
-                "wishlist": []
+                "wishlist": {}
             }
         except:
             user = {
@@ -55,7 +55,7 @@ def google_auth():
                 "last_name": "",
                 "email": google_user_data["email"],
                 "hashed_pw":"",
-                "wishlist": []
+                "wishlist": {}
             }
 
         #add user to db
@@ -143,7 +143,7 @@ def sign_up():
         "last_name":user_data["last_name"],
         "email":user_data["email"],
         "hashed_pw":hashed_pw,
-        "wishlist": []
+        "wishlist": {}
     }
 
     #try to find existing user

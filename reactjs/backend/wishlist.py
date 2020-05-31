@@ -74,14 +74,23 @@ def add_course_to_wishlist():
     current_wishlist = grades_db.users.find_one(user_query)["wishlist"]
 
     #check for duplicates in wishlist
-    for wishlist_item in current_wishlist:
-        if wishlist_item == wishlist_course_data:
-            return json.dumps({"success":False, "duplicate":True}), 404, {"ContentType": "application/json"}
+    for wishlist_term in current_wishlist.keys():
+        for wishlist_item in current_wishlist[wishlist_term]:
+            if wishlist_item == wishlist_course_data:
+                return json.dumps({"success":False, "duplicate":True}), 404, {"ContentType": "application/json"}
 
+    #term_to_update
+    term_to_update = wishlist_course_data["Semester"]
+
+    try:
+        current_wishlist[term_to_update].append(wishlist_course_data)
+    except:
+        current_wishlist[term_to_update] = [wishlist_course_data]
     #update db with wishlist course
     add_wishlist = grades_db.users.update_one(
         user_query,
-        {"$push": {"wishlist": wishlist_course_data}}
+        {"$set": {"wishlist": current_wishlist}}, 
+        upsert=True
     )
 
     #print(wishlist_course_data)
@@ -111,13 +120,16 @@ def view_wishlist():
 
     #collect wishlist from data
     wishlist = user_db_data["wishlist"]
-    #print(wishlist)
 
-    wishlist_terms = defaultdict(list)
+    #go through each term and ensure that 
+    #it has courses
+    for term in list(wishlist):
+        print(term)
+        print(wishlist[term])
+        #if term is empty, remove it from the items
+        #to be rendered to the user.
+        if len(wishlist[term]) == 0:
+            del wishlist[term] 
 
-    for i in wishlist:
-        wishlist_terms[i['Semester']].append(i)
-
-    wishlist_terms = dict(wishlist_terms)
-    print(json.dumps(wishlist_terms))
-    return json.dumps(wishlist_terms), 200, {'ContentType':'application/json'}
+    print(wishlist)
+    return json.dumps(wishlist), 200, {'ContentType':'application/json'}
