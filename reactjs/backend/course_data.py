@@ -9,7 +9,7 @@ from math import log10
 import re
 from prep_course_for_table import prepare_course
 
-NUM_COURSES = 10
+NUM_COURSES = 20
 DBSTR = ""
 with open("email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
@@ -38,12 +38,14 @@ def save_course_data(catalog_data, num_to_show):
                 "semester": rec["_id"]["semester"],
                 "section": rec["section"][i]}
             )
-            if prof_data["seats_open"] > 0 or prof_data["seats_status"] == "Waitlisted" or prof_data["seats_status"] == "Reserved":
-                if len(catalog) < num_to_show:
-                    catalog.append(prof_data)
-                break
-            else:
-                continue
+            try: 
+                if (prof_data["seats_open"] > 0 or prof_data["seats_status"] == "Waitlisted" or prof_data["seats_status"] == "Reserved"):
+                    if len(catalog) < num_to_show:
+                        catalog.append(prof_data)
+                    break
+                else:
+                    continue
+            except: continue
 
     #print(catalog)
     if len(catalog) < num_to_show:
@@ -57,10 +59,13 @@ def save_course_data(catalog_data, num_to_show):
                         "section": rec["section"][sec]
                     }
                 )
-                #print(prof_data)
-                if prof_data not in catalog and len(catalog)<num_to_show:
-                    #print(f"Adding")
-                    catalog.append(prof_data) 
+                try:
+                    #print(prof_data)
+                    if prof_data not in catalog and len(catalog)<num_to_show:
+                        #print(f"Adding")
+                        catalog.append(prof_data) 
+                except:
+                    continue
 
     relevant_data = []
     
@@ -122,7 +127,7 @@ def gepRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -134,16 +139,16 @@ def gepRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"rating_RMP":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -163,7 +168,7 @@ def gepRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -175,16 +180,16 @@ def gepRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"rating_RMP":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -202,7 +207,7 @@ def gepRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -214,16 +219,16 @@ def gepRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
                 {
-                    "$sort": {"rating": -1}
+                    "$sort": {"rating_RMP": -1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -294,7 +299,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -306,16 +311,16 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"rating_RMP":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -335,7 +340,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -347,16 +352,16 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"rating_RMP":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -378,7 +383,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -390,16 +395,16 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"rating_RMP":-1}
                 },
 
                 {
@@ -417,7 +422,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and rating_RMPs 
                 #to aggregation
                 {
                     "$group": {
@@ -429,17 +434,17 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "rating_RMP": {
+                            "$addToSet": "$rating_RMP"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$rating_RMP"
                 },
-                #sort by ratings for each professor/course
+                #sort by rating_RMPs for each professor/course
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"rating_RMP":-1}
                 },
                 {
                     "$limit": NUM_COURSES

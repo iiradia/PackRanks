@@ -32,7 +32,7 @@ class Wishlist extends React.Component {
             //<Table data={data[key]} type="homepage" />
             //Render many rows of the table based on terms 
             ReactDOM.render(
-                <div id={key+"section"}>
+                <div id={key}>
                     <h2 id="termWishlistHeader">{key}</h2>
                     <Table id="termWishlist" data={data[key]} type="homepage" />
                 </div>,
@@ -100,12 +100,14 @@ class Wishlist extends React.Component {
         ).then(
         response => response.json()
         )
-        ReactDOM.render(<p></p>, document.getElementById("wishlist"))
+        //Removes all current term elements so they can be reset
+        //resets wishlist internal elements to null so they can be re-rendered
+        document.getElementById("wishlist").innerHTML = "";
         
         //call function to render remaining courses if there
         //are any.
-        console.log("removed");
-        console.log(this.state.courses);
+        //console.log("removed");
+        //console.log(this.state.courses);
         this.viewWishlist();
     }
 

@@ -47,7 +47,11 @@ class GEP extends React.Component {
                 courses: data
             },
             () => {
-                ReactDOM.render(<p id="tableNoteMsg" class="lead"><em>Note: If you see a higher rated course that is near the bottom of the list, it is either a closed section or it has the same professor as a course higher in the list.</em></p>, document.getElementById("tableNote"))
+                ReactDOM.render(<p id="tableNoteMsg" class="lead">
+                                    <em>Note: If you see a higher rated course that is near the bottom of the list, it is either a closed section or it has the same professor as a course higher in the list.</em>
+                                    <br/><strong>Rating System: 60-70 = C, 70-80 = B, 80-90 = A, 90-100 A+</strong>
+                                </p>,
+                    document.getElementById("tableNote"))
                 ReactDOM.render(<Table data={this.state.courses} />, document.getElementById('id_table'))
                 }
             )

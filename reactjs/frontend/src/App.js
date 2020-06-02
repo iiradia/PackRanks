@@ -92,6 +92,8 @@ class App extends React.Component {
             <ProtectedRoute component={UserPage}/>
           </Route>
 
+          {/* Route to user wishlist. */}
+          {/* Protected so that you must be signed in to access wishlist */}
           <Route exact path = "/wishlist">
             <ProtectedRoute component={Wishlist}/>
           </Route>

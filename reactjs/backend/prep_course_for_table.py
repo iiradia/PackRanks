@@ -1,4 +1,6 @@
 
+GRADIENT = False
+
 def prepare_course(record):
     """
     This helper method prepares the specified course with data from the 
@@ -32,10 +34,13 @@ def prepare_course(record):
     DIGITS = 3
     p = 10**DIGITS
     #print(record)
-    transformed_rating = record[relevant_keys[-1]]
+    if GRADIENT:
+        transformed_rating = record[relevant_keys[-1]]
 
-    #course_data["Rating"] = round(transformed_rating, 3)
-    course_data["Rating"] = round(transformed_rating)
+        #course_data["Rating"] = round(transformed_rating, 3)
+        course_data["Rating"] = round(transformed_rating)
+    else:
+        course_data["Rating"] = round(record["transformed_rating_RMP"])
     
     course_data["Name"] = record[new_key_features[1]]
     #create course with tooltip info

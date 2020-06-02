@@ -128,18 +128,21 @@ const RenderRow = (props) =>{
 
         else if (key==="Rating") {
             let currRating = props.data[key];
-            let keyColor = "orange";
-            if (currRating > 70) {
-                keyColor = "yellow"
+            let easyNote = "Difficult";
+            if (currRating > 65) { 
+                easyNote = "Moderately Difficult"
             }
-            if (currRating > 80) {
-                keyColor = "#00ff00"
+            if (currRating > 69) {
+                easyNote = "Medium"
             }
-            if (currRating > 90) {
-                keyColor = "green"
+            if (currRating > 79) {
+                easyNote = "Easy"
             }
-            keyColor = hsl_col_perc(currRating, 0, 120);
-            return <td style={{color: {keyColor}}} key={props.data[key]}><strong id="ratingTable">{props.data[key]}</strong></td>
+            if (currRating > 89) {
+                easyNote = "Very Easy"
+            }
+            //console.log(keyColor);
+            return <td id="ratingTable" key={props.data[key]}><strong>{props.data[key]}</strong></td>
         }
         else{
             return <td key={props.data[key]}><strong>{props.data[key]}</strong></td>
