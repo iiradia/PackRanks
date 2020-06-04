@@ -14,6 +14,9 @@ import GoogleLogin from 'react-google-login';
 import {Button} from 'react-bootstrap';
 import GoogleButton from 'react-google-button';
 import ReactDOM from 'react-dom';
+//import Alert from 'react-s-alert';
+import toast from 'toasted-notes' 
+import 'toasted-notes/src/styles.css';
 import {
   BrowserRouter as Router,
   Route,
@@ -24,7 +27,6 @@ import {
 } from 'react-router-dom';
 import Simplert from 'react-simplert';
 import MainWelcome from '../Home/MainWelcome'
-
 class LoginPage extends React.Component {
 
   constructor(props) {
@@ -55,7 +57,9 @@ class LoginPage extends React.Component {
 
       {/* Check for valid email */}
       if (!(new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).test(email))) {  
-        alert("Please enter a valid email address.")
+        
+        //throw error with toast-notes
+        toast.notify(<h5 id="incorrect">Please enter a valid email address.</h5>)
         validInput = false;
       }
       
@@ -81,7 +85,12 @@ class LoginPage extends React.Component {
             }
             else {
                 //Handle error in login here.
-                alert("Email or password is incorrect.")
+                //throw error with react-s-alert
+                /*Alert.error(<h5>Email or password is incorrect.</h5>, {
+                  position: 'top',
+                  timeout: 'none'
+                });*/
+                toast.notify(<h5 id="incorrect">Email or password is incorrect.</h5>)
             }
         })
       }
@@ -116,7 +125,7 @@ class LoginPage extends React.Component {
           {/*Successfully logged in*/}
           if (data.success === true) {
             if (data.type === "SignUp") {
-              alert("Thank you for signing up for PackRanks! You will now be sent to your user homepage!")
+              toast.notify(<h5 id="incorrect">Thank you for signing up for PackRanks! You will now be sent to your homepage!</h5>)
             }
             localStorage.setItem("token", data.token);
               this.props.history.push({
@@ -125,7 +134,7 @@ class LoginPage extends React.Component {
           }
           else {
               //Handle error in login here.
-              alert("Email or password is incorrect.")
+              toast.notify(<h5 id="incorrect">Email or password is incorrect.</h5>)
           }
       })
   }
@@ -133,27 +142,16 @@ class LoginPage extends React.Component {
   googleFailure(response) {
     //console.log(response);
     //alert("Google Login failed. Please try again.");
-    return (
-      ReactDOM.render(
-        <Simplert 
-          showSimplert = {true}
-          type={"warning"}
-          title={"Login Failed"}
-          message={"Please attempt login again."}
-        />
-          ,
-      document.getElementById("login-fail")
-      )
-    
-    )
+    toast.notify(<h5 id="incorrect">Google Login failed. Please try again.</h5>)
   }
 
   render () {
     return (
       
       <div>
+        
         <div>
-          <title>Login V11</title>
+          <title>Login to PackRanks</title>
         </div>
         <div id="login-fail">
 

@@ -5,6 +5,9 @@ import ReactTooltip from 'react-tooltip';
 import {Checkbox} from "@material-ui/core";
 import ReactDOM from 'react-dom';   
 
+import toast from 'toasted-notes' 
+import 'toasted-notes/src/styles.css';
+
 function hsl_col_perc(percent, start, end) {
     var a = percent / 100,
         b = (end - start) * a,
@@ -68,15 +71,14 @@ const onWishlist= (props) => {
     ).then(
     (data) => {
         if (data.success) {
-            alert("Successfully added course to wishlist!")
+            toast.notify(<h5 id="successWish">Successfully added course to your wishlist!</h5>)
         }
         else {
             if (data.duplicate) {
-                alert("This course is already on your wishlist!")
+                toast.notify(<h5 style={{color: '#cc0000'}}>This course is already on your wishlist!</h5>)
             }
             else {
-                alert("Failed to add course to your wishlist, please try again.")
-            }
+                toast.notify(<h5 style={{color: '#cc0000'}}>Failed to add course to your wishlist.</h5>)            }
         }
     })
 }

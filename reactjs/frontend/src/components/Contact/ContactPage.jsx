@@ -15,6 +15,9 @@ import "./css/main.css";
 import "./contactpage.css";
 import ReCAPTCHA from "react-google-recaptcha";
 
+import toast from 'toasted-notes'; 
+import 'toasted-notes/src/styles.css';
+
 class ContactPage extends React.Component { 
 
     constructor(props) {
@@ -51,30 +54,30 @@ class ContactPage extends React.Component {
 
         {/* Check for valid email */}
         if (!(new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).test(email))) {  
-            alert("Please enter a valid email address.")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a valid email address.</h5>);
             validInput = false;
         }
 
         {/* Check for valid First Name and Last Name*/}
         if (!first_name || !last_name) {
-            alert("Please enter a valid first name and last name.")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a valid first name and last name.</h5>);
             validInput = false;
         }
 
         {/* Check for valid message */}
         if (!msg) {
-            alert("Please enter a message.")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a message.</h5>);
             validInput = false;
         }
 
         {/* Check for completed recaptcha */}
         if (!this.state.re_captcha) {
-            alert("Please complete the ReCaptcha")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please complete the ReCaptcha.</h5>);
             validInput = false;
         }
 
         if (validInput) {
-            console.log(this.state);
+            //console.log(this.state);
 
             let url = "http://localhost:5000/contact";
             fetch(url,
@@ -86,10 +89,10 @@ class ContactPage extends React.Component {
             ).then((data) => {
                 console.log(data);
                 if (data.success === true) {
-                    alert("Message sent! Please be patient, we will get back to you as soon as possible!")
+                    toast.notify(<h5 style={{color: 'green'}}>Message sent! Please be patient, we will get back to you as soon as possible!</h5>);
                 }
                 else {
-                    alert("Message failed to send.")
+                    toast.notify(<h5 style={{color: '#cc0000'}}>Message failed to send.</h5>);
                 }
             })
         }

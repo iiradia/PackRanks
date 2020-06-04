@@ -16,6 +16,9 @@ import "./signup.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import {withRouter} from 'react-router-dom';
 
+import toast from 'toasted-notes'; 
+import 'toasted-notes/src/styles.css';
+
 class SignUp extends React.Component { 
 
     constructor(props) {
@@ -53,31 +56,31 @@ class SignUp extends React.Component {
 
         {/* Check for valid email */}
         if (!(new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).test(email))) {  
-            alert("Please enter a valid email address.")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a valid email address.</h5>)
             validInput = false;
         }
 
         {/* Check for valid First Name and Last Name*/}
         if (!first_name || !last_name) {
-            alert("Please enter a valid first name and last name.")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a valid first name and last name.</h5>)
             validInput = false;
         }
 
         {/* Check for password match */}
         if (pwd !== confirm_pwd) {
-            alert("Passwords do not match!")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Passwords do not match!</h5>)
             validInput = false;
         }
 
         { /* Check for valid password length */ }
         if (pwd.length < 8) {
-            alert("Password must be 8 or more characters!")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Password must be 8 or more characters!</h5>)
             validInput = false;
         }
 
         {/* Check for recaptcha completion */}
         if (!this.state.re_captcha) {
-            alert("Please complete the ReCaptcha.")
+            toast.notify(<h5 style={{color: '#cc0000'}}>Please complete the ReCaptcha.</h5>)
             validInput = false;
         }
 
@@ -99,14 +102,14 @@ class SignUp extends React.Component {
             ).then((data) => {
                 console.log(data);
                 if (data.success === true) {
-                    alert("You have successfully signed up for PackRanks! Login to access your homepage!")
+                    toast.notify(<h5 style={{color: 'green'}}>You have successfully signed up for PackRanks! Login to access your homepage!</h5>)
                     this.props.history.push({
                         pathname: "/login"
                     })
                 }
                 else {
                     //Handle duplicate emails/usernames here.
-                    alert("Email already exists in database. Please try logging in instead.")
+                    toast.notify(<h5 style={{color: '#cc0000'}}>Email already exists in database. Please try logging in instead.</h5>)
                 }
             })
         }

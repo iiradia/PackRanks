@@ -11,6 +11,7 @@
     "create-react-class": "^15.6.3",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
+    "react-alert": "^7.0.1",
     "react-bootstrap": "^1.0.1",
     "react-bootstrap-table-next": "^4.0.2",
     "react-dom": "^16.13.1",
@@ -22,10 +23,15 @@
     "react-json-to-table": "^0.1.5",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-s-alert": "^1.4.1",
     "react-scripts": "3.4.1",
     "react-simplert": "0.0.2",
+    "react-spring": "^8.0.27",
     "react-sticky-box": "^0.9.3",
     "react-tooltip": "^4.2.6",
+    "reactjs-popup": "^1.5.0",
+    "reactstrap": "^8.4.1",
+    "toasted-notes": "^3.2.0",
     "ts-react-json-table": "^0.1.2"
   },
   "scripts": {
