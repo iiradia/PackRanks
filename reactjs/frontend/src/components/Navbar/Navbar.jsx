@@ -63,8 +63,7 @@ class Navigation extends React.Component {
                     <Navbar.Brand href="/">PackRanks</Navbar.Brand>
                     <Nav className="navbar-nav ml-auto">
 
-                        
-                        <Nav.Link id="homelink" href="/">Home</Nav.Link>
+                    <Nav.Link id="homelink" href="/">Home</Nav.Link>
                         
                         
                         {/*<Router>

@@ -7,6 +7,9 @@ import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import './wishlist.css';
 
+import toast from 'toasted-notes'; 
+import 'toasted-notes/src/styles.css';
+
 class Wishlist extends React.Component {
 
     constructor() {
@@ -49,6 +52,10 @@ class Wishlist extends React.Component {
         //set courses to delete to selected courses
         let cToDelete = JSON.parse(localStorage.getItem("checkedCourses"))
         
+        if (cToDelete.length === 0) {
+            toast.notify(<h5 style={{color: '#cc0000'}}>No courses to delete.</h5>)
+            return
+        }
         //filter out courses that should be removed from array 
         //console.log(this.state.courses);
         
