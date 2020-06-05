@@ -40,7 +40,10 @@ def prepare_course(record):
         #course_data["Rating"] = round(transformed_rating, 3)
         course_data["Rating"] = round(transformed_rating)
     else:
-        course_data["Rating"] = round(record["transformed_rating_RMP"])
+        try:
+            course_data["Rating"] = round(record["transformed_rating_RMP"])
+        except: 
+            course_data["Rating"] = "N/A"
     
     course_data["Name"] = record[new_key_features[1]]
     #create course with tooltip info

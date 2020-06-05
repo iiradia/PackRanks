@@ -3,7 +3,7 @@ import Select from 'react-select';
 import ReactDOM from 'react-dom';
 import Table from "./Table";
 import './css/dept.css';
-import CreatableSelect from 'react-select/lib/Creatable';
+//import Creatable from 'react-select/lib/Creatable';
 import './css/courselevel.css'; 
 import {Button} from "react-bootstrap";
 

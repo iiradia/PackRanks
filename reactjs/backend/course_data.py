@@ -60,9 +60,10 @@ def save_course_data(catalog_data, num_to_show):
                     }
                 )
                 try:
-                    #print(prof_data)
+                    print(catalog)
+                    print(prof_data)
                     if prof_data not in catalog and len(catalog)<num_to_show:
-                        #print(f"Adding")
+                        print(f"Adding")
                         catalog.append(prof_data) 
                 except:
                     continue
