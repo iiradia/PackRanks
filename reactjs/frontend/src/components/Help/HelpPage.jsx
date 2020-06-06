@@ -3,7 +3,7 @@ import React from 'react';
 import './help.css';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-
+import Instruction from '/Users/mathew/EasyA/reactjs/frontend/src/components/Instructions/Instruction.jsx'
 class HelpPage extends React.Component {
     render() {
         return(
@@ -22,17 +22,12 @@ class HelpPage extends React.Component {
                 <div id="container" class="container">
                     <div class="row">
                         <div class="col-md-7 col-sm-6">
-                            <div class="about-title clearfix">
+                            <div id="aboutTitleDiv" class="about-title clearfix">
                                 <h1 id="aboutustitle">How to Use <span>PackRanks</span></h1>
                                 <h2 id="howWeHelpYou"><br/>Instructions</h2>
-                                <p class="about-paddingB">
-                                    To be implemented.
-                                </p>
-
+                                <Instruction/>
                                 <h2>FAQ</h2>
                                 <p class="about-paddingB">To be implemented.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> </p>
-                                
-                                
                                 <div class="contactUsAbout">
                                     <Link to="/contact">
                                         <Button

@@ -2,6 +2,7 @@
     color: #cc3000;
 }
 h2 {
+    margin : 3000px;
     font-weight: bold !important;
     padding-bottom: 0px !important;
 }
@@ -28,19 +29,7 @@ p {
 #contactUsAbout {
     padding-top: 7px;
 }
-{/*#aboutustitle {
-    text-decoration: underline;
-}*/}
-{/*
-#aboutustitle::before,
-#aboutustitle::after {
-    display: inline-block;
-    content: "";
-    border-top: .3rem solid black;
-    width: 9.625rem;
-    margin: 0 1rem;
-    transform: translateY(-1rem);
-}*/}
+
 .paddingTB60 {padding:60px 0px 60px 0px;}
 .gray-bg {background: #F1F1F1 !important;}
 .about-title h1 {color: #535353; font-size:45px;font-weight:600;}
@@ -62,3 +51,4 @@ p {
  .about-icons {
      display: inline-block !important;
  }
+
