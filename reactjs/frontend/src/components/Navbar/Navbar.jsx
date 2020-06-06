@@ -7,6 +7,7 @@ import './css/navbar.css';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import jwt from 'jwt-decode';
+import logo from'/Users/mathew/EasyA/reactjs/frontend/src/Pictures/PackRanksLogo1.png'
 
 class Navigation extends React.Component {
     constructor() {
@@ -60,7 +61,11 @@ class Navigation extends React.Component {
         return(
             <Navbar className="navbar navbar-expand-lg navbar-dark static-top" variant="dark">
                 <div className="container">
-                    <Navbar.Brand href="/">PackRanks</Navbar.Brand>
+                    
+                    <Navbar.Brand href="/">
+                        <img id="logoNav" src={logo} alt={"Logo"} width={50} height={50}/>
+                        PackRanks
+                    </Navbar.Brand>
                     <Nav className="navbar-nav ml-auto">
 
                     <Nav.Link id="homelink" href="/">Home</Nav.Link>
