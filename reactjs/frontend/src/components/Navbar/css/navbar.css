@@ -54,7 +54,6 @@ nav {
 #contactlink.loggedIn:after {
     content: "|";
     position: absolute;
-    top: 16px;
     margin-left: 5px;
 }
 

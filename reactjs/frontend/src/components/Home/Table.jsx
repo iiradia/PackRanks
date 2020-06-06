@@ -4,8 +4,7 @@ import "./css/table.css"
 import ReactTooltip from 'react-tooltip';
 import {Checkbox} from "@material-ui/core";
 import ReactDOM from 'react-dom';   
-import Instruction from '/Users/mathew/EasyA/reactjs/frontend/src/components/Instructions/Instruction.jsx'
-
+import Instruction from '../Instructions/Instruction.jsx'
 
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css';

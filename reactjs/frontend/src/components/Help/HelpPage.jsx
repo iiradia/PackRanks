@@ -3,7 +3,7 @@ import React from 'react';
 import './help.css';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import Instruction from '/Users/mathew/EasyA/reactjs/frontend/src/components/Instructions/Instruction.jsx'
+import Instruction from '../Instructions/Instruction.jsx'
 class HelpPage extends React.Component {
     render() {
         return(
