@@ -7,17 +7,18 @@ import {
     AccordionItemButton,
     AccordionItemPanel,
 } from 'react-accessible-accordion';
-import "./Instructions.css";
+import "./faq.css";
 // Demo styles, see 'Styles' section below for some notes on use.
 
  
 export default function Example() {
     return (
-        <Accordion allowZeroExpanded= {true} allowMultipleExpanded={true}>
+        <div id="faqDiv">
+        <Accordion id="faqAcc" allowZeroExpanded= {true} allowMultipleExpanded={true}>
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    To find GEPs
+                    Question 1?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
@@ -33,26 +34,22 @@ export default function Example() {
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    To Search by Dept
+                    Why don't I see an option to add a course to my wishlist?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                     <div id="divInstruction">
-                        <p>1. Select the term of the course you are looking for</p>
-                        <p>2. Select "Department" from the second dropdown box</p>
-                        <p>3. Select the department of your desired course. Since this is a very large list, we recommend searching for the department within the same dropdown.</p>
-                        <p>4. Next, choose the course level range of the courses you would like to view. You may select the preset dropdown options OR type in a custom course level range (such as "112" to "365").</p>
-                        <p style={{'font-size':'14px'}}><em>*PROTIP*: to view the easiest sections/professors for one specific course, type in the same course number for both boxes. (Ex: to view only MA 341 sections and professors, select the "Mathematics" department and type "341" for both the minimum and maximum course level range).</em></p>
-                        <p style={{'font-size':'14px'}}><em>*PROTIP*:  Choose the "ANY" option for both minimum and maximum course levels ranges to view the easiest courses of that specific department.</em></p>
-                        <p>5. Now, select the maximum number of courses you would like to view. Note you may not see all of the courses that you request to view since some courses have limited sections or a small number of professors.</p>
-                        <p>6. Finally, click the "Select" button to view a list of the easiest courses in a specific Department or for a specific course based on the options you chose.</p>
+                        <p>In order to add a course to your wishlist, you must login
+                            with a PackRanks or a Google account. Click on the login
+                            button located on the top right of your screen to get started!
+                        </p>
                     </div>
                 </AccordionItemPanel>
             </AccordionItem>
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Using the Wishlist
+                    Question 3?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
@@ -66,7 +63,7 @@ export default function Example() {
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    To View Your Wishlist
+                    Question 4?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
@@ -80,7 +77,7 @@ export default function Example() {
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    To Remove Courses From Wishlist:
+                    Question 5?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
@@ -93,14 +90,18 @@ export default function Example() {
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Course Details
+                    Question 6?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                         <img src="" alt="image"></img>
                 </AccordionItemPanel>
             </AccordionItem> 
+            {/*<p>If you have any concerns that remain unresolved after looking at the
+                appropriate question, please contact us using the link below!
+            </p>*/}
         </Accordion>
+        </div>
     );
 }
 

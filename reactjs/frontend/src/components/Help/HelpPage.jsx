@@ -3,7 +3,8 @@ import React from 'react';
 import './help.css';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import Instruction from '../Instructions/Instruction.jsx'
+import Instruction from './Instructions/Instruction.jsx'
+import FAQ from './FAQ/FAQ.jsx';
 class HelpPage extends React.Component {
     render() {
         return(
@@ -27,7 +28,7 @@ class HelpPage extends React.Component {
                                 <h2 id="howWeHelpYou"><br/>Instructions</h2>
                                 <Instruction/>
                                 <h2>FAQ</h2>
-                                <p class="about-paddingB">To be implemented.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> </p>
+                                <FAQ/>
                                 <div class="contactUsAbout">
                                     <Link to="/contact">
                                         <Button
