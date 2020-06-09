@@ -25,10 +25,10 @@ class HelpPage extends React.Component {
                         <div class="col-md-7 col-sm-6">
                             <div id="aboutTitleDiv" class="about-title clearfix">
                                 <h1 id="aboutustitle">How to Use <span>PackRanks</span></h1>
-                                <h2 id="howWeHelpYou"><br/>Instructions</h2>
-                                <Instruction/>
-                                <h2>FAQ</h2>
+                                <h2><br/>Frequently Asked Questions</h2>
                                 <FAQ/>
+                                <h2 id="howWeHelpYou">Instructions</h2>
+                                <Instruction/>
                                 <div class="contactUsAbout">
                                     <Link to="/contact">
                                         <Button

@@ -142,7 +142,9 @@ class LoginPage extends React.Component {
   googleFailure(response) {
     //console.log(response);
     //alert("Google Login failed. Please try again.");
-    toast.notify(<h5 id="incorrect">Google Login failed. Please try again.</h5>)
+
+    //This line removes pop up when google login is unsuccessful
+    //toast.notify(<h5 id="incorrect">Google Login failed. Please try again.</h5>)
   }
 
   render () {

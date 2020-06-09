@@ -5,3 +5,6 @@ Accordion{
     padding-top: 15px;
     padding-bottom: 20px;
 }
+#helpText {
+    font-size: 16px !important;
+}

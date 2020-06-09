@@ -18,17 +18,13 @@ export default function Example() {
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Question 1?
+                    How do I search for just one course?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                    <div id="divInstruction">
-                        <p>1. First, select the term of the course you are looking for</p>
-                        <p>2. Then, select "GEP" from the second dropdown box</p>
-                        <p>3. Next, from the third dropdown, select which GEP you wish to take. You may also search for a GEP in the same dropdown.</p>
-                        <p>4. Now, select the maximum number of courses you would like to view. Note you may not see all of the courses that you request to view since some courses have limited sections or a small number of professors.</p>
-                        <p>5. Finally, click the "Select" button to view a list of the easiest courses in a specific GEP based on the options you chose.</p>
-                    </div>
+                        <p id="helpText">
+                        To view the easiest sections/professors for one specific course, type in the same course number for both boxes. (Ex: to view only MA 341 sections and professors, select the "Mathematics" department and type "341" for both the minimum and maximum course level range).
+                        </p>
                 </AccordionItemPanel>
             </AccordionItem>
             <AccordionItem>
@@ -39,7 +35,7 @@ export default function Example() {
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                     <div id="divInstruction">
-                        <p>In order to add a course to your wishlist, you must login
+                        <p id="helpText">In order to add a course to your wishlist, you must login
                             with a PackRanks or a Google account. Click on the login
                             button located on the top right of your screen to get started!
                         </p>
@@ -49,52 +45,59 @@ export default function Example() {
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Question 3?
+                    What benefits do I get from making an account?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                        <p>Note: You must login or create an account to use the Wishlist feature</p>
-                        <p>1. Follow the above steps to view GEP or Department specific courses</p>
-                        <p>2. Once you are viewing a list of easiest courses, and you have logged into your account, you should see a column called "Add to Wishlist" with an "Add to Wishlist" option for every course in the list.</p>
-                        <p>3. Click "Add to Wishlist" for any course in the list to add it to your Wishlist.</p>
-                        <p>4. If a specific course section with a certain professor is already on your Wishlist, you will receive a notification telling you so.</p>
+                    <p>
+                        fucking finance majors smh always tryna get the benefits /rant<br/>
+                        Great question! When you make an account,
+                        you are able to create your own wishlist of courses that you
+                        would like to take! In addition, we will send you an email 
+                        whenever a course that was closed or waitlisted on your wishlist 
+                        opens up!
+                    </p>
                 </AccordionItemPanel>
             </AccordionItem>
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Question 4?
+                    Why do I see a course with a higher rating ranked above a course with
+                    a lower rating?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                        <p>Note: You must login or create an account to use the Wishlist feature</p>
-                        <p>1. Follow the above steps to view GEP or Department specific courses</p>
-                        <p>2. Once you are viewing a list of easiest courses, and you have logged into your account, you should see a column called "Add to Wishlist" with an "Add to Wishlist" option for every course in the list.</p>
-                        <p>Your Wishlist is separated based on the term of the course. These courses will be saved to your account so that you can view them anytime, even if you logout. They will remain on your Wishlist until you remove them (See To Remove Courses From Wishlist).</p>
-                        <p>4. If a specific course section with a certain professor is already on your Wishlist, you will receive a notification telling you so.</p>
+                    <p>
+                        A course with a higher rating that is ranked above a course with a lower rating
+                        either has a duplicate professor as a course that is ranked near the top of the list
+                        or is a closed section with no more seats available.
+                    </p>
                 </AccordionItemPanel>
             </AccordionItem>
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Question 5?
+                    How are ratings calculated?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                        <p>Note: You must login or create an account to use the Wishlist feature</p>
-                        <p>1. View your Wishlist by clicking on the My Account tab on the navigation bar, and then on "Wishlist" within the dropdown.</p>
-                        <p>2. Once you are viewing a list of easiest courses, and you have logged into your account, you should see a column called "Add to Wishlist" with an "Add to Wishlist" option for every course in the list.</p>
-                        <p>3. Click the checkbox under the "Remove" column for any courses you wish to remove.</p>
+                        <p>
+                            Check out our about page for more information! <a href="/about">About PackRanks</a>
+                        </p>
                 </AccordionItemPanel>
             </AccordionItem> 
             <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>
-                    Question 6?
+                    What is a GEP?
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                        <img src="" alt="image"></img>
+                    <p id="helpText">
+                        GEP stands for <a id="helpText" target="_blank" href="https://oucc.dasa.ncsu.edu/general-education-program-gep/gep-category-requirements/">General Education Program</a>, which is the set
+                        of courses all students at NC State must complete prior 
+                        to graduation.
+                    </p>
                 </AccordionItemPanel>
             </AccordionItem> 
             {/*<p>If you have any concerns that remain unresolved after looking at the
