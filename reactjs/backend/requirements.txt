@@ -8,3 +8,4 @@ flask_api
 flask_jwt_extended
 pymongo
 selenium
+passlib

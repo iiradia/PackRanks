@@ -121,12 +121,23 @@ const RenderRow = (props) =>{
         //if section and user is authenticated, show option for adding to wishlist
         //IMPLEMENTED below
         /* If normal element, return normal table */
-        else if(key === "wishlist" && localStorage.token !== undefined && props.type !== "homepage"){
-            return <td key={props.data[key]} id="sectionLink">
-                    <a id="wishlistN" onClick= {() => {onWishlist(props.data)}}>
-                        Add to Wishlist
-                    </a>  
+        else if(key === "wishlist" && props.type !== "homepage"){
+
+            //if user is logged in, give option for adding to wishlist
+            if (localStorage.token!==undefined) {
+                return <td key={props.data[key]} id="sectionLink">
+                        <a id="wishlistN" onClick= {() => {onWishlist(props.data)}}>
+                            Add to Wishlist
+                        </a>  
+                    </td>
+            }
+
+            //if user is not logged in, prompt them to login to use feature
+            else {
+                return <td key={props.data[key]} id="sectionLink">
+                    <a id="wishlistN" href="/login">Login</a>
                 </td>
+            }
         }
 
         else if (key==="Rating") {
@@ -189,13 +200,13 @@ class table extends React.Component {
             var delHeader = ["Delete"];
             keys=delHeader.concat(keys);
         }
-        else if (localStorage.token!==undefined){ 
+        //else if (localStorage.token!==undefined){ 
             var wishlistHed = ["wishlist"];
             let keys_first = keys.slice(0, 5);
             let keys_last = keys.slice(5, keys.length);
             keys = keys_first.concat(wishlistHed, keys_last);
             //keys = wishlistHed.concat(keys);
-        }
+        //}
         return keys.map((key, index)=>{
             return <th key={key}>{key.toUpperCase()}</th>
         })
@@ -213,7 +224,7 @@ class table extends React.Component {
                 items["Delete"] = "";
             }
         }
-        else if (localStorage.token!==undefined){
+        //else if (localStorage.token!==undefined){
             var wishlistHed = ["wishlist"];
             let keys_first = keys.slice(0,5);
             let keys_last = keys.slice(5,keys.length);
@@ -222,7 +233,7 @@ class table extends React.Component {
             for (let i = 0; i < items.length; i++) {
                 items["wishlist"] = "";
             }
-        }
+        //}
         return items.map((row, index)=>{
             let uniq_id = row["Catalog Link"][0] + row["RateMyProfessor Link"][0] + row["Section"] + row["Semester"];
             if (uniq_id === "None") {

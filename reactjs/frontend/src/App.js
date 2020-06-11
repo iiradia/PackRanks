@@ -51,12 +51,13 @@ class App extends React.Component {
         <Router>
           { /* Route to main page */ }
           <Route exact path = "/">
-            <header className="App-header"> 
-                <Navbar /> 
-                <MainWelcome profile_data={this.state}/>
-                <FirstPrompt />
-            </header>
+              <header className="App-header"> 
+                  <Navbar /> 
+                  <MainWelcome profile_data={this.state}/>
+                  <FirstPrompt />
+              </header>
           </Route>
+          
 
           { /* Route to login page */ }
           <Route exact path = "/login">

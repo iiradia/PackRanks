@@ -50,7 +50,6 @@ export default function Example() {
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                     <p>
-                        fucking finance majors smh always tryna get the benefits /rant<br/>
                         Great question! When you make an account,
                         you are able to create your own wishlist of courses that you
                         would like to take! In addition, we will send you an email 
