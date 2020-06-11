@@ -12,6 +12,7 @@ import SignUp from './components/SignUp/SignUp'
 import UserPage from './components/User/UserPage';
 import Wishlist from './components/Wishlist/Wishlist';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
+import Donate from './components/Donate/Donate.jsx'
 import {
   BrowserRouter as Router,
   Switch,
@@ -74,6 +75,12 @@ class App extends React.Component {
             <Navbar />
             <Help />
           </Route>
+
+          <Route exact path="/donate"> 
+            <Navbar/>
+            <Donate/>
+          </Route>
+
 
           { /* Route to contact page. */ }
           <Route exact path = "/contact">
