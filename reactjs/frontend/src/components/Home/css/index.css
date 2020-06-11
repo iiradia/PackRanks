@@ -67,3 +67,16 @@ button {
     float: left;
     position: relative;
 }
+
+{/*
+#homeHTML{
+    background-image: url("../images/HuntLibraryMostTransparent.png") !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+    position: fixed;
+    top: 8.9%;
+    width: 100%;
+    height: 100%;
+  }*/}

@@ -11,6 +11,7 @@
     "create-react-class": "^15.6.3",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
+    "react-accessible-accordion": "^3.0.1",
     "react-alert": "^7.0.1",
     "react-bootstrap": "^1.0.1",
     "react-bootstrap-table-next": "^4.0.2",

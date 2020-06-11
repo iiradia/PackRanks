@@ -4,6 +4,9 @@ from pymongo import MongoClient
 from __main__ import app
 import json
 import hashlib
+# import the hash algorithm
+from passlib.hash import pbkdf2_sha256
+NUM_ROUNDS =  100000
 
 DBSTR = ""
 with open ("email_data.json", "r") as data:
@@ -95,13 +98,8 @@ def login():
     """
     #get user data
     login_data = eval(request.get_data())
+    login_pwd = login_data["password"].encode("utf-8")
     #print(login_data)
-
-    #use hash library to hash the password
-    hashGenerator = hashlib.sha512()
-    hashGenerator.update(login_data["password"].encode('utf-8'))
-    hashed_pw = hashGenerator.hexdigest()
-    #print(hashed_pw)
 
     #save user information
     user_query = {
@@ -109,11 +107,22 @@ def login():
     }
     #try to find existing user
     current_user = grades_db.users.find_one(user_query)
-    if current_user == None or current_user["hashed_pw"] != hashed_pw:
+    if current_user == None:
         return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
 
     #if no existing user, add to db
     else:
+        # verifying the password
+        user_hashed_pw = current_user["hashed_pw"]
+        
+        #if user is using google, must sign in through google instead.
+        if user_hashed_pw == "":
+            return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
+        
+        is_authenticated = pbkdf2_sha256.verify(login_pwd, user_hashed_pw)
+        if not is_authenticated:
+            return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
+        
         #get current user's info
         user_info = get_user_token(current_user)
 
@@ -132,9 +141,9 @@ def sign_up():
     #print(user_data)
 
     #use hash library to hash the password
-    hashGenerator = hashlib.sha512()
-    hashGenerator.update(user_data["password"].encode('utf-8'))
-    hashed_pw = hashGenerator.hexdigest()
+    # generate new salt, and hash a password
+    custom_algo = pbkdf2_sha256.using(rounds=NUM_ROUNDS)
+    hashed_pw = custom_algo.hash(user_data["password"].encode("utf-8"))
     #print(hashed_pw)
 
     #save user information
