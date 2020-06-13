@@ -83,7 +83,7 @@ class Navigation extends React.Component {
                         
 
                         <Nav.Link id="instructionlink" href="/help">Help</Nav.Link>
-
+                        <Nav.Link id="donateLink" href="/donate">Donate</Nav.Link>
                         {/* Where to render contact */ }
                         <div id="contact">
                         </div>

@@ -22,6 +22,7 @@
     "react-hover": "^1.4.0",
     "react-json-table": "^0.1.1",
     "react-json-to-table": "^0.1.5",
+    "react-paypal-button-v2": "^2.6.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-s-alert": "^1.4.1",

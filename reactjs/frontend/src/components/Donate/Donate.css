@@ -1,0 +1,25 @@
+@font-face {
+    font-family: Balsamiq; 
+    src: url("/reactjs/frontend/src/components/Home/fonts/BalsamiqSans-Regular.ttf");
+  }
+
+#descriptionDonate{
+    text-align:center; 
+    font-size: 28px; 
+}
+
+#donationForm{
+    text-align: center;
+    display:inline;
+}
+
+#formTitle{
+    text-align: center;
+    font-size:75px; 
+}
+
+#donationAmountLabel{
+    text-align:left; 
+    font-size: 28px; 
+}
+
