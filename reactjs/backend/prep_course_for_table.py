@@ -64,8 +64,17 @@ def prepare_course(record):
     course_data["Course"]["descr"] = record[new_key_features[3]]
     """
     #course_data["Credit Hours"] = record[new_key_features[2]]
+    ratemyprof_link = record[relevant_keys[-2]]
 
-    course_data["RateMyProfessor Link"] = [record[relevant_keys[1]], record[relevant_keys[-2]]]
+    if ratemyprof_link == "":
+         course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
+
+    else: 
+         overall_quality = record["overall_quality"]
+         overall_difficulty=record["overall_difficulty"]
+         course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link,overall_quality,overall_difficulty]
+
+
     course_data["Section"] = record[relevant_keys[2]]
     course_data["Prerequisites"] = record[relevant_keys[4]]
     #course_data["RateMyProfessor Link"] = record[relevant_keys[-2]]

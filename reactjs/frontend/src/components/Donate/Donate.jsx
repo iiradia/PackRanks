@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import {PayPalButton} from "react-paypal-button-v2";
 import "./Donate.css"
 
@@ -9,7 +9,8 @@ class Donate extends React.Component{
             isDonate: false,
             donationAmount: 0.0  
         };
-        this.setIsDonate=this.setIsDonate.bind(this)
+        this.setIsDonate=this.setIsDonate.bind(this);
+        this.setDonationAmount=this.setDonationAmount.bind(this);
     }
 
     setIsDonate(){
@@ -20,8 +21,12 @@ class Donate extends React.Component{
                 };
             }
         ); 
-        console.log(this.state); 
     }
+
+    async setDonationAmount(event){
+        await this.setState({donationAmount : event.target.value})
+    }
+
 
     render(){
        if(this.state.isDonate === true){
@@ -59,14 +64,17 @@ class Donate extends React.Component{
                                     placeholder="0.0"
                                     required
                                     min="0.01" step="0.01"
-                                    onChange={this.onLastNameChange} />
+                                    onChange={value => this.setDonationAmount(value)} />
                                 <span className="focus-input100" />
                             </div>
                         </form>
+                       
                         <PayPalButton
                             amount={this.state.donationAmount}
                             currency={"USD"}
-                            
+                            createOrder={
+                                this.setIsDonate
+                            }
                         />
                     </div>
                     </div>

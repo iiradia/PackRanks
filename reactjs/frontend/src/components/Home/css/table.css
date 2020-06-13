@@ -19,10 +19,10 @@
     background-color: #cc0000;
 }
 #ctool {
-    border: white !important;
-    color: #cc0000 !important;
+    border: black  solid !important;
+    color: white !important;
     font-weight:bold !important;
-    background-color: white !important;
+    background-color: #cc0000 !important;
 }
 #cdiv {
     border: white !important;
