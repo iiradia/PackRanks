@@ -56,11 +56,6 @@ class ForgotPass extends React.Component {
       
       if (validInput) {
 
-        /*
-            To be implemented:
-                - backend endpoint
-                - send reset email functionality.
-        */
         let url = "http://localhost:5000/resetLink";
         fetch(url,
         {

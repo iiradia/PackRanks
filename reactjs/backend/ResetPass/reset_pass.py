@@ -47,7 +47,7 @@ def reset_password():
     #call helper method in another file to verify the token
     #'s validity. If it is invalid, return a failure.
     is_token_valid = verify_token(token)
-    
+    #print(is_token_valid)
     #if there was no token match, return failure
     if not is_token_valid:
         return json.dumps({"success":False}), 400, {"ContentType":"application/json"}

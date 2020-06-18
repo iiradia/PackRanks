@@ -6,6 +6,12 @@ import random
 from datetime import datetime
 import time
 
+# import the hash algorithm
+from passlib.hash import pbkdf2_sha256
+NUM_ROUNDS =  100000
+
+#number of minutes before token expires
+TOKEN_EXPIRATION = 10
 #get database string and email pass
 DBSTR = ""
 
@@ -70,9 +76,9 @@ def verify_token(token):
         #verify that token is less than 10 minutes old
         #else delete it
         age = verify_age(db_token, db_token["time"])
-        
-        if is_match: 
-
+        #print(db_token)
+        if is_match and age: 
+            #print("match")
             is_token_valid = True
             #remove this token from db
             grades_db.reset_tokens.delete_one(db_token)

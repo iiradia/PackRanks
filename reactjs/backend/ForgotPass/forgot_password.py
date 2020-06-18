@@ -39,7 +39,7 @@ def send_reset_link():
     user_data = eval(request.get_data())
     #save current host url
     host_url = request.origin
-    print(host_url)
+    #print(host_url)
     #save recipient email
     recipient_email = user_data["email"]
     user_query = {

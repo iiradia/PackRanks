@@ -182,9 +182,6 @@ class LoginPage extends React.Component {
                     </span>
                   </div>
 
-                  <a id="signUpNow" href="/forgotpassword">
-                      Forgot password?					
-                  </a>
                   {/* className="txt1 bo1 hov1 p-b-5" */ }
 
                   {/* Password Form */}
@@ -199,8 +196,8 @@ class LoginPage extends React.Component {
                     <span className="symbol-input100">
                       <span className="lnr lnr-lock" />
                     </span>
+                    
                   </div>
-                  
                   
                   {/*
                   <div className="contact100-form-checkbox m-l-4">
@@ -259,6 +256,11 @@ class LoginPage extends React.Component {
                     </span>
                     <a id="signUpNow" className="txt1 bo1 hov1" href="/signup">
                       Sign up now							
+                    </a>
+                  </div>
+                  <div className ="text-center w-full p-t-10">
+                    <a id="signUpNow" className="txt1 bo1 hov1" href="/forgotpassword">
+                        Forgot password?						
                     </a>
                   </div>
                   {/*<div className="text-center w-full p-t-30">
