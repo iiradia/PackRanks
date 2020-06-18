@@ -1,0 +1,13 @@
+
+#emailForm {
+    text-align: center;
+}
+#incorrect {
+    color: #cc0000;
+    font-weight: bold !important;
+}
+
+#success {
+    color: green;
+    font-weight: bold !important;
+}

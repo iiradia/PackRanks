@@ -182,8 +182,13 @@ class LoginPage extends React.Component {
                     </span>
                   </div>
 
+                  <a id="signUpNow" href="/forgotpassword">
+                      Forgot password?					
+                  </a>
+                  {/* className="txt1 bo1 hov1 p-b-5" */ }
+
                   {/* Password Form */}
-                  <div className="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                  <div id="passDiv" className="wrap-input100 validate-input m-b-16" data-validate="Password is required">
                     <input id="pwdForm" 
                       className="input100" 
                       type="password" 
@@ -195,6 +200,8 @@ class LoginPage extends React.Component {
                       <span className="lnr lnr-lock" />
                     </span>
                   </div>
+                  
+                  
                   {/*
                   <div className="contact100-form-checkbox m-l-4">
                     <input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
@@ -202,7 +209,7 @@ class LoginPage extends React.Component {
                       Remember me
                     </label>
                   </div>*/}
-                  <div className="container-login100-form-btn p-t-25">
+                  <div className="container-login100-form-btn p-t-0">
                     <button 
                       onClick={this.handleLogin}
                       className="login100-form-btn">
@@ -254,11 +261,11 @@ class LoginPage extends React.Component {
                       Sign up now							
                     </a>
                   </div>
-                  <div className="text-center w-full p-t-30">
+                  {/*<div className="text-center w-full p-t-30">
                     <a id="signUpNow" className="txt1 bo1 hov1" href="/forgotpassword">
                       Forgot password?					
                     </a>
-                  </div>
+                        </div>*/}
                 </form>
               </div>
             </div>

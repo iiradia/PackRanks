@@ -14,6 +14,7 @@ import Wishlist from './components/Wishlist/Wishlist';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
 import Donate from './components/Donate/Donate.jsx'
 import ForgotPass from './components/ForgotPassword/ForgotPass';
+import ResetPass from './components/ResetPassword/ResetPass';
 
 import {
   BrowserRouter as Router,
@@ -112,6 +113,12 @@ class App extends React.Component {
           <Route exact path = "/forgotpassword">
             <Navbar />
             <ForgotPass />
+          </Route>
+
+          { /* Route to reset password */ }
+          <Route exact path = "/reset/:email/:token">
+            <Navbar />
+            <ResetPass />
           </Route>
 
 

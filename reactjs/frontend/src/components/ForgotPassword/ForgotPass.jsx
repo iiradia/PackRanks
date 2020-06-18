@@ -10,31 +10,26 @@ import "./static/vendor/css-hamburgers/hamburgers.min.css";
 import "./static/vendor/select2/select2.min.css";
 import "./static/css/util.css";
 import "./static/css/main.css";
-import GoogleLogin from 'react-google-login';
-import GoogleButton from 'react-google-button';
 //import Alert from 'react-s-alert';
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css';
 import {
   BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  Switch,
   withRouter
 } from 'react-router-dom';
-import Simplert from 'react-simplert';
-import MainWelcome from '../Home/MainWelcome'
+import ReCAPTCHA from "react-google-recaptcha";
+
 class ForgotPass extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.onEmailChange = this.onEmailChange.bind(this);
+    this.onReCaptcha = this.onReCaptcha.bind(this);
     this.handleReset = this.handleReset.bind(this);
 
     this.state = {
-      email: null
+      re_captcha: false
     }
   }
 
@@ -50,6 +45,12 @@ class ForgotPass extends React.Component {
         
         //throw error with toast-notes
         toast.notify(<h5 id="incorrect">Please enter a valid email address.</h5>)
+        validInput = false;
+      }
+
+      {/* Check for recaptcha completion */}
+      if (!this.state.re_captcha) {
+        toast.notify(<h5 style={{color: '#cc0000'}}>Please complete the ReCaptcha.</h5>)
         validInput = false;
       }
       
@@ -72,9 +73,11 @@ class ForgotPass extends React.Component {
         ).then((data) => {
             {/*Successfully sent reset link */}
             if (data.success === true) {
-              localStorage.setItem("token", data.token);
-                this.props.history.push({
-                    pathname: "/homepage"
+              //send message that reset link was sent
+              toast.notify(<h5 id="success">Success! Check your email for a link to reset your password.</h5>)
+              //reroute user back to home  
+              this.props.history.push({
+                    pathname: "/"
                 })
             }
             else {
@@ -88,6 +91,10 @@ class ForgotPass extends React.Component {
   onEmailChange(event) {
     this.setState({login_email:event.target.value})
   }
+  
+  onReCaptcha(event) {
+    this.setState({re_captcha: true});
+  }
 
 
   render () {
@@ -96,7 +103,7 @@ class ForgotPass extends React.Component {
       <div>
         
         <div>
-          <title>Login to PackRanks</title>
+          <title>Reset Password</title>
         </div>
         <div id="login-fail">
 
@@ -130,6 +137,12 @@ class ForgotPass extends React.Component {
                       <span className="lnr lnr-envelope" />
                     </span>
                   </div>
+                  
+                  {/* ReCAPTCHA */}
+                  <ReCAPTCHA
+                        sitekey="6Lf9MvwUAAAAAHxBJLXSVvLlimkdHv-CHeLYzEYc"
+                        onChange={this.onReCaptcha}
+                  />
 
                   
                   <div className="container-login100-form-btn p-t-25">
