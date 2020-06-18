@@ -13,6 +13,8 @@ import UserPage from './components/User/UserPage';
 import Wishlist from './components/Wishlist/Wishlist';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
 import Donate from './components/Donate/Donate.jsx'
+import ForgotPass from './components/ForgotPassword/ForgotPass';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -104,6 +106,12 @@ class App extends React.Component {
           {/* Protected so that you must be signed in to access wishlist */}
           <Route exact path = "/wishlist">
             <ProtectedRoute component={Wishlist}/>
+          </Route>
+
+          { /* Route to forgot password */ }
+          <Route exact path = "/forgotpassword">
+            <Navbar />
+            <ForgotPass />
           </Route>
 
 

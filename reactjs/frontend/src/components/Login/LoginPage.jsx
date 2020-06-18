@@ -254,6 +254,11 @@ class LoginPage extends React.Component {
                       Sign up now							
                     </a>
                   </div>
+                  <div className="text-center w-full p-t-30">
+                    <a id="signUpNow" className="txt1 bo1 hov1" href="/forgotpassword">
+                      Forgot password?					
+                    </a>
+                  </div>
                 </form>
               </div>
             </div>

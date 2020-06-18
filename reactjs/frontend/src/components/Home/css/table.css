@@ -18,6 +18,11 @@
     color: white;
     background-color: #cc0000;
 }
+.table {
+    table-layout: auto !important;
+    width: 90% !important; 
+    margin: 0 auto !important;
+}
 #ctool {
     border: black  solid !important;
     color: white !important;

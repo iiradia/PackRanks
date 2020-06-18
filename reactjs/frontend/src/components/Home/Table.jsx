@@ -161,7 +161,7 @@ const RenderRow = (props) =>{
 
         else if (key==="Rating") {
             let currRating = props.data[key];
-            let easyNote = "Difficult";
+            /*let easyNote = "Difficult";
             if (currRating > 65) { 
                 easyNote = "Moderately Difficult"
             }
@@ -173,7 +173,7 @@ const RenderRow = (props) =>{
             }
             if (currRating > 89) {
                 easyNote = "Very Easy"
-            }
+            }*/
             //console.log(keyColor);
             return <td id="ratingTable" key={props.data[key]}><strong>{props.data[key]}</strong></td>
         }
