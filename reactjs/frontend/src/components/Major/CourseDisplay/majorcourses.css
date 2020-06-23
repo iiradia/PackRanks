@@ -1,0 +1,14 @@
+Accordion{
+    max-width: 500000px;
+}
+#faqDiv {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+#helpText {
+    font-size: 16px !important;
+}
+#courseDiv {
+    padding-top: 20px;
+    padding-bottom: 15px;
+}

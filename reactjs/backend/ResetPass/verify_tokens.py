@@ -72,10 +72,11 @@ def verify_token(token):
         hash_token = db_token["hash_token"]
         #check if token is a match
         is_match = pbkdf2_sha256.verify(token, hash_token)
-        
+    
         #verify that token is less than 10 minutes old
         #else delete it
         age = verify_age(db_token, db_token["time"])
+        
         #print(db_token)
         if is_match and age: 
             #print("match")

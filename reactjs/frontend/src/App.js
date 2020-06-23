@@ -15,6 +15,7 @@ import ProtectedRoute from './components/Protected/ProtectedRoute';
 import Donate from './components/Donate/Donate.jsx'
 import ForgotPass from './components/ForgotPassword/ForgotPass';
 import ResetPass from './components/ResetPassword/ResetPass';
+import Major from './components/Major/Major.jsx';
 
 import {
   BrowserRouter as Router,
@@ -39,14 +40,10 @@ class App extends React.Component {
   }
   liftStateUp = (data) => 
   {
-    console.log("DATA")
-    console.log(data);
     this.setState({data: data})
   }
   render() {
-    console.log("TOKEN");
-    console.log(localStorage.token);
-    console.log(localStorage.token !== undefined);
+
     return (
       <div className="App">
         {/* Always include Navbar on top */ }    
@@ -107,6 +104,12 @@ class App extends React.Component {
           {/* Protected so that you must be signed in to access wishlist */}
           <Route exact path = "/wishlist">
             <ProtectedRoute component={Wishlist}/>
+          </Route>
+
+          {/* Route to selecting major/viewing easy courses*/}
+          {/* Protected so you must be signed in to access*/}
+          <Route exact path = "/major">
+            <ProtectedRoute component={Major}/>
           </Route>
 
           { /* Route to forgot password */ }

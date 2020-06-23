@@ -46,6 +46,18 @@ class UserPage extends React.Component {
                                 My Wishlist
                             </Button>
                         </Link>
+                        
+                        {/* Link to page where you can view your major courses */}
+                        <Link to ="/major" id="linkMajor">
+                            <Button
+                            class="btn btn-danger"
+                            id="myMajor"
+                            name="myMajor"
+                            size="lg">
+                                Select Your Major
+                            </Button>
+                        </Link>
+
                     </div>
 
                     <div id="wishlist">
