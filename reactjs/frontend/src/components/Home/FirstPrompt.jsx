@@ -47,7 +47,7 @@ class FirstPrompt extends React.Component {
             <div>
                 <div>
                     <div id="termDivLabel" class="text-center">
-                        <label id="whichtermlabel" for="whichterm" class="lead">Which term are you looking to enroll in? </label>
+                        <label id="whichtermlabel" for="whichterm" class="lead"><strong>Which term are you looking to enroll in? </strong></label>
                         <div id="termDiv">
                             <select id="whichterm" name="whichterm" class="bg-light" onChange={this.setTerm}>
                                 {/* options for user to select */}
@@ -60,7 +60,7 @@ class FirstPrompt extends React.Component {
                 </div>
                 <div>
                     <div id="gepDivLabel" class="text-center">
-                        <label id ="getlabel" for="gepornot" class="lead">Are you looking for a GEP or a course from a specific department?</label>
+                        <label id ="getlabel" for="gepornot" class="lead"><strong>Are you looking for a GEP or a course from a specific department?</strong></label>
                         <div id="gepDiv">
                             <select 
                             id="gepornot" 

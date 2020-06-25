@@ -92,27 +92,12 @@ class GEP extends React.Component {
                 document.getElementById("tableNote")
             )
         }
-        // const GEPList = () => (
-        //     <div className="app">
-        //         <div className="container">
-        //             <div style={{width:"300px", margin:"0 auto"}}>
-        //                 <Select className="gepSelect"
-        //                         id='gep_list_select' 
-        //                         options={gepFinal} 
-        //                         //onChange={this.setState({select_value: document.getElementById('gep_list_select').value})}
-        //                         onChange={optionValue => this.setState({select_value: optionValue.value})}
-        //                 />
-        //                 {console.log(this.state.select_value)}
-        //             </div>
-        //         </div>
-        //     </div>
-        // );
 
         return(
             <div>
                 <div id="type" class="text-center">
                     <h2 class="mt-5">Select a GEP</h2>
-                    <label for="typeofgep" class="lead">Please select the type of GEP you are looking for.</label>
+                    <label for="typeofgep" class="lead"><strong>Please select the type of GEP you are looking for.</strong></label>
                     {/* selectable options for GEPs */}
                     {/* <GEPList /> */}
                     <div id="typeofgep" style={{width:"300px", margin:"0 auto"}}>
@@ -125,7 +110,7 @@ class GEP extends React.Component {
                     </div>
 
                     {/* Asks user how many courses they would like to view */}
-                    <label for="howmanycourses" class="lead">How many courses would you like to view?</label>
+                    <label for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
                         <Select className="numCourseSelect"
                                 id='num_course_select' 

@@ -268,14 +268,14 @@ class Dept extends React.Component {
                 <h2 class="mt-5">Select a Department</h2>
 
                 {/* Gives options for specific department the user is looking for */}
-                <label for="typeofdept" class="lead">Please select the department of the course/elective you are looking for.</label>
+                <label for="typeofdept" class="lead"><strong>Please select the department of the course/elective you are looking for.</strong></label>
                     <div id="deptlist">
 
                     </div>
 
                     <div> 
                         {/* prompt for levels */ }
-                            <label for="level_min" class="lead">Minimum Course Level:</label>
+                            <label for="level_min" class="lead"><strong>Minimum Course Level:</strong></label>
                             { /* Select level between 100 and 800 */ }
                             <div id="level_min_option">
                                 <Select
@@ -290,7 +290,7 @@ class Dept extends React.Component {
                             </div>
 
                             {/* prompt for levels */ }
-                            <label for="level_max" class="lead">Maximum Course Level</label>
+                            <label for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
 
                             { /* Select level between 100 and 800 */ }
                             <div id="level_max_option">
@@ -307,7 +307,7 @@ class Dept extends React.Component {
                     </div>
                 
                     {/* Asks user how many courses they would like to view */}
-                    <label for="howmanycourses" class="lead">How many courses would you like to view?</label>
+                    <label for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
                         <Select className="numCourseSelect"
                                 id='num_course_select' 

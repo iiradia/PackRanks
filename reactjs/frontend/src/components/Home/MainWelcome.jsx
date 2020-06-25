@@ -18,42 +18,35 @@ class MainWelcome extends React.Component {
         const orgName = "PackRanks";
         let userwelcome;
         let signUpPrompt;
+        let introducePackRanks;
+
         //console.log("PROPS");
         //console.log(this.props.profile_data);
         if (localStorage.token) {
             let identity = jwt(localStorage.token).identity;
             let profile_data = this.props.profile_data.data;
             userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name}</strong>!</h1>
-            signUpPrompt = <p id="lab" class="lead">
-                                This tool allows you to find which NC State GEP or elective courses will be the best for you to take!
-                           </p>
+            introducePackRanks = <p id="labGradient" class="lead">PackRanks aggregates information from Gradient, MyPack Portal, and RateMyProfessor to make finding classes easier than ever.</p>
         }
         else {
             userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}!</h1>
-            signUpPrompt = <p id="lab" class="lead">
-                                This tool allows you to find which NC State GEP or elective courses will be the best for you to take!<br/>
-                                Please <a class="lead" href="/login">sign up or login</a> to use the Wishlist feature!
-                           </p>
+            introducePackRanks = <p id="labGradient" class="lead">Gradient, MyPack, RateMyProfessor all in one place.
+                        <br/><p id="lab" class="lead">Please <a class="lead" href="/login">sign up or login</a> to use the Wishlist feature!</p>
+                    </p>
+            
         }
+        signUpPrompt = <p id="lab" class="lead">
+                                For NC State students, by NC State students.
+                        </p>
+        
 
         return(
-                <div class="col-lg-12 text-center">
-                    <div id="homeHTML">
-            </div>
-                    {/*
-                    <div id="instructions">
-                        <h2>Instructions</h2>
-                    </div>
-                    <div id="introlist">
-                            <ul>
-                                <li>Add elems</li>
-                                <li>Elem2</li>
-                            </ul>
-                    </div>*/}
+                <div id="welcomePage" class="col-lg-12 text-center">
                     {userwelcome}
 
-                    {/*<p class="lead"><strong>For Engineers, By Engineers</strong></p>*/}
-                    {signUpPrompt}
+                    {/*{signUpPrompt}*/}
+
+                    {introducePackRanks}
                 </div>
         );
     }
