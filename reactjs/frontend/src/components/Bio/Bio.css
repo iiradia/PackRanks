@@ -23,3 +23,8 @@ body {
     text-decoration: none;
     color: #555;
 }
+#headDiv, mathewDiv, anthonyDiv {
+    text-align: center !important;
+    display: inline-block !important;
+    float: left !important;
+}

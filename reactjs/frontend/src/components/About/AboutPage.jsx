@@ -3,7 +3,7 @@ import React from 'react';
 import './about.css';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import Bio from '/Users/mathew/EasyA/reactjs/frontend/src/components/Bio/Bio.jsx'
+import Bio from '../Bio/Bio.jsx'
 class AboutPage extends React.Component {
     render() {
         return(
