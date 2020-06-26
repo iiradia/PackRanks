@@ -34,10 +34,10 @@ def prepare_course(record):
     DIGITS = 3
     p = 10**DIGITS
     #print(record)
-    transformed_rating = record[relevant_keys[-1]]
+    transformed_rating = record["raw_official_score"]
 
     #course_data["Rating"] = round(transformed_rating, 3)
-    course_data["Rating"] = round(transformed_rating)
+    course_data["Rating"] = round(transformed_rating, 2)
     
     course_data["Name"] = record[new_key_features[1]]
     #create course with tooltip info

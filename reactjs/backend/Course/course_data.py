@@ -128,7 +128,7 @@ def gepRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -140,16 +140,16 @@ def gepRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"raw_official_score":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -169,7 +169,7 @@ def gepRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -181,16 +181,16 @@ def gepRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"raw_official_score":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -208,7 +208,7 @@ def gepRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -220,16 +220,16 @@ def gepRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
                 {
-                    "$sort": {"rating": -1}
+                    "$sort": {"raw_official_score": -1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -300,7 +300,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -312,16 +312,16 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"raw_official_score":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -341,7 +341,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -353,16 +353,16 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"raw_official_score":-1}
                 },
                 {
                     "$limit": NUM_COURSES
@@ -384,7 +384,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -396,16 +396,16 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"raw_official_score":-1}
                 },
 
                 {
@@ -423,7 +423,7 @@ def deptRoute():
                         "professor": { "$ne": "Staff"}
                     }
                 },
-                #group by professor and add unique sections and ratings 
+                #group by professor and add unique sections and raw_official_scores 
                 #to aggregation
                 {
                     "$group": {
@@ -435,17 +435,17 @@ def deptRoute():
                         "section": {
                             "$addToSet": "$section"
                         },
-                        "rating": {
-                            "$addToSet": "$rating"
+                        "raw_official_score": {
+                            "$addToSet": "$raw_official_score"
                         }
                     }
                 },
                 {
-                    "$unwind": "$rating"
+                    "$unwind": "$raw_official_score"
                 },
-                #sort by ratings for each professor/course
+                #sort by raw_official_scores for each professor/course
                 {
-                    "$sort": {"rating":-1}
+                    "$sort": {"raw_official_score":-1}
                 },
                 {
                     "$limit": NUM_COURSES

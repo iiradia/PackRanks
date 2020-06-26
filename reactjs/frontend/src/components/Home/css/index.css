@@ -76,6 +76,7 @@ button {
     padding-bottom: 30px;
     font-size: 31.415926535897932384626433833px;
     padding-top: 0px !important;
+    font-family: 'Exo 2', sans-serif;
 }
 #lab {
     max-width: 800px;
