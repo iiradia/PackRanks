@@ -41,7 +41,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           </div>
           <h3>Harshal Suthar</h3>
           <span>Software Engineer</span>
-          <p>SWE</p>
+          <p>He likes CHUNKYYYYYYY RAGUUUUUUU</p>
         </div>
 
         
@@ -69,7 +69,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           </div>
           <h3>Mathew Chanda</h3>
           <span>Software Engineer</span>
-          <p>SWE</p>
+          <p>Don't ask him to turn on his camera during a zoom call</p>
       </div>
 
 
@@ -97,7 +97,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           </div>
           <h3>Ishaan Radia</h3>
           <span>Software Engineer</span>
-          <p>SWE</p>
+          <p>He's probably returning another electric scooter right now</p>
       </div>
 
 
@@ -125,7 +125,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           </div>
           <h3>Anthony Wang</h3>
           <span>Project Manager</span>
-          <p>SWE</p>
+          <p>Why the fuck is he even on here? He didn't write any of the code!</p>
       </div>  
 
     </div>

@@ -106,12 +106,12 @@ const RenderRow = (props) =>{
         else if (key === "RateMyProfessor Link" || key === "Location" || key==="Catalog Link") {
 
             /* If there is no link, just return professor name. */
-            if (props.data[key][1] === 'None') {
-                return <td key={props.data[key][0]}><strong>{props.data[key][0]}</strong></td>
-            }
+            //if (props.data[key][1] === 'None') {
+            //    return <td key={props.data[key][0]}><strong>{props.data[key][0]}</strong></td>
+            //}
 
-            else { 
-                /* Else, return hyperlink that opens in new tab. */  
+            /*else { 
+                /* Else, return hyperlink that opens in new tab. 
                 
                 if(key === "RateMyProfessor Link"){
                     const overall_prof = "Overall Quality: " + props.data[key][2] + " <br/> Overall Difficulty: " + props.data[key][3]
@@ -126,16 +126,12 @@ const RenderRow = (props) =>{
                             </td>
                 }
                 
-                else{
+                else{*/
                     return <td key={props.data[key][0]}>
                             <a id="tablelinks" className="tablelinks" href={props.data[key][1]} target="_blank">
                                 <strong>{props.data[key][0]}</strong>
                             </a>
                         </td>
-                }
-
-               
-            }
         }
         //if section and user is authenticated, show option for adding to wishlist
         //IMPLEMENTED below
