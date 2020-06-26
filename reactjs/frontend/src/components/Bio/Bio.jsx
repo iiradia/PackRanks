@@ -1,33 +1,135 @@
 import React from "react";
-import UserCard from 'react-ui-cards'
-function Bio(){
+import './Bio.css'
+import HarshalPicture from './ProfileImages/HarshalPic.jpeg'
+import MathewPicture from './ProfileImages/MathewPic.jpeg'
+import IshaanPicture from './ProfileImages/IshaanPic.jpeg'
+import AnthonyPicture from './ProfileImages/AnthonyPic.jpeg'
+import GitHubIcon from '@material-ui/icons/GitHub';
+import MailIcon from '@material-ui/icons/Mail';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+
+
+function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera 
+
   return(
-    <div id="headDiv" class="list-inline">
-    {/*class="col-xl-3 col-sm-6 mb-5"*/}
-    {/*class="bg-white rounded shadow-sm py-5 px-4"*/}
-    <div id="mathewDiv" class="list-inline-item">
-      <img src= {"https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-4.jpg"} alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
-        <h5 class="mb-0">Mathew Chanda</h5><span >Software Engineer at Google</span>
-        <ul class="social mb-0 list-inline mt-3">
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
-    </div>
-    <div id="anthonyDiv" class="list-inline-item">
-      <img src= {"https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-4.jpg"} alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
-        <h5 class="mb-0">Anthony Wang</h5><span >Rising Star @ NCSU Statistics</span>
-        <ul class="social mb-0 list-inline mt-3">
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
+    <div class="wrapper">
+    <h1 id="teamTitle">Our Team</h1>
+    <div class="our_team">
+
+
+        {/* Harshal's Profile*/}
+        <div class="team_member">
+          <div class="member_img">
+             <img id="profileImage" src={HarshalPicture} alt="our_team"/>
+             <div class="social_media">
+               <div class="facebook item">
+                  <a href="https://www.linkedin.com/in/harshal-suthar/" target = "_blank">
+                    <LinkedInIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a> 
+              </div>
+               <div class="twitter item">
+                 <a href="https://github.com/h-suthar" target = "_blank">
+                    <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                 </a>
+              </div>
+               <div class="instagram item">
+                  <a href="mailto: hksuthar@ncsu.edu" target = "_blank">  
+                    <MailIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a>
+              </div>
+             </div>
+          </div>
+          <h3>Harshal Suthar</h3>
+          <span>Software Engineer</span>
+          <p>SWE</p>
+        </div>
+
+        
+        {/* Mathew's Profile */}
+        <div class="team_member">
+           <div class="member_img">
+             <img id="profileImage" src={MathewPicture} alt="our_team" target = "_blank"/>
+             <div class="social_media">
+               <div class="facebook item">
+                 <a href="https://www.linkedin.com/in/mathewchandancsu/"> 
+                    <LinkedInIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                 </a>
+               </div>
+               <div class="twitter item">
+                 <a href="https://github.com/MathewChanda" target = "_blank">
+                    <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                 </a>
+              </div>
+               <div class="instagram item">
+                <a href="mailto: mvchanda@ncsu.edu" target = "_blank">  
+                    <MailIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                </a>
+              </div>
+             </div>
+          </div>
+          <h3>Mathew Chanda</h3>
+          <span>Software Engineer</span>
+          <p>SWE</p>
+      </div>
+
+
+      {/* Ishaan's Profile*/}
+        <div class="team_member">
+           <div class="member_img">
+             <img id="profileImage" src={IshaanPicture} alt="our_team" target = "_blank"/>
+             <div class="social_media">
+               <div class="facebook item">
+                 <a href = "https://linkedin.com/in/ishaan-radia" target = "_blank">
+                    <LinkedInIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a>
+              </div>
+               <div class="twitter item">
+                  <a href="https://github.com/iiradia" target = "_blank"> 
+                    <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a>
+              </div>
+               <div class="instagram item">
+                  <a href="mailto: iiradia@ncsu.edu" target = "_blank">  
+                      <MailIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/> 
+                  </a>
+              </div>
+             </div>
+          </div>
+          <h3>Ishaan Radia</h3>
+          <span>Software Engineer</span>
+          <p>SWE</p>
+      </div>
+
+
+      {/* Anthony's Profile*/}
+        <div class="team_member">
+           <div class="member_img">
+             <img id="profileImage" src={AnthonyPicture} alt="our_team" target = "_blank"/>
+             <div class="social_media">
+               <div class="facebook item">
+                <a href="https://www.linkedin.com/in/anthony-wang-3aa134164/" target = "_blank"> 
+                    <LinkedInIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/> 
+                </a>
+              </div>
+               <div class="twitter item">
+                  <a href="https://www.linkedin.com/in/anthony-wang-3aa134164/" target = "_blank"> 
+                    <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a>
+              </div>
+              <div class="instagram item">
+                <a href = "mailto: awang25@ncsu.edu" target = "_blank">
+                    <MailIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                 </a> 
+              </div>
+             </div>
+          </div>
+          <h3>Anthony Wang</h3>
+          <span>Project Manager</span>
+          <p>SWE</p>
+      </div>  
+
     </div>
 </div>
   )
 }
-
-
 export default Bio; 
