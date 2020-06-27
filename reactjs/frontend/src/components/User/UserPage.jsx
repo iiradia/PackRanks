@@ -48,7 +48,7 @@ class UserPage extends React.Component {
                         </Link>
                         
                         {/* Link to page where you can view your major courses */}
-                        <Link to ="/major" id="linkMajor">
+                        {/*<Link to ="/major" id="linkMajor">
                             <Button
                             class="btn btn-danger"
                             id="myMajor"
@@ -56,7 +56,7 @@ class UserPage extends React.Component {
                             size="lg">
                                 Select Your Major
                             </Button>
-                        </Link>
+                        </Link>*/}
 
                     </div>
 

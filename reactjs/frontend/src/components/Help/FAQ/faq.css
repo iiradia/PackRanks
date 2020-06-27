@@ -1,5 +1,5 @@
 Accordion{
-    max-width: 500000px;
+    max-width: 42069px;
 }
 #faqDiv {
     padding-top: 15px;
@@ -7,4 +7,6 @@ Accordion{
 }
 #helpText {
     font-size: 16px !important;
+    text-align: left !important;
+    font-family: 'Exo 2', sans-serif !important;
 }

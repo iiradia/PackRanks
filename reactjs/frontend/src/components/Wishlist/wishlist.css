@@ -2,12 +2,18 @@
     display: inline-block !important;
     vertical-align: middle !important;
 }
+#backtohomepage {
+    padding-left: 20px;
+}
 #delWishlist {
     display: inline-block !important;
     vertical-align: middle !important;
 }
 #deleteItems {
     padding-top: 20px;
+    margin: auto !important;
+    justify-content: center !important;
+    display: flex !important;
 }
 #termWishlist {
     padding-top: 0px !important;
@@ -17,4 +23,8 @@
     font-weight: bold;
     padding-top: 25px;
     text-decoration: underline;
+    text-align: center;
+}
+#welcome {
+    padding-left: 20px;
 }

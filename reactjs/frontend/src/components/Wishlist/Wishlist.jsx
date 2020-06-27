@@ -113,8 +113,6 @@ class Wishlist extends React.Component {
         
         //call function to render remaining courses if there
         //are any.
-        //console.log("removed");
-        //console.log(this.state.courses);
         this.viewWishlist();
     }
 

@@ -10,6 +10,7 @@ import re
 from Course.prep_course_for_table import prepare_course
 
 NUM_COURSES = 20
+HARD_MAX = 10
 DBSTR = ""
 with open("./email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
@@ -19,6 +20,13 @@ def save_course_data(catalog_data, num_to_show):
     Helper method for /gep and /dept route to save
     data into dictionaries with correct formatting.
     """
+
+    # restrict number of courses to return to 10
+    if num_to_show > HARD_MAX:
+
+        # set number of courses to the hard max
+        num_to_show = HARD_MAX
+
     #access MongoDb database
     crowdsourced = MongoClient(DBSTR)
     grades_db = crowdsourced.Coursesnc
@@ -27,7 +35,7 @@ def save_course_data(catalog_data, num_to_show):
     catalog_full = []
     #iterate through catalog data
     for rec in catalog_data:
-        print(rec)
+        #print(rec)
         catalog_full.append(rec)
         for i in range(len(rec["section"])):
         #print(rec)
@@ -60,8 +68,8 @@ def save_course_data(catalog_data, num_to_show):
                     }
                 )
                 try:
-                    print(catalog)
-                    print(prof_data)
+                    #print(catalog)
+                    #print(prof_data)
                     if prof_data not in catalog and len(catalog)<num_to_show:
                         print(f"Adding")
                         catalog.append(prof_data) 
@@ -103,6 +111,7 @@ def gepRoute():
     the ReactJS and returns a JSON of the top 5 courses from the 
     database based on the metrics calculated.
     """
+    
     #access MongoDb database
     crowdsourced = MongoClient(DBSTR)
     grades_db = crowdsourced.Coursesnc
@@ -114,9 +123,9 @@ def gepRoute():
 
     #if additional breadth, either hum or ss
     if gep_requested == "ADDTL":
-        print("ADDLT")
+        #print("ADDLT")
         geps_req = ["HUM", "SS"]
-    print(gep_requested)
+    #print(gep_requested)
     #access  collection with the correct data
     if gep_requested != "HES" and gep_requested != "ADDTL":
         catalog_data = grades_db.catalogncsu.aggregate([
@@ -244,7 +253,7 @@ def gepRoute():
     #    print(f"Found {i}")
     #save data to dictionary
     relevant_data = save_course_data(catalog_data, num_to_show)
-    print(relevant_data)
+    #print(relevant_data)
     #del catalog_data["_id"]
     return relevant_data
 

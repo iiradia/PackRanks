@@ -109,9 +109,10 @@ class App extends React.Component {
 
           {/* Route to selecting major/viewing easy courses*/}
           {/* Protected so you must be signed in to access*/}
+          {/*
           <Route exact path = "/major">
             <ProtectedRoute component={Major}/>
-          </Route>
+          </Route>*/}
 
           { /* Route to forgot password */ }
           <Route exact path = "/forgotpassword">

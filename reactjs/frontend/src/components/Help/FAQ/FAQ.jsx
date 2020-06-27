@@ -49,7 +49,7 @@ export default function Example() {
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                    <p>
+                    <p id="helpText">
                         Great question! When you make an account,
                         you are able to create your own wishlist of courses that you
                         would like to take! In addition, we will send you an email 
@@ -66,7 +66,7 @@ export default function Example() {
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                    <p>
+                    <p id="helpText">
                         A course with a higher rating that is ranked above a course with a lower rating
                         either has a duplicate professor as a course that is ranked near the top of the list
                         or is a closed section with no more seats available.
@@ -80,7 +80,7 @@ export default function Example() {
                     </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                        <p>
+                        <p id="helpText">
                             Check out our about page for more information! <a href="/about">About PackRanks</a>
                         </p>
                 </AccordionItemPanel>
@@ -99,9 +99,6 @@ export default function Example() {
                     </p>
                 </AccordionItemPanel>
             </AccordionItem> 
-            {/*<p>If you have any concerns that remain unresolved after looking at the
-                appropriate question, please contact us using the link below!
-            </p>*/}
         </Accordion>
         </div>
     );

@@ -8,7 +8,6 @@ h2 {
 p {
     color: black !important;
     font-weight: bold !important;
-    padding-top: 20px !important;
 }
 #aboutHTML{
     background-image: url("./images/HuntLibraryMostTransparent.png");
@@ -59,3 +58,21 @@ p {
  .about-icons {
      display: inline-block !important;
  }
+#aboutPack {
+    font-weight: bold !important;
+    padding-bottom: 20px;
+}
+#howwehelpdiv {
+    max-width: 730px;
+    margin: auto;
+    text-align: left !important;
+}
+#bolderGradient {
+    color: #cc0000 !important;
+    font-size: 16px;
+}
+#aboutratingDiv {
+    max-width: 730px;
+    margin: auto;
+    text-align: left;
+}
