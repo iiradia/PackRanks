@@ -184,8 +184,9 @@ iframe {
 .contact100-form-title {
   width: 100%;
   display: block;
-  font-family: Raleway-Black;
-  font-size: 30px;
+  font-family: 'Exo 2', sans-serif !important;
+  font-weight: bold !important;
+  font-size: 35px !important;
   color: #cc0000;
   line-height: 1.2;
   text-align: center;
@@ -211,8 +212,8 @@ iframe {
 
 
 .label-input100 {
-  font-family: Raleway-SemiBold;
-  font-size: 13px;
+  font-family: 'Exo 2', sans-serif !important;
+  font-size: 16px !important;
   color: #555555;
   line-height: 1.5;
   text-transform: uppercase;
@@ -225,8 +226,8 @@ iframe {
   display: block;
   width: 100%;
   background: transparent;
-  font-family: Raleway-SemiBold;
-  font-size: 18px;
+  font-family: 'Exo 2', sans-serif !important;
+  font-size: 20px !important;
   color: #333333;
   line-height: 1.2;
   padding: 0 25px;
@@ -302,7 +303,7 @@ textarea.input100 {
 }
 
 .contact100-form-btn {
-  font-family: Raleway-Bold;
+  font-family: 'Exo 2', sans-serif !important;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;

@@ -62,7 +62,7 @@ class Navigation extends React.Component {
             <Navbar className="navbar navbar-expand-lg navbar-dark static-top" variant="dark">
                 <div className="container">
                     
-                    <Navbar.Brand href="/">
+                    <Navbar.Brand id="packRanks" href="/">
                         <img id="logoNav" src={logo} alt={"Logo"} width={50} height={50}/>
                         PackRanks
                     </Navbar.Brand>
@@ -70,20 +70,11 @@ class Navigation extends React.Component {
 
                     <Nav.Link id="homelink" href="/">Home</Nav.Link>
                         
-                        
-                        {/*<Router>
-                            <Nav.Link>
-                                <Link to="/login">Login</Link>
-                            </Nav.Link>
-                            <Switch>
-                                <Route path="/login" component={LoginPage}/>
-                            </Switch>
-                        </Router>*/}
                         <Nav.Link id="aboutlink" href="/about">About</Nav.Link>
                         
 
                         <Nav.Link id="instructionlink" href="/help">Help</Nav.Link>
-                        <Nav.Link id="donateLink" href="/donate">Donate</Nav.Link>
+                        {/*<Nav.Link id="donateLink" href="/donate">Donate</Nav.Link>*/}
                         {/* Where to render contact */ }
                         <div id="contact">
                         </div>

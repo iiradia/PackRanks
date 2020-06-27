@@ -77,10 +77,11 @@ class App extends React.Component {
             <Help />
           </Route>
 
+          {/*
           <Route exact path="/donate"> 
             <Navbar/>
             <Donate/>
-          </Route>
+          </Route>*/}
 
 
           { /* Route to contact page. */ }

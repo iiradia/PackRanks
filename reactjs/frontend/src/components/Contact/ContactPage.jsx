@@ -159,7 +159,7 @@ class ContactPage extends React.Component {
                     method="POST"
                     className="contact100-form validate-form">
                     {/*Form title */}
-                    <span className="contact100-form-title">
+                    <span id="contactUsForm" className="contact100-form-title">
                         Contact Us
                     </span>
 

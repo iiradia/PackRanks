@@ -63,15 +63,7 @@ def prepare_course(record):
     ratemyprof_link = record[relevant_keys[-2]]
 
     course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
-
-    """else: 
-        try:
-            overall_quality = record["overall_quality"]
-            overall_difficulty=record["overall_difficulty"]
-            course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link,overall_quality,overall_difficulty]
-        except:
-            course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
-    """
+    
     course_data["Section"] = record[relevant_keys[2]]
     course_data["Prerequisites"] = record[relevant_keys[4]]
     #course_data["RateMyProfessor Link"] = record[relevant_keys[-2]]

@@ -82,4 +82,8 @@ button {
     max-width: 800px;
     margin: auto;
     color: black !important;
+    font-family: 'Exo 2', sans-serif;
+}
+#labLink {
+    font-family: 'Exo 2', sans-serif;
 }

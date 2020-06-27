@@ -22,3 +22,6 @@
     font-weight: bold;
     font-size: 30px !important;
 }
+p, em {
+    font-family: 'Exo 2', sans-serif !important;
+}

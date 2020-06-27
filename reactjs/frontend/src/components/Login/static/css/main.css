@@ -21,11 +21,6 @@
 }
 
 @font-face {
-  font-family: Raleway-Regular;
-  src: url('../fonts/raleway/Raleway-Regular.ttf'); 
-}
-
-@font-face {
   font-family: Raleway-Black;
   src: url('../fonts/raleway/Raleway-Black.ttf'); 
 }
@@ -150,7 +145,7 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: Raleway-Regular;
+  font-family: 'Exo 2', sans-serif !important;
   font-size: 16px;
   color: #999999;
   line-height: 1.4;
@@ -228,8 +223,9 @@ iframe {
 }
 
 .login100-form-title {
-  font-family: Raleway-Black;
-  font-size: 30px;
+  font-family: 'Exo 2', sans-serif !important;
+  font-size: 35px !important;
+  font-weight: bolder !important;
   color: #cc0000;
   line-height: 1.2;
   text-transform: uppercase;
@@ -248,7 +244,7 @@ iframe {
 }
 
 .input100 {
-  font-family: Raleway-SemiBold;
+  font-family: 'Exo 2', sans-serif !important;
   font-size: 18px;
   line-height: 1.2;
   color: #686868;
@@ -335,7 +331,7 @@ iframe {
 }
 
 .label-checkbox100 {
-  font-family: Raleway-Regular;
+  font-family: 'Exo 2', sans-serif !important;
   font-size: 16px;
   color: #999999;
   line-height: 1.2;
@@ -426,7 +422,7 @@ iframe {
 [ Button sign in with ]*/
 .btn-face,
 .btn-google {
-  font-family: Raleway-Bold;
+  font-family: 'Exo 2', sans-serif !important;
   font-size: 16px;
   line-height: 1.2;
 

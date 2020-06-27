@@ -165,7 +165,7 @@ class Major extends React.Component {
         ReactDOM.render(
             <div>
                 <div id="majordisplay">
-                    <h2 id="yourMajor">{identity.first_name}'s Major: <strong>{major}</strong></h2>
+                    <h2 id="yourMajor"><em>{identity.first_name}'s Major:</em> <strong>{major}</strong></h2>
                     <div id="changeMajorDiv">
                         <Button className = "btn btn-danger"
                             id="changeMajor"

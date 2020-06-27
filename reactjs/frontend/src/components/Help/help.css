@@ -17,10 +17,15 @@ p {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover; 
+    justify-content: center;
+    margin-left: auto !important; 
+    margin-right: auto !important;
+    text-align: center !important;
 }
 #aboutPage {
-  margin-left: auto !important;
-  margin-right: auto !important;
+    margin-left: auto !important; 
+    margin-right: auto !important;
+    text-align: center !important;
 }
 #aboutustitle {
     padding-top: 25px;
@@ -29,6 +34,22 @@ p {
 #contactUsAbout {
     padding-top: 7px;
 }
+#wrapper {
+    text-align: center;
+    margin: 0 auto !important;
+}
+#container {
+    justify-content: center;
+    text-align: center;
+    align-content: content;
+}
+
+#aboutDiv{
+    justify-content: center !important;
+    text-align: center;
+    align-content: content;
+}
+
 .paddingTB60 {padding:60px 0px 60px 0px;}
 .gray-bg {background: #F1F1F1 !important;}
 .about-title h1 {color: #535353; font-size:45px;font-weight:600;}

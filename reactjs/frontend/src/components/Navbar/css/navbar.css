@@ -7,55 +7,64 @@ nav {
 }
 #homelink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
+    font-family: 'Exo 2', sans-serif;
 }
 
 #loginlink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
+    font-family: 'Exo 2', sans-serif;
 }
 #instructionlink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
+    font-family: 'Exo 2', sans-serif;
 }
 #aboutlink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
+    font-family: 'Exo 2', sans-serif;
 }
 
 #donateLink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
+    font-family: 'Exo 2', sans-serif;
 }
 
 
 #contactlink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
+    font-family: 'Exo 2', sans-serif;
 }
 
 #homepagelink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
     background-color: #cc0000 !important;
+    font-family: 'Exo 2', sans-serif;
 }
 
 #signoutlink {
     color:white;
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: none !important;
-    background-color: #cc0000 !important
+    background-color: #cc0000 !important;
+    font-family: 'Exo 2', sans-serif;
 }
 #wishlistlink {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
     text-decoration: none !important;
     background-color: #cc0000 !important
 }
@@ -67,4 +76,9 @@ nav {
 
 #logoNav{
     margin-right: 10px;
+}
+#packRanks {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: bold;
+    font-size: 22px;
 }
