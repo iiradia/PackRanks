@@ -67,19 +67,30 @@ def prepare_course(record):
     course_data["Section"] = record[relevant_keys[2]]
     course_data["Prerequisites"] = record[relevant_keys[4]]
     #course_data["RateMyProfessor Link"] = record[relevant_keys[-2]]
-    
+    tba_msg = "To Be Announced"
+
     #append location url if available
     try:
-        course_data["Location"] = [
-            record[relevant_keys[5]],
-            record[new_key_features[0]]
-        ]
+        loc = record[relevant_keys[5]]
+
+        if len(loc) > 0:
+            course_data["Location"] = [
+                record[relevant_keys[5]],
+                record[new_key_features[0]]
+            ]
+        else:
+            course_data["Location"] = [tba_msg, "None"]
     #else put URL as
     except:
-        course_data["Location"] = [
-            record[relevant_keys[5]],
-            "None"
-        ]
+        loc = record[relevant_keys[5]]
+
+        if len(loc) > 0:
+            course_data["Location"] = [
+                record[relevant_keys[5]],
+                "None"
+            ]
+        else:
+            course_data["Location"] = [tba_msg, "None"]
 
     #try:
     #    course_data["Course Dates"] = record[relevant_keys[6]]

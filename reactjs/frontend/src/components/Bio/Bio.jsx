@@ -41,7 +41,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           </div>
           <h3>Harshal Suthar</h3>
           <span>Software Engineer</span>
-          <p>He likes CHUNKYYYYYY RAGUUUUUU</p>
+          <p>Focused on application security and front-end development.</p>
         </div>
 
         
@@ -69,7 +69,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           </div>
           <h3>Mathew Chanda</h3>
           <span>Software Engineer</span>
-          <p>Don't ask him to turn on his camera during a zoom call</p>
+          <p>Focused on the front-end React components and the MongoDB non-relational model.</p>
       </div>
 
 
@@ -96,8 +96,8 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
              </div>
           </div>
           <h3>Ishaan Radia</h3>
-          <span>Software Engineer</span>
-          <p>He's probably returning another electric scooter right now</p>
+          <span>Principal Software Engineer</span>
+          <p>Implemented production-ready web scraping system, created a data infastructure design via MongoDB. He also integrated the React components with the back-end REST API endpoints.</p>
       </div>
 
 
@@ -112,7 +112,7 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
                 </a>
               </div>
                <div class="twitter item">
-                  <a href="https://www.linkedin.com/in/anthony-wang-3aa134164/" target = "_blank"> 
+                  <a href="https://github.com/AndongW" target = "_blank"> 
                     <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
                   </a>
               </div>
@@ -124,8 +124,8 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
              </div>
           </div>
           <h3>Anthony Wang</h3>
-          <span>Consultant</span>
-          <p>Why is he even on here? He didn't write any of the code!</p>
+          <span>Data Scientist</span>
+          <p>Developed the proprietary PackRanks rating formula.</p>
       </div>  
 
     </div>
