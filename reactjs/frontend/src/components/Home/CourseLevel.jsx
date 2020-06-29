@@ -48,6 +48,7 @@ class CourseLevel extends React.Component{
                     { /* Select level between 100 and 800 */ }
                     <div id="level_min_option">
                         <CreatableSelect 
+                                defaultValue={[{label: 'ANY', value: 'ANY'}]}
                                 id="level_min" 
                                 options={levelOptionsMin}
                                 onChange={level => this.setState({level_min: level.value})}       
@@ -58,6 +59,7 @@ class CourseLevel extends React.Component{
                     { /* Select level between 100 and 800 */ }
                     <div id="level_max_option">
                         <CreatableSelect 
+                                defaultValue={[{label: 'ANY', value: 'ANY'}]}
                                 id="level_max" 
                                 options={levelOptionsMax}
                                 onChange={level => this.setState({level_max: level.value})}      

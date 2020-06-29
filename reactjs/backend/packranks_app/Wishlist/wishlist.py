@@ -23,7 +23,7 @@ In the future, maybe add a feature that sends user confirmation email about
 wishlist update and then sends recommended similar courses to user?
 """
 
-app.route("/resetWishlist", methods=["POST"])
+@app.route("/resetWishlist", methods=["POST"])
 def reset_wishlist():
     """
     Method to reset the wishlist to what the user inputted
@@ -52,7 +52,7 @@ def reset_wishlist():
 
     return json.dumps({"success":True}), 200, {"ContentType":"application/json"}
 
-app.route("/addWishlist", methods=["POST"])
+@app.route("/addWishlist", methods=["POST"])
 def add_course_to_wishlist():
     """
     Method to process input from frontend containing course

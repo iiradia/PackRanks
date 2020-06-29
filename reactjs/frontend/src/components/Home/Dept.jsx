@@ -19,12 +19,12 @@ class Dept extends React.Component {
             dept_list: null,
             courses: null,
             select_value: null,
-            level_min: null, 
-            level_max: null,  
+            level_min: "ANY", 
+            level_max: "ANY",  
             loading: false,
             inputValueMin: "",  //new
             inputValueMax: "" , //new
-            numCourses_value: null
+            numCourses_value: 5
         }
         /* Call depts function */
         this.getDepts();
@@ -280,13 +280,13 @@ class Dept extends React.Component {
                             <div id="level_min_option">
                                 <Select
                                     id="level_min"
+                                    defaultValue={[{label: 'ANY', value: 'ANY'}]}
                                     options={levelOptionsMin}
                                     onChange={level => this.setState({level_min: level.value})}
                                     inputValue={inputValueMin}
                                     onInputChange={this.handleInputChangeMin.bind(this)}
                                     noOptionsMessage={() => null}
                                 />
-                                {console.log(this.state.level_min)}
                             </div>
 
                             {/* prompt for levels */ }
@@ -296,13 +296,13 @@ class Dept extends React.Component {
                             <div id="level_max_option">
                                 <Select
                                     id="level_max" 
+                                    defaultValue={[{label: 'ANY', value: 'ANY'}]}
                                     options={levelOptionsMax}
                                     onChange={level => this.setState({level_max: level.value})}
                                     inputValue={inputValueMax}
                                     onInputChange={this.handleInputChangeMax.bind(this)}
                                     noOptionsMessage={() => null}
                                 />
-                                {console.log(this.state.level_max)}
                             </div>
                     </div>
                 
@@ -311,7 +311,8 @@ class Dept extends React.Component {
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
                         <Select className="numCourseSelect"
                                 id='num_course_select' 
-                                options={numCourses} 
+                                options={numCourses}
+                                defaultValue={[{label: 5, value: 5}]} 
                                 //defaultValue={numCourses[0]}
                                 onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
                         />

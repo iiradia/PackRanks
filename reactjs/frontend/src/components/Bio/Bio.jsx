@@ -15,7 +15,33 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
     <div class="wrapper">
     <h1 id="teamTitle">Our Team</h1>
     <div class="our_team">
-
+          
+          {/* Ishaan's Profile*/}
+          <div class="team_member">
+           <div class="member_img">
+             <img id="profileImage" src={IshaanPicture} alt="our_team" target = "_blank"/>
+             <div class="social_media">
+               <div class="facebook item">
+                 <a href = "https://linkedin.com/in/ishaan-radia" target = "_blank">
+                    <LinkedInIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a>
+              </div>
+               <div class="twitter item">
+                  <a href="https://github.com/iiradia" target = "_blank"> 
+                    <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
+                  </a>
+              </div>
+               <div class="instagram item">
+                  <a href="mailto: iiradia@ncsu.edu" target = "_blank">  
+                      <MailIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/> 
+                  </a>
+              </div>
+             </div>
+          </div>
+          <h3>Ishaan Radia</h3>
+          <span>Principal Software Engineer</span>
+          <p>Implemented production-ready web scraping system and created an ETL pipeline with Python and MongoDB. Developed React components and integrated them with the back-end REST API Flask endpoints.</p>
+      </div>
 
         {/* Harshal's Profile*/}
         <div class="team_member">
@@ -70,34 +96,6 @@ function Bio(){// Ishaan - Returning scooter, Mathew - Not turning on his camera
           <h3>Mathew Chanda</h3>
           <span>Software Engineer</span>
           <p>Focused on the front-end React components and the MongoDB non-relational model.</p>
-      </div>
-
-
-      {/* Ishaan's Profile*/}
-        <div class="team_member">
-           <div class="member_img">
-             <img id="profileImage" src={IshaanPicture} alt="our_team" target = "_blank"/>
-             <div class="social_media">
-               <div class="facebook item">
-                 <a href = "https://linkedin.com/in/ishaan-radia" target = "_blank">
-                    <LinkedInIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
-                  </a>
-              </div>
-               <div class="twitter item">
-                  <a href="https://github.com/iiradia" target = "_blank"> 
-                    <GitHubIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/>
-                  </a>
-              </div>
-               <div class="instagram item">
-                  <a href="mailto: iiradia@ncsu.edu" target = "_blank">  
-                      <MailIcon fontSize="large" style={{ color: "#cc0000", margins: 40}}/> 
-                  </a>
-              </div>
-             </div>
-          </div>
-          <h3>Ishaan Radia</h3>
-          <span>Principal Software Engineer</span>
-          <p>Implemented production-ready web scraping system, created a data infastructure design via MongoDB. He also integrated the React components with the back-end REST API endpoints.</p>
       </div>
 
 
