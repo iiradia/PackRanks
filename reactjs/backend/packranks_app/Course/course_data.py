@@ -2,17 +2,17 @@
 from flask_api import FlaskAPI
 from flask import request
 from pymongo import MongoClient
-from __main__ import app
 import json
 import pandas as pd
 from math import log10
 import re
-from Course.prep_course_for_table import prepare_course
+from packranks_app.Course.prep_course_for_table import prepare_course
+from packranks_app import app
 
 NUM_COURSES = 20
 HARD_MAX = 10
 DBSTR = ""
-with open("./email_data.json", "r") as data:
+with open("packranks_app/email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
 
 def save_course_data(catalog_data, num_to_show):
@@ -102,7 +102,6 @@ def getDeptList():
     #{"depts":DEPTS, "dept_code":DEPT_CODE}]
 
     return depts_dict
-
 
 @app.route("/gep")
 def gepRoute():

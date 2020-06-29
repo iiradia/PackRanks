@@ -9,18 +9,18 @@ from selenium.webdriver import DesiredCapabilities
 import time
 from time import sleep
 from pymongo import MongoClient
-from __main__ import app
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from Course.prep_course_for_table import prepare_course
+from packranks_app.Course.prep_course_for_table import prepare_course
 import json
+from packranks_app import app
 
 EMAIL = ""
 PASS = ""
 DBSTR = ""
 
-with open ("./email_data.json", "r") as email_data:
+with open ("packranks_app/email_data.json", "r") as email_data:
     data =  json.load(email_data)
     EMAIL = data["EMAIL"]
     PASS = data["PASS"]

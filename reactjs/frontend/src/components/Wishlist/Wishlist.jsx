@@ -92,7 +92,7 @@ class Wishlist extends React.Component {
         //reset checked courses
         localStorage.setItem("checkedCourses", JSON.stringify([]));
         //update db with call to API
-        let url = "http://localhost:5000/resetWishlist"
+        let url = "http://packranks-backend.herokuapp.com/resetWishlist"
         //reset the wishlist with the updated state, 
         //with the removed courses no longer in the state
         fetch( 
@@ -118,7 +118,7 @@ class Wishlist extends React.Component {
 
     viewWishlist() {
         const UserPage = this;
-        let url = "http://localhost:5000/viewWishlist";
+        let url = "http://packranks-backend.herokuapp.com/viewWishlist";
         fetch( 
             url, {
                 method: "GET",

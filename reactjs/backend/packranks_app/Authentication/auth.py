@@ -1,20 +1,20 @@
 from flask_api import FlaskAPI
 from flask import request
 from pymongo import MongoClient
-from __main__ import app
 import json
+from packranks_app import app
 # import the hash algorithm
 from passlib.hash import pbkdf2_sha256
 NUM_ROUNDS =  100000
 
 DBSTR = ""
-with open ("./email_data.json", "r") as data:
+with open ("packranks_app/email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
 
 crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
 #import helpers
-from Authentication.auth_helpers import (
+from packranks_app.Authentication.auth_helpers import (
     get_user_token, send_signup_email
 )
 

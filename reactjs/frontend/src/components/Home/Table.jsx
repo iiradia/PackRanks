@@ -57,7 +57,7 @@ const checkDelete= (props) => {
 //when wishlist button is pressed
 const onWishlist= (props) => {
     //console.log(props);
-    let url = "http://localhost:5000/addWishlist"
+    let url = "http://packranks-backend.herokuapp.com/addWishlist"
     fetch( 
         url, {
             method: "POST",

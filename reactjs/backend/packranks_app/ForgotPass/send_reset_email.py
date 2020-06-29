@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 EMAIL = ""
 PASS = ""
 
-with open ("./email_data.json", "r") as email_data:
+with open ("packranks_app/email_data.json", "r") as email_data:
     data =  json.load(email_data)
     EMAIL = data["EMAIL"]
     PASS = data["PASS"]

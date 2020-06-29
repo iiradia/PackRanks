@@ -87,7 +87,7 @@ class SignUp extends React.Component {
         if (validInput) {
             console.log(this.state);
 
-            let url = "http://localhost:5000/signup";
+            let url = "http://packranks-backend.herokuapp.com/signup";
             fetch(url,
             {
                     method: "POST",

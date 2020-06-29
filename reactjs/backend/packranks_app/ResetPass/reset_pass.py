@@ -1,15 +1,15 @@
 from flask_api import FlaskAPI
 from flask import request
 from pymongo import MongoClient
-from __main__ import app
 import json
 import random
 from datetime import datetime
 import time
+from packranks_app import app
 
 #import helper method
-from ResetPass.send_confirmation_reset import send_confirmation_reset
-from ResetPass.verify_tokens import verify_token
+from packranks_app.ResetPass.send_confirmation_reset import send_confirmation_reset
+from packranks_app.ResetPass.verify_tokens import verify_token
 
 # import the hash algorithm
 from passlib.hash import pbkdf2_sha256
@@ -21,7 +21,7 @@ TOKEN_EXPIRATION = 10
 #get database string and email pass
 DBSTR = ""
 
-with open ("./email_data.json", "r") as data:
+with open ("packranks_app/email_data.json", "r") as data:
     data = json.load(data)
     DBSTR = data["DBSTR"]
 

@@ -79,7 +79,7 @@ class ContactPage extends React.Component {
         if (validInput) {
             //console.log(this.state);
 
-            let url = "http://localhost:5000/contact";
+            let url = "http://packranks-backend.herokuapp.com/contact";
             fetch(url,
             {
                     method: "POST",

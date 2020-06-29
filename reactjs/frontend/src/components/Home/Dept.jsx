@@ -75,7 +75,7 @@ class Dept extends React.Component {
     }
     courseTable() {
         const Dept = this;
-        let dept_url = "http://localhost:5000/dept";
+        let dept_url = "http://packranks-backend.herokuapp.com/dept";
         this.setState({loading:true})
 
         //new
@@ -164,7 +164,7 @@ class Dept extends React.Component {
     /* Get List of departments and render select component */
     getDepts() {
         const Dept = this;
-        let url = "http://localhost:5000/getdepts";
+        let url = "http://packranks-backend.herokuapp.com/getdepts";
 
         //ToDo: Load dynamically, only bring in 20 depts at a time in order to save time with Flask request 
         return fetch( 

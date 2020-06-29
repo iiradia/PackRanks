@@ -65,7 +65,7 @@ class LoginPage extends React.Component {
       
       if (validInput) {
 
-        let url = "http://localhost:5000/login";
+        let url = "http://packranks-backend.herokuapp.com/login";
         fetch(url,
         {
                 method: "POST",
@@ -109,7 +109,7 @@ class LoginPage extends React.Component {
     //get data from google
     const profile_obj = response.profileObj;
     
-    let url = "http://localhost:5000/googleauth";
+    let url = "http://packranks-backend.herokuapp.com/googleauth";
     //call Flask API with google user data.
     fetch(url,
       {

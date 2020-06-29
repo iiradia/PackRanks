@@ -32,7 +32,7 @@ class GEP extends React.Component {
 
     getTable() {
         const GEP = this;
-        let url = "http://localhost:5000/gep";
+        let url = "http://packranks-backend.herokuapp.com/gep";
         this.setState({loading: true})
         fetch( 
             url, {

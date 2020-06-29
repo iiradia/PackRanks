@@ -7,5 +7,9 @@ Werkzeug==1.0.1
 flask_api
 flask_jwt_extended
 pymongo
+dnspython
 selenium
 passlib
+gunicorn
+flask_cors
+pandas

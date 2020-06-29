@@ -5,13 +5,13 @@ from flask_jwt_extended import (
 )
 from flask_jwt_extended.tokens import decode_jwt
 from pymongo import MongoClient
-from __main__ import app
 import json
 import jwt
+from packranks_app import app
 
 DBSTR = ""
 SECRET = ""
-with open ("./email_data.json", "r") as data:
+with open ("packranks_app/email_data.json", "r") as data:
 
     data = json.load(data)
     DBSTR = data["DBSTR"]

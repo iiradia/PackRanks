@@ -68,7 +68,7 @@ class ResetPass extends React.Component {
         if (validInput) {
             console.log(this.state);
 
-            let url = "http://localhost:5000/resetPass";
+            let url = "http://packranks-backend.herokuapp.com/resetPass";
             fetch(url,
             {
                     method: "POST",

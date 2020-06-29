@@ -4,13 +4,13 @@ from pymongo import MongoClient
 import pandas as pd
 from math import log10
 import re
-from __main__ import app
 import json
 import smtplib
+from packranks_app import app
 
 EMAIL = ""
 PASS = ""
-with open("./email_data.json", "r") as data:
+with open("packranks_app/email_data.json", "r") as data:
     json_data = json.load(data)
     EMAIL = json_data["EMAIL"]
     PASS = json_data["PASS"]

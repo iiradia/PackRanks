@@ -15,7 +15,7 @@ TOKEN_EXPIRATION = 10
 #get database string and email pass
 DBSTR = ""
 
-with open ("./email_data.json", "r") as data:
+with open ("packranks_app/email_data.json", "r") as data:
     data = json.load(data)
     DBSTR = data["DBSTR"]
 

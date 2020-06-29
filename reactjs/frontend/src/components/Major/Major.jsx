@@ -19,7 +19,7 @@ class Major extends React.Component {
         super();
 
         this.state = {
-            url: "http://localhost:5000",
+            url: "http://packranks-backend.herokuapp.com",
             major: "",
             courses: []
         }

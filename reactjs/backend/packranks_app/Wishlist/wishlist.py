@@ -5,12 +5,13 @@ from flask_jwt_extended import (
 )
 from flask_jwt_extended.tokens import decode_jwt
 from pymongo import MongoClient
-from __main__ import app
 import json
 import jwt
 from collections import defaultdict
+from packranks_app import app
+
 DBSTR = ""
-with open ("./email_data.json", "r") as data:
+with open ("packranks_app/email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
 #save to database
 crowdsourced = MongoClient(DBSTR)
@@ -22,7 +23,7 @@ In the future, maybe add a feature that sends user confirmation email about
 wishlist update and then sends recommended similar courses to user?
 """
 
-@app.route("/resetWishlist", methods=["POST"])
+app.route("/resetWishlist", methods=["POST"])
 def reset_wishlist():
     """
     Method to reset the wishlist to what the user inputted
@@ -51,7 +52,7 @@ def reset_wishlist():
 
     return json.dumps({"success":True}), 200, {"ContentType":"application/json"}
 
-@app.route("/addWishlist", methods=["POST"])
+app.route("/addWishlist", methods=["POST"])
 def add_course_to_wishlist():
     """
     Method to process input from frontend containing course
@@ -99,7 +100,7 @@ def add_course_to_wishlist():
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
-@app.route("/viewWishlist", methods=["GET"])
+app.route("/viewWishlist", methods=["GET"])
 def view_wishlist():
     """
     Method to display the wishlist for a particular user whose 

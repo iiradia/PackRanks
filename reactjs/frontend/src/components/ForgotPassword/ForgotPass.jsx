@@ -56,7 +56,7 @@ class ForgotPass extends React.Component {
       
       if (validInput) {
 
-        let url = "http://localhost:5000/resetLink";
+        let url = "http://packranks-backend.herokuapp.com/resetLink";
         fetch(url,
         {
                 method: "POST",

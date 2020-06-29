@@ -10,7 +10,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(days=1)
 
 SECRET_KEY=""
 
-with open("email_data.json", "r") as d:
+with open("packranks_app/email_data.json", "r") as d:
     data = json.load(d)
     SECRET_KEY = data["SECRET_KEY"]
 
@@ -20,14 +20,14 @@ CORS(app)
 jwt = JWTManager(app)
 
 #import flask files within project
-from Contact import contact
-from Authentication import auth
-from Course import course_data
-from Wishlist import wishlist
-from Wishlist.wishlist_reminder import check_wishlist_courses
-from ForgotPass import forgot_password
-from ResetPass import reset_pass
-from Major import check_major, update_major
+from packranks_app.Contact import contact
+from packranks_app.Authentication import auth
+from packranks_app.Course import course_data
+from packranks_app.Wishlist import wishlist
+from packranks_app.Wishlist.wishlist_reminder import check_wishlist_courses
+from packranks_app.ForgotPass import forgot_password
+from packranks_app.ResetPass import reset_pass
+from packranks_app.Major import check_major, update_major
 
 if __name__ == "__main__":
     p = Process(target=check_wishlist_courses)
