@@ -14,6 +14,7 @@ class Dept extends React.Component {
         this.DeptList = this.DeptList.bind(this)
         this.courseTable = this.courseTable.bind(this)
         this.parseData = this.parseData.bind(this)
+        this.filterOption = this.filterOption.bind(this)
 
         this.state = {
             dept_list: null,
@@ -24,11 +25,13 @@ class Dept extends React.Component {
             loading: false,
             inputValueMin: "",  //new
             inputValueMax: "" , //new
-            numCourses_value: 5
+            numCourses_value: 5, 
         }
         /* Call depts function */
         this.getDepts();
     }
+
+
     parseData(data) {
         console.log(data);
         if (data.length > 0) {
@@ -174,42 +177,81 @@ class Dept extends React.Component {
         ).then(
             response => response.json() // keep here (maybe)
         ).then(
-            (data) => {this.setState({dept_list: data},
+            (data) => {this.setState({all_dept_list: data},
                 () => ReactDOM.render(this.DeptList(), document.getElementById('deptlist'))
             )}
         )
     }
+
+    filterOption = ({ label, value, data }, string) => {
+        if(label.toLowerCase().startsWith(string)){
+            return label
+        }; 
+      };
     
     /* Return select component with list of departments */
     DeptList(){
-        const departments = this.state.dept_list;
 
-        const deptOptions = departments.dept.map((dept) => (
-            {label: dept}
-        ));
-        const deptValues = departments.dept_code.map((value_i) => (
-            {value: value_i}
-        ));
-        const deptFinal = [];
-        for (var i = 0; i < deptOptions.length; i++) {
-            deptFinal[i] = {label: deptOptions[i].label,
-                            value: deptValues[i].value}
-        }
+        // Returning the list of a default value 
+            const departments = this.state.all_dept_list;
+            const deptOptions = departments.dept.map((dept) => (
+                {label: dept}
+            ));
+            const deptValues = departments.dept_code.map((value_i) => (
+                {value: value_i}
+            ));
+            const deptFinal = [];
+            for (var i = 0; i < deptOptions.length; i++) {
+                deptFinal[i] = {label: deptOptions[i].label,
+                                value: deptValues[i].value}
+            }
 
-        return (
-        <div className="app">
-            <div className="container">
-                <div style={{width:"400px", margin:"0 auto"}}>
-                    <Select className="deptSelect"
-                            id='dept_list_select' 
-                            options={deptFinal} 
-                            onChange={dept => this.setState({select_value:dept.value})}
-                    />
+
+            return (
+            <div className="app">
+                <div className="container">
+                    <div style={{width:"400px", margin:"0 auto"}}>
+                        <Select className="deptSelect"
+                                id='dept_list_select' 
+                                options={deptFinal} 
+                                onChange={dept => {
+                                    this.setState({select_value:dept.value})
+                                }}
+
+                                filterOption = {this.filterOption}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-        )
+            )
+
+
+
+      /*  else{
+            // Gets all department 
+            
+
+            return (
+                <div className="app">
+                    <div className="container">
+                        <div style={{width:"400px", margin:"0 auto"}}>
+                            <Select className="deptSelect"
+                                    id='dept_list_select' 
+                                    options={deptFinal} 
+                                    onChange={dept => this.setState({select_value:dept.value})}
+                            />
+                        </div>
+                    </div>
+                </div>
+                )
+            
+        } */ 
     };
+
+
+    getFilterOptions(){
+
+    }
 
     //new
     handleInputChangeMin(inputValueMin, action) {
