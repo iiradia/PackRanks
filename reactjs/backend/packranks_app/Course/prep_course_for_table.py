@@ -36,8 +36,14 @@ def prepare_course(record):
     #print(record)
     try:
         transformed_rating = float(record["transformed_official_score"])
-    
-        course_data["Rating"] = round(transformed_rating)
+        print(transformed_rating)
+        if transformed_rating != float(0):
+
+            course_data["Rating"] = round(transformed_rating)
+
+        else:
+            course_data["Rating"] = "nan"
+            
     except:
         course_data["Rating"] = "nan"
 

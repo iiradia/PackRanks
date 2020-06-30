@@ -7,7 +7,8 @@ import ReactDOM from 'react-dom';
 import Instruction from '../Help/Instructions/Instruction.jsx'
 
 import toast from 'toasted-notes' 
-import 'toasted-notes/src/styles.css';
+import 'toasted-notes/src/styles.css'
+import HelpIcon from '@material-ui/icons/Help';
 
 function hsl_col_perc(percent, start, end) {
     var a = percent / 100,
@@ -110,11 +111,11 @@ const RenderRow = (props) =>{
                 return <td key={props.data[key][0]}><strong>{props.data[key][0]}</strong></td>
             }
 
-            /*else { 
+            else { 
                 /* Else, return hyperlink that opens in new tab. 
-                
+                */
                 if(key === "RateMyProfessor Link"){
-                    const overall_prof = "Overall Quality: " + props.data[key][2] + " <br/> Overall Difficulty: " + props.data[key][3]
+                    const overall_prof = "Quality: " + props.data[key][2] + " <br/>Difficulty: " + props.data[key][3]
                     return <td key={props.data[key][0]}>
                                 <a id="tablelinks" className="tablelinks" href={props.data[key][1]} target="_blank" data-for="ctool" data-tip={overall_prof}>
         
@@ -124,7 +125,7 @@ const RenderRow = (props) =>{
                                     </div>
                                 </a>
                             </td>
-                }*/
+                }
                 
                 else{
                     return <td key={props.data[key][0]}>
@@ -133,7 +134,8 @@ const RenderRow = (props) =>{
                             </a>
                         </td>
                 }
-        }
+            }
+        }   
         //if section and user is authenticated, show option for adding to wishlist
         //IMPLEMENTED below
         /* If normal element, return normal table */
@@ -158,19 +160,6 @@ const RenderRow = (props) =>{
 
         else if (key==="Rating") {
             let currRating = props.data[key];
-            /*let easyNote = "Difficult";
-            if (currRating > 65) { 
-                easyNote = "Moderately Difficult"
-            }
-            if (currRating > 69) {
-                easyNote = "Medium"
-            }
-            if (currRating > 79) {
-                easyNote = "Easy"
-            }
-            if (currRating > 89) {
-                easyNote = "Very Easy"
-            }*/
             //console.log(keyColor);
             return <td id="ratingTable" key={props.data[key]}><strong>{props.data[key]}</strong></td>
         }
@@ -222,9 +211,18 @@ class table extends React.Component {
             let keys_last = keys.slice(5, keys.length);
             keys = keys_first.concat(wishlistHed, keys_last);
             //keys = wishlistHed.concat(keys);
-        //}
+        //} 
         return keys.map((key, index)=>{
-            return <th key={key}>{key.toUpperCase()}</th>
+            //if rating, show help
+            let help_rating = "90-100 = Very Likely A<br/>80-90 = EasyA<br/>70-80 = You get what you put in<br/>60-70 = Avoid if possible<br/><60 = Avoid";
+            if (key === "Rating") {
+                return <th key={key}>{key.toUpperCase()}<HelpIcon data-for="ctool" data-tip={help_rating}/>
+                <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/> 
+                </th>
+            }
+            else {
+                return <th key={key}>{key.toUpperCase()}</th>
+            }
         })
     }
     

@@ -184,9 +184,17 @@ class Dept extends React.Component {
     }
 
     filterOption = ({ label, value, data }, string) => {
-        if(label.toLowerCase().startsWith(string)){
+
+        let new_str = string.toLowerCase();
+        let dept_name = label.split(" - ")[1];
+
+        if(label.toLowerCase().startsWith(new_str)){
             return label
-        }; 
+        }
+        else if (dept_name.toLowerCase().startsWith(new_str))
+        {
+            return label
+        }
       };
     
     /* Return select component with list of departments */
@@ -217,7 +225,7 @@ class Dept extends React.Component {
                                 onChange={dept => {
                                     this.setState({select_value:dept.value})
                                 }}
-
+                                placeholder="Search or Select"
                                 filterOption = {this.filterOption}
                         />
                     </div>
@@ -225,33 +233,8 @@ class Dept extends React.Component {
             </div>
             )
 
-
-
-      /*  else{
-            // Gets all department 
-            
-
-            return (
-                <div className="app">
-                    <div className="container">
-                        <div style={{width:"400px", margin:"0 auto"}}>
-                            <Select className="deptSelect"
-                                    id='dept_list_select' 
-                                    options={deptFinal} 
-                                    onChange={dept => this.setState({select_value:dept.value})}
-                            />
-                        </div>
-                    </div>
-                </div>
-                )
-            
-        } */ 
+ 
     };
-
-
-    getFilterOptions(){
-
-    }
 
     //new
     handleInputChangeMin(inputValueMin, action) {
@@ -317,7 +300,7 @@ class Dept extends React.Component {
 
                     <div> 
                         {/* prompt for levels */ }
-                            <label for="level_min" class="lead"><strong>Minimum Course Level:</strong></label>
+                            <label for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
                             { /* Select level between 100 and 800 */ }
                             <div id="level_min_option">
                                 <Select
