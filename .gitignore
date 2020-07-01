@@ -17,3 +17,6 @@ reactjs/backend/__pycache__
 
 # ignore environment
 reactjs/myenv
+
+# ignore 
+reactjs/backend/Procfile
