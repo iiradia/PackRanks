@@ -32,8 +32,7 @@ class UserPage extends React.Component {
         return(
                 <div class="col-lg-12 text-center">
                     {userwelcome}
-                    {/*<p class="lead"><strong>For Engineers, By Engineers</strong></p>*/}
-                    <p id="lab" class="lead">Here, you can customize your course selection preferences and personalize your PackRanks results!</p>
+                    <p id="lab" class="lead">Here, you can access your wishlist. Stay tuned for more features in the near future!</p>
 
                     <div id="wishlistbtn">
                         {/* Added link to wishlist */}

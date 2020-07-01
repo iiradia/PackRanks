@@ -8,7 +8,7 @@ h1 {
 }
 #welcome {
     color: #cc0000;
-    font-size: 69px; /* Nice */
+    font-size: 69.420px; /* Nice */
 }
 #lab {
     padding-top: 0px !important;
@@ -77,6 +77,7 @@ button {
     font-size: 31.415926535897932384626433833px;
     padding-top: 0px !important;
     font-family: 'Exo 2', sans-serif;
+    padding-left: 25px;
 }
 #lab {
     max-width: 800px;

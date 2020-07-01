@@ -31,7 +31,7 @@ class Navigation extends React.Component {
             ReactDOM.render(
                 <div>
                     <NavDropdown id="homepagelink" title="My Account">
-                        <NavDropdown.Item id="homepagelink" href="/homepage">My Homepage</NavDropdown.Item>
+                        <NavDropdown.Item id="homepagelink" href="/homepage">Dashboard</NavDropdown.Item>
                         <NavDropdown.Item id="wishlistlink" href="/wishlist">Wishlist</NavDropdown.Item>
                         <NavDropdown.Item id="signoutlink" href="/" onClick={this.logout}>Logout</NavDropdown.Item>
                     </NavDropdown>

@@ -34,18 +34,23 @@ def prepare_course(record):
     DIGITS = 3
     p = 10**DIGITS
     #print(record)
+    no_rating_msg = "No Rating"
+    MAX_RATING = 100
+
     try:
         transformed_rating = float(record["transformed_official_score"])
-        print(transformed_rating)
         if transformed_rating != float(0):
 
+            if transformed_rating > MAX_RATING:
+                transformed_rating = MAX_RATING
+            
             course_data["Rating"] = round(transformed_rating)
-
+            
         else:
-            course_data["Rating"] = "nan"
+            course_data["Rating"] = no_rating_msg
             
     except:
-        course_data["Rating"] = "nan"
+        course_data["Rating"] = no_rating_msg
 
     course_data["Name"] = record[new_key_features[1]]
     #create course with tooltip info
@@ -66,9 +71,29 @@ def prepare_course(record):
     course_data["Course"]["descr"] = record[new_key_features[3]]
     """
     #course_data["Credit Hours"] = record[new_key_features[2]]
-    ratemyprof_link = record[relevant_keys[-2]]
+    
+    try:
+        ratemyprof_link = record[relevant_keys[-2]]
+    except:
+        ratemyprof_link = ""
+        
+    if ratemyprof_link == "":
+        course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
+    else:
+        try:
+            overall_quality = record["overall_quality"]
+            overall_difficulty=record["overall_difficulty"]
+            course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link,overall_quality,overall_difficulty]
+        except:
+            try:
+                overall_quality = round(record["quality_avg"],1)
+                overall_difficulty = round(record["difficulty_avg"],1)
+                course_data["RateMyProfessor Link"] = [record[relevant_keys[1]], ratemyprof_link,overall_quality,overall_difficulty]
+            except:
+                course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
 
-    course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
+
+    #course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
     
     course_data["Section"] = record[relevant_keys[2]]
     course_data["Prerequisites"] = record[relevant_keys[4]]

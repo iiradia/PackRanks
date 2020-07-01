@@ -100,7 +100,7 @@ def add_course_to_wishlist():
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
-app.route("/viewWishlist", methods=["GET"])
+@app.route("/viewWishlist", methods=["GET"])
 def view_wishlist():
     """
     Method to display the wishlist for a particular user whose 

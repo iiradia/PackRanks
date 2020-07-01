@@ -154,7 +154,7 @@ class Wishlist extends React.Component {
                                     id="backtohmpg" 
                                     name="backtohmpg" 
                                     size="lg">
-                                Back
+                                Back to Dashboard
                             </Button>
                         </Link>
                 </div>

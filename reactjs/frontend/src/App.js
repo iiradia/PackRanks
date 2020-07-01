@@ -16,6 +16,7 @@ import Donate from './components/Donate/Donate.jsx'
 import ForgotPass from './components/ForgotPassword/ForgotPass';
 import ResetPass from './components/ResetPassword/ResetPass';
 import Major from './components/Major/Major.jsx';
+import ForgotSuccess from './components/ForgotPassword/ForgotSuccess/ForgotSuccess';
 
 import {
   BrowserRouter as Router,
@@ -124,6 +125,12 @@ class App extends React.Component {
           <Route exact path = "/reset/:email/:token">
             <Navbar />
             <ResetPass />
+          </Route>
+
+          { /* Route to forgot success */ }
+          <Route exact path = "/forgotsuccess">
+            <Navbar />
+            <ForgotSuccess />
           </Route>
 
 

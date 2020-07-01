@@ -33,7 +33,6 @@ class LoginPage extends React.Component {
     super(props);
 
     this.googleSuccess = this.googleSuccess.bind(this);
-    this.googleFailure = this.googleFailure.bind(this);
     this.onPwdChange = this.onPwdChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -139,14 +138,6 @@ class LoginPage extends React.Component {
       })
   }
 
-  googleFailure(response) {
-    //console.log(response);
-    //alert("Google Login failed. Please try again.");
-
-    //This line removes pop up when google login is unsuccessful
-    //toast.notify(<h5 id="incorrect">Google Login failed. Please try again.</h5>)
-  }
-
   render () {
     return (
       
@@ -220,16 +211,6 @@ class LoginPage extends React.Component {
                   </div>
 
                   {/* Google Button goes here */ }
-                  
-                        {/*render={renderProps => (
-                          <GoogleButton type="light" id="googleicon"/>
-                        )}*/}
-                      {/*<Button
-                          id = "googlesignInbutton"
-                           onClick={renderProps.onClick} 
-                           disabled={renderProps.disabled}>
-                             Sign in with Google
-                          </Button>*/}
                   <div id="googleButton">
                     <GoogleLogin
                         id = "googleButtonB"

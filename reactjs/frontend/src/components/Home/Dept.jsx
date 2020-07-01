@@ -70,10 +70,23 @@ class Dept extends React.Component {
             if (maximum === "ANY") {
                 maximum = "899";
             }
-            ReactDOM.render(
-                <h3>There is no course in {this.state.select_value} offered between level {minimum} and {maximum}.</h3>,
-                document.getElementById('id_dept_table')
-            )
+            //Check if user has selected any dept option
+            if (this.state.select_value === null) {
+                //If not, tell user to pick a dept.
+                ReactDOM.render(
+                    <h3>Please select a department.</h3>,
+                    document.getElementById('id_dept_table')
+                )
+            }
+            //If so, explain no results.
+            else {
+
+            
+                ReactDOM.render(
+                    <h3>There is no course in {this.state.select_value} offered between level {minimum} and {maximum}.</h3>,
+                    document.getElementById('id_dept_table')
+                )
+            }
         }    
     }
     courseTable() {

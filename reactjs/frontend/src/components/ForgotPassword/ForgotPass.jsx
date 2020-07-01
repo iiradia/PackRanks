@@ -15,7 +15,8 @@ import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css';
 import {
   BrowserRouter as Router,
-  withRouter
+  withRouter,
+  Redirect
 } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -29,7 +30,8 @@ class ForgotPass extends React.Component {
     this.handleReset = this.handleReset.bind(this);
 
     this.state = {
-      re_captcha: false
+      re_captcha: false,
+      redirect: "/forgotsuccess"
     }
   }
 
@@ -57,6 +59,8 @@ class ForgotPass extends React.Component {
       if (validInput) {
 
         let url = "http://packranks-backend.herokuapp.com/resetLink";
+        //let neutralMsg = <h5 id="success"></h5>;
+
         fetch(url,
         {
                 method: "POST",
@@ -67,20 +71,17 @@ class ForgotPass extends React.Component {
             (response) => (response.json())
         ).then((data) => {
             {/*Successfully sent reset link */}
-            if (data.success === true) {
-              //send message that reset link was sent
-              toast.notify(<h5 id="success">Success! Check your email for a link to reset your password.</h5>)
-              //reroute user back to home  
-              this.props.history.push({
-                    pathname: "/"
-                })
-            }
-            else {
-                //Handle error in reset pass, maybe wrong email
-                toast.notify(<h5 id="incorrect">Email does not belong to any PackRanks account. Please try again!</h5>)
-            }
-        })
+            this.props.history.push({
+              pathname: "/forgotsuccess"
+            })
+
+        }).catch(function() { 
+          {/* Notify user that link may have been sent. */}
+          return <Redirect to='/forgotsuccess'/>
+          })
+      
       }
+      
   }
 
   onEmailChange(event) {

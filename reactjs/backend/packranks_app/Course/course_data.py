@@ -68,8 +68,11 @@ def save_course_data(catalog_data, num_to_show):
                     }
                 )
                 try:
-                    #print(catalog)
-                    #print(prof_data)
+                    print("Catalog:")
+                    print(catalog)
+                    print("Course:")
+                    print(prof_data)
+
                     if prof_data not in catalog and len(catalog)<num_to_show:
                         print(f"Adding")
                         catalog.append(prof_data) 
@@ -85,6 +88,9 @@ def save_course_data(catalog_data, num_to_show):
         course_data = prepare_course(record)
         
         relevant_data.append(course_data)
+    
+    # removed all duplicates - python one-liner
+    relevant_data = [dict(json.loads(j)) for j in set([json.dumps(i) for i in relevant_data])]
     
     return relevant_data
 
