@@ -1,0 +1,19 @@
+# ignore raw html version of project
+project/
+
+# ignore node modules
+node_modules/
+reactjs/frontend/node_modules
+
+# ignore vscode
+.vscode/
+
+# ignore yarn lock
+yarn.lock
+
+# ignore __pycache__
+reactjs/__pycache__
+reactjs/backend/__pycache__
+
+# ignore environment
+reactjs/myenv
