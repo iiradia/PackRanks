@@ -109,7 +109,7 @@ class ForgotPass extends React.Component {
             <div className="container-login100">
               <div className="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
                 <form className="login100-form validate-form">
-                <div>
+                <div id="forgotPage">
                   <span className="login100-form-title p-b-20">
                     Reset Password
                   </span>
@@ -135,10 +135,12 @@ class ForgotPass extends React.Component {
                   </div>
                   
                   {/* ReCAPTCHA */}
-                  <ReCAPTCHA
-                        sitekey="6Lf9MvwUAAAAAHxBJLXSVvLlimkdHv-CHeLYzEYc"
-                        onChange={this.onReCaptcha}
-                  />
+                  <div id="recap">
+                    <ReCAPTCHA
+                          sitekey="6Lf9MvwUAAAAAHxBJLXSVvLlimkdHv-CHeLYzEYc"
+                          onChange={this.onReCaptcha}
+                    />
+                  </div>
 
                   
                   <div className="container-login100-form-btn p-t-25">

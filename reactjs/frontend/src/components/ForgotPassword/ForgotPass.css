@@ -11,3 +11,7 @@
     color: green;
     font-weight: bold !important;
 }
+#recap {
+    margin-left: auto;
+    margin-right: auto;
+}

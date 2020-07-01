@@ -237,10 +237,13 @@ class SignUp extends React.Component {
                     </div>
 
                     {/* ReCAPTCHA */}
-                    <ReCAPTCHA
-                        sitekey="6Lf9MvwUAAAAAHxBJLXSVvLlimkdHv-CHeLYzEYc"
-                        onChange={this.onReCaptcha}
-                    />
+                    <div id="recap">
+                        <ReCAPTCHA
+                            sitekey="6Lf9MvwUAAAAAHxBJLXSVvLlimkdHv-CHeLYzEYc"
+                            onChange={this.onReCaptcha}
+                        />
+                    </div>
+
                     { /* Submit Button */ }
                     <div id="submitButton" className="container-contact100-form-btn">
                         <button 
