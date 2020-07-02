@@ -58,7 +58,7 @@ describe project in detail:
 <!-- CONTRIBUTING -->
 ## Authors
 
-* **Ishaan Radia** - Randy Woodson at North Carolina State University studying Statistics and Computer Science. - [LinkedIn](https://linkedin.com/in/ishaan-radia) - [GitHub](https://github.com/iiradia)
+* **Ishaan Radia** - Junior at North Carolina State University studying Statistics and Computer Science. - [LinkedIn](https://linkedin.com/in/ishaan-radia) - [GitHub](https://github.com/iiradia)
 
 * **Mathew Chanda** - Sophomore at North Carolina State University studying Computer Science - [LinkedIn](https://www.linkedin.com/in/mathewchandancsu/) - [GitHub](https://github.com/MathewChanda)
 
