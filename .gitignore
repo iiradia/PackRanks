@@ -3,7 +3,7 @@ project/
 
 # ignore node modules
 node_modules/
-reactjs/frontend/node_modules
+#reactjs/frontend/node_modules
 
 # ignore vscode
 .vscode/
@@ -13,10 +13,10 @@ yarn.lock
 
 # ignore __pycache__
 reactjs/__pycache__
-reactjs/backend/__pycache__
+#reactjs/backend/__pycache__
 
 # ignore environment
 reactjs/myenv
 
 # ignore 
-reactjs/backend/Procfile
+#reactjs/backend/Procfile

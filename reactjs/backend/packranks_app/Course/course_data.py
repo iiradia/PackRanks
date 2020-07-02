@@ -93,6 +93,7 @@ def save_course_data(catalog_data, num_to_show):
         
         relevant_data.append(course_data)
     
+    print(relevant_data)
     # removed all duplicates - python one-liner
     return relevant_data
 

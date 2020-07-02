@@ -31,7 +31,9 @@ def prepare_course(record):
     ]
     #assign values
     course_data = {}
-
+    DIGITS = 3
+    p = 10**DIGITS
+    
     #print(record)
     no_rating_msg = "No Rating"
     MAX_RATING = 100

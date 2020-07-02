@@ -141,6 +141,8 @@ def check_wishlist_courses():
 
                         if seats_open == 0:
                             user_wishlist_closed.append(course)
+                    elif "Closed" in seats:
+                        user_wishlist_closed.append(course)
                     
             #find all user courses that are full in wishlist
             #user_wishlist_closed = [dict(i) for i in user_wishlist if dict(i)["seats open"].split("/")[0] == "0"]
