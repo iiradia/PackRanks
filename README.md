@@ -40,25 +40,25 @@ NC State undergraduates need a more extensive and easy-to-use course search tool
 * As members of the NC State community, we utilized our everyday experiences to highlight areas for improvement in students' <strong>academic planning.</strong>
 
 #### Design
-* Once we pinpointed the exact need that PackRanks could fill in the course planning space, we immediately collaborated on the best way to deliver a <strong>simplistic</strong> user experience.
+* Once we pinpointed the exact need that <a target="_blank" href="http://www.packranks.com">PackRanks</a> could fill in the course planning space, we immediately collaborated on the best way to deliver a <strong>simplistic</strong> user experience.
 * We determined which websites we would need to extract data from to serve as the backbone of PackRank's <strong>comprehensive information distribution.</strong> 
-* Although at the start of our project, we had a limited knowledge of creating a full-stack project, through PackRanks we all built an applied understanding of the intricacies of <strong>web scraping</strong> and web development [technologies](#built-with).
+* Although at the start of our project, we had a limited knowledge of creating a full-stack project, through <a target="_blank" href="http://www.packranks.com">PackRanks</a> we all built an applied understanding of the intricacies of <strong>web scraping</strong> and web development [technologies](#built-with).
 
 #### Test
-* Throughout the PackRanks development process, we utilized strong database quality assurance methodologies as well as end-to-end testing.
+* Throughout the <a target="_blank" href="http://www.packranks.com">PackRanks</a> development process, we utilized strong database quality assurance methodologies as well as end-to-end testing.
 * We implemented a <strong>diabolical testing strategy</strong> that involved coverage of all test cases and endpoints so that we could diagnose exactly where any bugs are coming from. 
-* With the current release of PackRanks, we are using a <strong>crowdsourced</strong> approach to focus our attention on crucial features that most impact the user experience.  
+* With the current release of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, we are using a <strong>crowdsourced</strong> approach to focus our attention on crucial features that most impact the user experience.  
 
 #### Iterate
-* In future iterations of PackRanks, we aim to gather as much <strong>feedback</strong> from the community as possible and integrate the NC State community's ideas with the next version of PackRanks.
-* We have created an exhaustive <strong>Continuous Integration & Delivery (CI/CD)</strong> plan for subsequent releases of PackRanks, to ensure a streamlined and convenient process for both the development team and the users.
+* In future iterations of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, we aim to gather as much <strong>feedback</strong> from the community as possible and integrate the NC State community's ideas with the next version of our product.
+* We have created an exhaustive <strong>Continuous Integration & Delivery (CI/CD)</strong> plan for subsequent releases of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, to ensure a streamlined and convenient process for both the development team and the users.
 
 ### Solution
 We built <a target="_blank" href="http://packranks.com/login">PackRanks</a>, a web app that allows students to find and plan their courses for the upcoming semester, combining a comprehensive course search with a meticulous email notification service to provide up-to-date and accurate information in a convenient and practical manner.
 
-PackRanks aims to help students feel more informed and confident when choosing courses, while simultaneously aggregating an abundance of resources into a concise presentation.
+<a target="_blank" href="http://www.packranks.com">PackRanks</a> aims to help students feel more informed and confident when choosing courses, while simultaneously aggregating an abundance of resources into a concise presentation.
 
-Discover the power of PackRanks in our [Features](#features) section!
+Discover the power of <a target="_blank" href="http://www.packranks.com">PackRanks</a> in our [Features](#features) section!
 
 <!-- describe project in detail:
     goal, audience, why we made it, what it does -->
@@ -76,7 +76,7 @@ Discover the power of PackRanks in our [Features](#features) section!
 
 ## Features
 #### Rank Courses by Difficulty
-You can customize which set of courses you are looking for and view a wealth of information presented in a ranked table. Additionally, PackRanks enables you to efficiently find classes that fulfill general education requirements.
+You can customize which set of courses you are looking for and view a wealth of information presented in a ranked table. Additionally, <a target="_blank" href="http://www.packranks.com">PackRanks</a> enables you to efficiently find classes that fulfill general education requirements.
 <p align="center">
  <img src="" width="800">
  <br>
@@ -86,7 +86,7 @@ You can customize which set of courses you are looking for and view a wealth of 
 #### Save Prospective Courses
 You can add a course to your Wishlist to view it later, and to receive open-seat notifications. Plan your upcoming semesters' schedules, and, in the near future, simplify the intricacies of NC State degree requirements through our degree plan feature!
 <p align="center">
- <img src="" width="800">
+ <img src="images/AddWishlist.gif" width="800">
  <br>
  <em>Wishlist</em>
 </p>
@@ -129,43 +129,43 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
  <em>Populated Table</em>
 </p>
 
-* The PackRanks table displays all pertinent information regarding a group of NC State courses, including links to multiple websites providing further specific details.
+* The <a target="_blank" href="http://www.packranks.com">PackRanks</a> table displays all pertinent information regarding a group of NC State courses, including links to multiple websites providing further specific details.
 
-#### Columns
-* Rating
+#### Table Links
+* <strong>Rating</strong>
     * The Rating column, sorted in descending order, displays a conclusive rating based on grade distribution data from <a target="_blank" href="https://tools.wolftech.ncsu.edu/gradient">Wolftech Gradient</a>, North Carolina State University's official source for professor and course section grading data. More information on our rating can be found in our [Rating](#rating-system) section.
-* Name
-    * The Name column contains the name of the course listed in order to provide more information about its contents.
-* Catalog Link
+<!--* Name
+    * The Name column contains the name of the course listed in order to provide more information about its contents.-->
+* <strong>Catalog Link</strong>
     * The Catalog Link column contains the course code (e.g. ENG 101) as well as a link to that section's NC State course catalog entry, which contains precise information such as a course description directly from the university.
-* RateMyProfessor Link
+* <strong>RateMyProfessor Link</strong>
     * The RateMyProfessor Link column has the name of the professor teaching the course listed, as well as a link to their <a target="_blank" href="https://www.ratemyprofessors.com">RateMyProfessor</a> profile. RateMyProfessor is a professor review site with crowdsourced data from millions of students nationwide.
-* Section
+<!--* Section
     * The Section column provides the unique section number for the course listed, which can be used to identify it when registering online.
 * Wishlist
     * The Wishlist column consists of an option to add the course to the user's wishlist (if the user is logged in), or a link to the login page if the user is not currently authenticated.
 * Prerequisites
-    * The Prerequsites column contains a statement on all courses necessary to complete before taking the course listed. This information is taken directly from NC State's website, and is periodically updated.
-* Location
+    * The Prerequsites column contains a statement on all courses necessary to complete before taking the course listed. This information is taken directly from NC State's website, and is periodically updated.-->
+* <strong>Location</strong>
     * The Location column states where the class will be taught. If the location is at an on-campus building location, the column also shows a link to the Google Maps page for that location.
-* Seats
+<!--* Seats
     * The Seats column displays the current status of the course (whether it is open or not) as well as the current number of seats remaining. This information is constantly being scraped from NC State's official website and the table is updated accordingly.
 * Times
     * The Times column displays the times the course is taught, or TBD if it has not been determined by administrators.
 * Semester
     * The Semester column displays the semester for which the current section is being taught.
 * Notes
-    * The Notes column contains any additional information that might be relevant to the course displayed (this data is also taken from NC State's website and updated accordingly).
+    * The Notes column contains any additional information that might be relevant to the course displayed (this data is also taken from NC State's website and updated accordingly).-->
 
 ### Rating System
-* We designed the rating system to be simple for users to understand as well as to be the most <strong>accurate</strong> measure of difficulty for NC State courses.
-* We use newly updated data from Wolftech Gradient to compute a rating of each course that measures how easy or difficult the class is.
+* We designed the <a target="_blank" href="http://www.packranks.com/about">rating system</a> to be simple for users to understand as well as to be the most <strong>accurate measure of difficulty</strong> for NC State courses.
+* We use newly updated data from <a target="_blank" href="https://tools.wolftech.ncsu.edu/gradient">Wolftech Gradient</a> to compute a rating of each course that measures how easy or difficult the class is.
 * We sort our course results for GEPs and specific courses by that rating, providing users with a simple and effective way to find the easiest GEPs or any courses they are looking for!
 
 ### Wishlist
-* We created the Wishlist as a convenient way for users to store all the details on courses that they are interested in taking in future semesters.
-* We implemented a feature that reminds a user when a closed course on their Wishlist opens a new seat! This way, users will never miss opportunities to register for class they are interested in taking.
-* We are currently working on an extension to the Wishlist such that users can plan out their entire course of study simply by entering their major! This feature would combine the core functionality of PackRanks with major and degree plans offered at NC State. 
+* We created the Wishlist as a <strong>convenient</strong> way for users to store all the details on courses that they are interested in taking in future semesters.
+* We implemented a feature that reminds a user when a closed course on their Wishlist opens a new seat! This way, users will <strong>never miss opportunities</strong> to register for class they are interested in taking.
+* We are currently working on an extension to the Wishlist such that users can plan out their entire <strong>course of study</strong> simply by entering their major! This feature would combine the core functionality of <a target="_blank" href="http://www.packranks.com">PackRanks</a> with major and degree plans offered at NC State. 
 
 <!-- CONTRIBUTING -->
 ## Authors
