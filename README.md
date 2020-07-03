@@ -26,11 +26,10 @@ This website provides a comprehensive assortment of course options for a user wh
 <!-- ABOUT THE PROJECT -->
 ## About
 ### The Problem
-Course registration is a complicated and tedious process.
 
-When students plan their courses for the upcoming semester, there are many important factors to consider. However, pertinent information is decentralized across many resources.
+When students plan their courses for the upcoming semesters, there are many important factors to consider. However, <strong>pertinent information is decentralized</strong> across many resources.
 
-The university’s course planning interface MyPack Portal is infamously difficult to navigate and forces students to reference multiple external sources. PackRanks addresses these shortcomings, and provides a venue for crystal <strong>clear</strong> and pristine <strong>quality</strong> information that NC State students value.
+North Carolina State University's course planning interface, <strong>MyPack Portal</strong>, is infamously difficult to navigate and forces students to reference multiple external sources. PackRanks addresses these shortcomings, and provides a venue for crystal <strong>clear</strong> and pristine <strong>quality</strong> information that NC State students value.
 
 NC State undergraduates need a more extensive and easy-to-use course search tool to simplify the tedious and overcomplicated course discovery process.
 
@@ -46,15 +45,15 @@ NC State undergraduates need a more extensive and easy-to-use course search tool
 
 #### Test
 * Throughout the <a target="_blank" href="http://www.packranks.com">PackRanks</a> development process, we utilized strong database quality assurance methodologies as well as end-to-end testing.
-* We implemented a <strong>diabolical testing strategy</strong> that involved coverage of all test cases and endpoints so that we could diagnose exactly where any bugs are coming from. 
-* With the current release of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, we are using a <strong>crowdsourced</strong> approach to focus our attention on crucial features that most impact the user experience.  
+* We implemented a <strong>diabolical testing strategy</strong> that involved coverage of all test cases and endpoints so that we could diagnose exactly where any bugs were coming from. 
+* With the current release of <strong>PackRanks</strong>, we are using a <strong>crowdsourced</strong> approach to focus our attention on crucial features that most impact the user experience.  
 
 #### Iterate
 * In future iterations of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, we aim to gather as much <strong>feedback</strong> from the community as possible and integrate the NC State community's ideas with the next version of our product.
 * We have created an exhaustive <strong>Continuous Integration & Delivery (CI/CD)</strong> plan for subsequent releases of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, to ensure a streamlined and convenient process for both the development team and the users.
 
 ### Solution
-We built <a target="_blank" href="http://packranks.com/login">PackRanks</a>, a web app that allows students to find and plan their courses for the upcoming semester, combining a comprehensive course search with a meticulous email notification service to provide up-to-date and accurate information in a convenient and practical manner.
+We built <strong>PackRanks</strong>, a web app that allows students to find and plan their courses for the upcoming semester, combining a comprehensive course search with a meticulous email notification service to provide up-to-date and accurate information in a <strong>convenient</strong> and <strong>practical</strong> manner.
 
 <a target="_blank" href="http://www.packranks.com">PackRanks</a> aims to help students feel more informed and confident when choosing courses, while simultaneously aggregating an abundance of resources into a concise presentation.
 
@@ -72,13 +71,12 @@ Discover the power of <a target="_blank" href="http://www.packranks.com">PackRan
 * [Heroku](https://www.heroku.com)
 * [Bootstrap](https://getbootstrap.com)
 * [Material-UI](https://material-ui.com/)
-* ...
 
 ## Features
 #### Rank Courses by Difficulty
 You can customize which set of courses you are looking for and view a wealth of information presented in a ranked table. Additionally, <a target="_blank" href="http://www.packranks.com">PackRanks</a> enables you to efficiently find classes that fulfill general education requirements.
 <p align="center">
- <img src="" width="800">
+ <img src="images/ViewCourses.gif" width="800">
  <br>
  <em>Course Table</em>
 </p>
@@ -94,9 +92,9 @@ You can add a course to your Wishlist to view it later, and to receive open-seat
 #### Get Notified When Seats Open
 Get an email notification whenever a seat in a waitlisted or closed class in your Wishlist becomes open. Never miss out on a notable course opportunity!
 <p align="center">
- <img src="" width="800">
+ <img src="images/PackRanksWishlistReminder.JPG" width="800">
  <br>
- <em>Email notification</em>
+ <em>Email Notification Example</em>
 </p>
 
 #### Upcoming Features
@@ -107,20 +105,20 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
 ## Usage
 ### Searching For Courses
 <p align="center">
- <img src="" width="800">
+ <img src="images/ViewNaturalScience.gif" width="800">
  <br>
  <em></em>
 </p>
 
-1. Select term
-2. Search for GEP or by course department
-3. GEP:
-    3a. select GEP
-    4a. choose number of courses to view
-4. Department:
-    3b. search for or select department
-    4b. enter course number range (or same number for a specific course)
-    5b. choose number of courses to view
+<strong>1.</strong> Select <strong>Term</strong> that you are looking for a class in
+<strong>2.</strong> Search for <a target="_blank" href="https://oucc.dasa.ncsu.edu/general-education-program-gep/gep-course-lists-2/">GEP</a> or by course department
+<strong>3. GEP:</strong>
+    * select GEP
+    * choose number of courses to view
+<strong>4. Department:</strong>
+    * search for or select department
+    * enter course number range (or same number for a specific course)
+    * choose number of courses to view
 
 ### Table
 <p align="center">

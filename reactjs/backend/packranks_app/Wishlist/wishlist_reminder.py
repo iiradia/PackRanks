@@ -131,6 +131,8 @@ def check_wishlist_courses():
 
                 for course in term_arr:
                     seats = course["Seats"]
+                    print(course)
+                    print(seats)
 
                     #if course is waitlisted, add it to list
                     if "Waitlist" in seats:
@@ -162,6 +164,10 @@ def check_wishlist_courses():
                 
                 updated_seats_open = course_in_catalog["seats_open"]
                 seats_total = course_in_catalog["seats_total"]
+                
+                if course["Catalog Link"][0] == "REL 332":
+                    print(course)
+                    print(updated_seats_open)
                 
                 #print(course_in_catalog)
                 """
