@@ -14,6 +14,9 @@ This website provides a comprehensive assortment of course options for a user wh
         * [Iterate](#iterate)
     * [Solution](#solution)
     * [Built With](#built-with)
+* [Features](#features)
+    * [Rank Courses by Difficulty](#rank-courses-by-difficulty)
+    * [Save Prospective Courses](#save-prospective-courses)
 * [Usage](#usage)
     * [Searching for Courses](#searching-for-courses)
     * [Table](#table)
@@ -110,20 +113,19 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
  <em></em>
 </p>
 
-<!-- NOTE: To force a line return, place two spaces at the end of a line (Hence why there are two spaces at the end of every line in the Usage steps below) -->
+<!-- NOTE: To force a line return, place two spaces at the end of a line (Hence why there are two spaces at the end of some lines in the Usage steps below) -->
 <strong>1.</strong> Select <strong>Term</strong> that you are looking for a class in  
 <strong>2.</strong> Search for <a target="_blank" href="https://oucc.dasa.ncsu.edu/general-education-program-gep/gep-course-lists-2/">GEP</a> or by course department  
+<strong>3. GEP:</strong>
 
-<strong>3. GEP:</strong>  
+* Select GEP
+* Choose number of courses to view
 
-* Select GEP  
-* Choose number of courses to view 
+<strong>4. Department:</strong>
 
-<strong>4. Department:</strong>  
-
-* Search for or select department  
-* Enter course number range (or same number for a specific course)  
-* Choose number of courses to view  
+* Search for or select department
+* Enter course number range (or same number for a specific course)
+* Choose number of courses to view
 
 ### Table
 <p align="center">
