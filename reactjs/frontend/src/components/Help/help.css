@@ -1,0 +1,73 @@
+#aboutHeader {
+    color: #cc3000;
+}
+h2 {
+    margin : 3000px;
+    font-weight: bold !important;
+    padding-bottom: 0px !important;
+}
+p {
+    color: black !important;
+    font-weight: bold !important;
+    padding-top: 20px !important;
+}
+#helpHTML{
+    background-image: url("./images/TalleyTransparent.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+    justify-content: center;
+    margin-left: auto !important; 
+    margin-right: auto !important;
+    text-align: center !important;
+}
+#aboutPage {
+    margin-left: auto !important; 
+    margin-right: auto !important;
+    text-align: center !important;
+}
+#aboutustitle {
+    padding-top: 25px;
+    text-decoration: underline !important;
+}
+#contactUsAbout {
+    padding-top: 7px;
+}
+#wrapper {
+    text-align: center;
+    margin: 0 auto !important;
+}
+#container {
+    justify-content: center;
+    text-align: center;
+    align-content: content;
+}
+
+#aboutDiv{
+    justify-content: center !important;
+    text-align: center;
+    align-content: content;
+}
+
+.paddingTB60 {padding:60px 0px 60px 0px;}
+.gray-bg {background: #F1F1F1 !important;}
+.about-title h1 {color: #535353; font-size:45px;font-weight:600;}
+.about-title span {color: #CC0000; font-size:45px;font-weight:700;}
+.about-title h3 {color: #535353; font-size:23px;margin-bottom:24px;}
+.about-title p {color: #7a7a7a;line-height: 1.8;margin: 0 0 15px;}
+.about-paddingB {padding-bottom: 0px; padding-top: 0px !important;}
+.about-img {padding-left: 57px;}
+
+/* Social Icons */
+.about-icons {margin:8px 0px 8px 0px ;}
+.about-icons i{margin-right: 10px;padding: 0px; font-size:35px;color:#323232;box-shadow: 0 0 3px rgba(0, 0, 0, .2);}
+.about-icons li {margin:0px;padding:0;display:inline-block;}
+#social-fb:hover {color: #3B5998;transition:all .001s;}
+ #social-tw:hover {color: #4099FF;transition:all .001s;}
+ #social-gp:hover {color: #d34836;transition:all .001s;}
+ #social-em:hover {color: #f39c12;transition:all .001s;}
+ .about-icons {
+     display: inline-block !important;
+ }
+

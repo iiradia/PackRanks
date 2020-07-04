@@ -1,0 +1,66 @@
+{
+  "name": "reactjs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "bootstrap": "^4.5.0",
+    "clsx": "^1.1.1",
+    "create-react-class": "^15.6.3",
+    "jwt-decode": "^2.2.0",
+    "mdbreact": "^4.27.0",
+    "react": "^16.13.1",
+    "react-accessible-accordion": "^3.0.1",
+    "react-alert": "^7.0.1",
+    "react-bootstrap": "^1.0.1",
+    "react-bootstrap-table-next": "^4.0.2",
+    "react-dom": "^16.13.1",
+    "react-google-button": "^0.7.1",
+    "react-google-login": "^5.1.20",
+    "react-google-recaptcha": "^2.0.1",
+    "react-hover": "^1.4.0",
+    "react-json-table": "^0.1.1",
+    "react-json-to-table": "^0.1.5",
+    "react-paypal-button-v2": "^2.6.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-s-alert": "^1.4.1",
+    "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
+    "react-simplert": "0.0.2",
+    "react-spring": "^8.0.27",
+    "react-sticky-box": "^0.9.3",
+    "react-tooltip": "^4.2.6",
+    "react-ui-cards": "^2.0.0",
+    "react-ui-cards-bootstrap": "^1.4.8",
+    "reactjs-popup": "^1.5.0",
+    "reactstrap": "^8.4.1",
+    "toasted-notes": "^3.2.0",
+    "ts-react-json-table": "^0.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
