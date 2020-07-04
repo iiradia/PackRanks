@@ -198,3 +198,4 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
 
 <!-- License -->
 ## License
+This project is licensed under the GNU Affero General Public License Version 3.0. You can find more details in the [LICENSE.md](https://github.com/iiradia/PackRanks/blob/master/LICENSE.md) file.
