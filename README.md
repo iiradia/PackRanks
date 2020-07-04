@@ -30,6 +30,7 @@ This website provides a comprehensive assortment of course options for a user wh
  <br>
  <em>PackRanks Wishlist</em>
 </p>
+
 ### The Problem
 
 When students plan their courses for the upcoming semesters, there are many important factors to consider. However, <strong>pertinent information is decentralized</strong> across many resources.
