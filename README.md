@@ -30,7 +30,6 @@ This website provides a comprehensive assortment of course options for a user wh
  <br>
  <em>PackRanks Wishlist</em>
 </p>
-
 ### The Problem
 
 When students plan their courses for the upcoming semesters, there are many important factors to consider. However, <strong>pertinent information is decentralized</strong> across many resources.
@@ -97,7 +96,7 @@ Discover the power of <a target="_blank" href="http://www.packranks.com">PackRan
     goal, audience, why we made it, what it does -->
 
 ## Features
-#### Rank Courses by Difficulty
+### Rank Courses by Difficulty
 You can customize which set of courses you are looking for and view a wealth of information presented in a ranked table. Additionally, <a target="_blank" href="http://www.packranks.com">PackRanks</a> enables you to efficiently find classes that fulfill general education requirements.
 <p align="center">
  <img src="images/ViewCourses.gif" width="800">
@@ -105,7 +104,7 @@ You can customize which set of courses you are looking for and view a wealth of 
  <em>Course Table</em>
 </p>
 
-#### Save Prospective Courses
+### Save Prospective Courses
 You can add a course to your Wishlist to view it later, and to receive open-seat notifications. Plan your upcoming semesters' schedules, and, in the near future, simplify the intricacies of NC State degree requirements through our degree plan feature!
 <p align="center">
  <img src="images/AddWishlist.gif" width="800">
@@ -113,7 +112,7 @@ You can add a course to your Wishlist to view it later, and to receive open-seat
  <em>Wishlist</em>
 </p>
 
-#### Get Notified When Seats Open
+### Get Notified When Seats Open
 Get an email notification whenever a seat in a waitlisted or closed class in your Wishlist becomes open. Never miss out on a notable course opportunity!
 <p align="center">
  <img src="images/PackRanksWishlistReminder.JPG" width="800">
@@ -121,7 +120,7 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
  <em>Email Notification Example</em>
 </p>
 
-#### Upcoming Features
+### Upcoming Features
 * Degree Audit
 * Class Preferences
 * Mock-Scheduler
