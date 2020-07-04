@@ -7,16 +7,9 @@ This website provides a comprehensive assortment of course options for a user wh
 ## Table of Contents
 * [About](#about)
     * [The Problem](#the-problem)
-    * [Approach](#approach)
-        * [Research](#research)
-        * [Design](#design)
-        * [Test](#test)
-        * [Iterate](#iterate)
     * [Solution](#solution)
-    * [Built With](#built-with)
-* [Features](#features)
-    * [Rank Courses by Difficulty](#rank-courses-by-difficulty)
-    * [Save Prospective Courses](#save-prospective-courses)
+    * [Technology Stack](#technology-stack)
+    * [Conceptual Approach](#conceptual-approach)
 * [Usage](#usage)
     * [Searching for Courses](#searching-for-courses)
     * [Table](#table)
@@ -28,6 +21,7 @@ This website provides a comprehensive assortment of course options for a user wh
 
 <!-- ABOUT THE PROJECT -->
 ## About
+
 ### The Problem
 
 When students plan their courses for the upcoming semesters, there are many important factors to consider. However, <strong>pertinent information is decentralized</strong> across many resources.
@@ -36,44 +30,62 @@ North Carolina State University's course planning interface, <strong>MyPack Port
 
 NC State undergraduates need a more extensive and easy-to-use course search tool to simplify the tedious and overcomplicated course discovery process.
 
-### Approach
-#### Research
-* We began our research process by identifying potential academic and extracurricular needs for NC State students.
-* As members of the NC State community, we utilized our everyday experiences to highlight areas for improvement in students' <strong>academic planning.</strong>
-
-#### Design
-* Once we pinpointed the exact need that <a target="_blank" href="http://www.packranks.com">PackRanks</a> could fill in the course planning space, we immediately collaborated on the best way to deliver a <strong>simplistic</strong> user experience.
-* We determined which websites we would need to extract data from to serve as the backbone of PackRank's <strong>comprehensive information distribution.</strong> 
-* Although at the start of our project, we had a limited knowledge of creating a full-stack project, through <a target="_blank" href="http://www.packranks.com">PackRanks</a> we all built an applied understanding of the intricacies of <strong>web scraping</strong> and web development [technologies](#built-with).
-
-#### Test
-* Throughout the <a target="_blank" href="http://www.packranks.com">PackRanks</a> development process, we utilized strong database quality assurance methodologies as well as end-to-end testing.
-* We implemented a <strong>diabolical testing strategy</strong> that involved coverage of all test cases and endpoints so that we could diagnose exactly where any bugs were coming from. 
-* With the current release of <strong>PackRanks</strong>, we are using a <strong>crowdsourced</strong> approach to focus our attention on crucial features that most impact the user experience.  
-
-#### Iterate
-* In future iterations of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, we aim to gather as much <strong>feedback</strong> from the community as possible and integrate the NC State community's ideas with the next version of our product.
-* We have created an exhaustive <strong>Continuous Integration & Delivery (CI/CD)</strong> plan for subsequent releases of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, to ensure a streamlined and convenient process for both the development team and the users.
-
 ### Solution
 We built <strong>PackRanks</strong>, a web app that allows students to find and plan their courses for the upcoming semester, combining a comprehensive course search with a meticulous email notification service to provide up-to-date and accurate information in a <strong>convenient</strong> and <strong>practical</strong> manner.
 
 <a target="_blank" href="http://www.packranks.com">PackRanks</a> aims to help students feel more informed and confident when choosing courses, while simultaneously aggregating an abundance of resources into a concise presentation.
 
+### Technology Stack
+
+#### [React](https://reactjs.org/)
+   * We utilized many prevalent concepts found in professional React development, including a modular component design, ReactDOM, ReactRouter, HTTP requests, hooks, and protected routes.
+   * We implemented a multitude of front-end components for viewing a course table, logging in and signing up a user, and managing their Wishlist information.
+#### [Python](https://python.org)
+   * We wrote custom scripts in Python and utilized libraries such as Pandas, NumPy, smtplib, json, and pymongo.
+   * We connected our Flask endpoints to the front-end as well as <strong>one-off and worker dynos</strong> on Heroku in order to implement a variety of email notification and database management scripts. 
+#### [Selenium](https://pypi.org/project/selenium)
+   * We built an <strong>automated web crawler</strong> to obtain and monitor specific information updates 24/7.
+   * We integrated our web scraping system with our MongoDB cluster and implemented a secure <strong>data communication protocol</strong>.
+#### [Flask](https://pypi.org/project/Flask)
+   * We implemented a <strong>RESTful API</strong>, including endpoints for user authentication and retrieval of personalized user data.
+   * We preserved the integrity of our API endpoints and implemented a custom cybersecurity model using <strong>JSON Web Tokens (JWT)</strong> and session management best practices.
+   * We prioritized technical documentation and software maintainability in order to simplify the process of continuous integration and deployment.
+#### [MongoDB](https://www.mongodb.com)
+   * We designed an advanced database model to store information on <strong>thousands of course sections</strong> across NC State.
+   * We managed the merging of multiple MongoDB collections, continous updates to our database server instance.
+   * We maintained a stable paradigm for our database collection set in order to manage new users and Wishlist information as well as course changes.
+#### [Heroku](https://www.heroku.com)
+   * We deployed our application front-end and back-end to a cloud platform using <strong>Heroku web dynos</strong>. 
+   * We also launched our web-scraping script built using Selenium to run 24/7 on a Heroku worker dyno.
+   * We built valuable skills in multilingual deployment configuration and compatibility using cloud computing technologies.
+#### [Bootstrap](https://getbootstrap.com)
+   * We used Bootstrap as an effortless method for styling PackRanks, so that we could focus on delivering the highest standard of information.
+#### [Material-UI](https://material-ui.com/)
+   * We envisioned a sleek and clean design, so we applied the Material-UI components and design principles in our React front-end.
+
+### Conceptual Approach
+#### Research
+   * We began our research process by identifying potential academic and extracurricular needs for NC State students.
+   * As members of the NC State community, we utilized our everyday experiences to highlight areas for improvement in students' <strong>academic planning.</strong>
+
+#### Design
+   * Once we pinpointed the exact need that <a target="_blank" href="http://www.packranks.com">PackRanks</a> could fill in the course planning space, we immediately collaborated on the best way to deliver a <strong>simplistic</strong> user experience.
+   * We determined which websites we would need to extract data from to serve as the backbone of PackRank's <strong>comprehensive information distribution.</strong> 
+   * Although at the start of our project, we had a limited knowledge of creating a full-stack project, through <a target="_blank" href="http://www.packranks.com">PackRanks</a> we all built an applied understanding of the intricacies of <strong>web scraping</strong> and web development [technologies](#built-with).
+
+#### Test
+   * Throughout the <a target="_blank" href="http://www.packranks.com">PackRanks</a> development process, we utilized strong database quality assurance methodologies as well as end-to-end testing.
+   * We implemented a <strong>diabolical testing strategy</strong> that involved coverage of all test cases and endpoints so that we could diagnose exactly where any bugs were coming from. 
+   * With the current release of <strong>PackRanks</strong>, we are using a <strong>crowdsourced</strong> approach to focus our attention on crucial features that most impact the user experience.  
+
+#### Iterate
+   * In future iterations of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, we aim to gather as much <strong>feedback</strong> from the community as possible and integrate the NC State community's ideas with the next version of our product.
+   * We have created an exhaustive <strong>Continuous Integration & Delivery (CI/CD)</strong> plan for subsequent releases of <a target="_blank" href="http://www.packranks.com">PackRanks</a>, to ensure a streamlined and convenient process for both the development team and the users.
+
 Discover the power of <a target="_blank" href="http://www.packranks.com">PackRanks</a> in our [Features](#features) section!
 
 <!-- describe project in detail:
     goal, audience, why we made it, what it does -->
-
-### Built With
-* [React](https://reactjs.org/)
-* [Python](https://python.org)
-* [Selenium](https://pypi.org/project/selenium)
-* [Flask](https://pypi.org/project/Flask)
-* [MongoDB](https://www.mongodb.com)
-* [Heroku](https://www.heroku.com)
-* [Bootstrap](https://getbootstrap.com)
-* [Material-UI](https://material-ui.com/)
 
 ## Features
 #### Rank Courses by Difficulty
