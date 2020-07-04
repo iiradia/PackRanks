@@ -17,13 +17,12 @@ import ForgotPass from './components/ForgotPassword/ForgotPass';
 import ResetPass from './components/ResetPassword/ResetPass';
 import Major from './components/Major/Major.jsx';
 import ForgotSuccess from './components/ForgotPassword/ForgotSuccess/ForgotSuccess';
-
+import Footer from './components/Footer/Footer';
 import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
 
-import Footer from './components/Footer/Footer';
 
 
 /**
@@ -56,6 +55,7 @@ class App extends React.Component {
                   <Navbar /> 
                   <MainWelcome profile_data={this.state}/>
                   <FirstPrompt />
+                  <Footer/>
               </header>
           </Route>
           
