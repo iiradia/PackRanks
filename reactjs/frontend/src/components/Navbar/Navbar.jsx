@@ -2,6 +2,7 @@ import React from 'react';
 //import NavbarTitle from './NavbarTitle';
 //import NavbarLinks from './NavbarLinks';
 import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import './css/navbar.css';
 //import LoginPage from './Login/LoginPage';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
@@ -89,6 +90,12 @@ class Navigation extends React.Component {
                         </div>
 
                     </Nav>
+                    
+                    <div id="githubPackRanksDiv">
+                            <a href="https://github.com/iiradia/PackRanks" target = "_blank"> 
+                                <GitHubIcon id="githubPackRanks" fontSize="large" style={{ color: "white"}}/>
+                            </a>
+                        </div>
                 </div>
             </Navbar>
         );

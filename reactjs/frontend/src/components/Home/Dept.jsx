@@ -6,6 +6,8 @@ import './css/dept.css';
 //import Creatable from 'react-select/lib/Creatable';
 import './css/courselevel.css'; 
 import {Button} from "react-bootstrap";
+import HelpIcon from '@material-ui/icons/Help';
+import ReactTooltip from 'react-tooltip';
 
 class Dept extends React.Component {
     constructor() {
@@ -298,6 +300,9 @@ class Dept extends React.Component {
         const { inputValueMin } = this.state;
         const { inputValueMax } = this.state;
         // new
+
+        //message describing course levels
+        let help_levels = "90-100 = Very Likely A<br/>80-90 = EasyA<br/>70-80 = You get what you put in<br/>60-70 = Avoid if possible<br/><60 = Avoid";   
         
         return(
             <div class="text-center">
@@ -310,10 +315,18 @@ class Dept extends React.Component {
                     </div>
 
                     <div> 
-                        {/* prompt for levels */ }
-                            <label for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
-                            { /* Select level between 100 and 800 */ }
+                            {/* prompt for levels */ }
                             <div id="level_min_option">
+
+                                {/* Help message to user about dept levels. */}
+                                {/*<div id="helpIconLevel">
+                                    <HelpIcon data-for="ctool" data-tip={help_levels} style={{color: '#cc0000'}}/>
+                                    <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/>
+                                </div>*/} 
+                                
+                                { /* Select level between 100 and 800 */ } 
+                                <label id="mincourseLevel" for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
+                        
                                 <Select
                                     id="level_min"
                                     defaultValue={[{label: 'ANY', value: 'ANY'}]}
@@ -348,6 +361,7 @@ class Dept extends React.Component {
                         <Select className="numCourseSelect"
                                 id='num_course_select' 
                                 options={numCourses}
+                                isSearchable={false}
                                 defaultValue={[{label: 5, value: 5}]} 
                                 //defaultValue={numCourses[0]}
                                 onChange={optionValue => this.setState({numCourses_value: optionValue.value})}

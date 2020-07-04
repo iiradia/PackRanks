@@ -7,6 +7,12 @@
     width: 130px;
     margin: 0 auto;
 }
+#mincourseLevel { 
+    padding-right: 20px;
+}
+#helpIconLevel {
+    padding-right: 20px;
+}
 @font-face {
     font-family: Balsamiq; 
     src: url("../fonts/BalsamiqSans-Regular.ttf");

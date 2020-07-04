@@ -119,7 +119,8 @@ class GEP extends React.Component {
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
                         <Select className="numCourseSelect"
                                 id='num_course_select' 
-                                options={numCourses} 
+                                options={numCourses}
+                                isSearchable={false}
                                 defaultValue={[{label:5, value:5}]}
                                 onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
                         />
