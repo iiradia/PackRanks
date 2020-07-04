@@ -131,7 +131,7 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
 
 <!-- NOTE: To force a line return, place two spaces at the end of a line (Hence why there are two spaces at the end of some lines in the Usage steps below) -->
 <strong>1.</strong> Select <strong>Term</strong> that you are looking for a class in  
-<strong>2.</strong> Search for <a target="_blank" href="https://oucc.dasa.ncsu.edu/general-education-program-gep/gep-course-lists-2/">GEP</a> or by course department  
+<strong>2.</strong> Search for <a href="https://oucc.dasa.ncsu.edu/general-education-program-gep/gep-course-lists-2/" target="_blank">GEP</a> or by course department  
 <strong>3. GEP:</strong>  
 &emsp;- Select GEP  
 &emsp;- Choose number of courses to view  
