@@ -54,20 +54,20 @@ We built <strong>PackRanks</strong>, a web app that allows students to find and 
    * We implemented a multitude of front-end components for viewing a course table, logging in and signing up a user, and managing their Wishlist information.
 #### [Python](https://python.org)
    * We wrote custom scripts in Python and utilized libraries such as Pandas, NumPy, smtplib, json, and pymongo.
-   * We connected our Flask endpoints to the front-end as well as one-off and worker dynos on Heroku in order to implement a variety of email notification and database management scripts. 
+   * We connected our Flask endpoints to the front-end as well as <strong>one-off and worker dynos</strong> on Heroku in order to implement a variety of email notification and database management scripts. 
 #### [Selenium](https://pypi.org/project/selenium)
-   * We built an automated web crawler to obtain and monitor specific information updates 24/7.
-   * We integrated our web scraping system with our MongoDB cluster to ensure a secure data transfer protocol.
+   * We built an <strong>automated web crawler</strong> to obtain and monitor specific information updates 24/7.
+   * We integrated our web scraping system with our MongoDB cluster and implemented a secure <strong>data communication protocol</strong>.
 #### [Flask](https://pypi.org/project/Flask)
-   * We implemented a RESTful API, including endpoints for user authentication and retrieval of personalized user data.
-   * We preserved the integrity of our API endpoints and implemented a custom cybersecurity model using JSON Web Tokens (JWT) and session management best practices.
+   * We implemented a <strong>RESTful API</strong>, including endpoints for user authentication and retrieval of personalized user data.
+   * We preserved the integrity of our API endpoints and implemented a custom cybersecurity model using <strong>JSON Web Tokens (JWT)</strong> and session management best practices.
    * We prioritized technical documentation and software maintainability in order to simplify the process of continuous integration and deployment.
 #### [MongoDB](https://www.mongodb.com)
-   * We designed an advanced database model to store information on thousands of course sections across NC State.
+   * We designed an advanced database model to store information on <strong>thousands of course sections</strong> across NC State.
    * We managed the merging of multiple MongoDB collections, continous updates to our database server instance.
    * We maintained a stable paradigm for our database collection set in order to manage new users and Wishlist information as well as course changes.
 #### [Heroku](https://www.heroku.com)
-   * We deployed our application front-end and back-end to a cloud platform using Heroku web dynos. 
+   * We deployed our application front-end and back-end to a cloud platform using <strong>Heroku web dynos</strong>. 
    * We also launched our web-scraping script built using Selenium to run 24/7 on a Heroku worker dyno.
    * We built valuable skills in multilingual deployment configuration and compatibility using cloud computing technologies.
 #### [Bootstrap](https://getbootstrap.com)
