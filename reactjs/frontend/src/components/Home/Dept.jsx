@@ -317,6 +317,7 @@ class Dept extends React.Component {
                     <div> 
                             {/* prompt for levels */ }
                             <div id="level_min_option">
+                                
 
                                 {/* Help message to user about dept levels. */}
                                 {/*<div id="helpIconLevel">
