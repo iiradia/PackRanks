@@ -25,6 +25,11 @@ This website provides a comprehensive assortment of course options for a user wh
 
 <!-- ABOUT THE PROJECT -->
 ## About
+<p align="center">
+ <img src="images/PackRanksWishlistPic.JPG" width="900">
+ <br>
+ <em>PackRanks Wishlist</em>
+</p>
 
 ### The Problem
 
