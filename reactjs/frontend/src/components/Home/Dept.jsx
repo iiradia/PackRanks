@@ -300,28 +300,27 @@ class Dept extends React.Component {
         // new
 
         //message describing course levels
-        let help_levels = "90-100 = Very Likely A<br/>80-90 = EasyA<br/>70-80 = You get what you put in<br/>60-70 = Avoid if possible<br/><60 = Avoid";   
+        let help_levels = "To search for a specific course, type the same course number in both dropdowns.";   
         
         return(
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
 
                 {/* Gives options for specific department the user is looking for */}
-                <label for="typeofdept" class="lead"><strong>Please select the department of the course/elective you are looking for.</strong></label>
+                <label for="typeofdept" class="lead"><strong>Please search for or select the department of the course/elective you are looking for.</strong></label>
                     <div id="deptlist">
 
                     </div>
 
-                    <div> 
-                            {/* prompt for levels */ }
-                            <div id="level_min_option">
-                                
-
-                                {/* Help message to user about dept levels. */}
-                                {/*<div id="helpIconLevel">
+                    <div id="allLevelDivs"> 
+                            {/* Help message to user about dept levels. */}
+                            <span id="helpIconLevel">
                                     <HelpIcon data-for="ctool" data-tip={help_levels} style={{color: '#cc0000'}}/>
                                     <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/>
-                                </div>*/} 
+                            </span>
+
+                            {/* prompt for levels 
+                            <span id="level_min_option">*/}
                                 
                                 { /* Select level between 100 and 800 */ } 
                                 <label id="mincourseLevel" for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
@@ -330,19 +329,18 @@ class Dept extends React.Component {
                                     id="level_min"
                                     defaultValue={[{label: 'ANY', value: 'ANY'}]}
                                     options={levelOptionsMin}
-                                    onChange={level => this.setState({level_min: level.value})}
+                                    onChange={level => level ? this.setState({level_min: level.value}) : this.setState({level_min: 'ANY'})}
                                     inputValue={inputValueMin}
                                     onInputChange={this.handleInputChangeMin.bind(this)}
                                     noOptionsMessage={() => null}
-                                    isClearable={true}
                                 />
-                            </div>
+                            {/*</span>*/}
 
                             {/* Prompt for max level */ }
-                            <label for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
+                            <label id="maxcourseLevel" for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
 
                             { /* Select level between 199 and 899 */ }
-                            <div id="level_max_option">
+                            {/*<span id="level_max_option">*/}
                                 <Select
                                     id="level_max" 
                                     defaultValue={[{label: 'ANY', value: 'ANY'}]}
@@ -351,11 +349,12 @@ class Dept extends React.Component {
                                     inputValue={inputValueMax}
                                     onInputChange={this.handleInputChangeMax.bind(this)}
                                     noOptionsMessage={() => null}
-                                    isClearable={true}
                                 />
-                            </div>
+                            {/*</span>*/}
                     </div>
                 
+                {/* parent div of label and how many courses dropdown */}
+                <div>
                     {/* Asks user how many courses they would like to view */}
                     <label for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
@@ -368,6 +367,7 @@ class Dept extends React.Component {
                                 onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
                         />
                     </div>
+                </div>
 
                 {/* Button to generate table */}
                 <div id="whichdeptdiv">

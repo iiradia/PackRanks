@@ -1,8 +1,3 @@
-#levelS {
-    display: inline-flex;
-    padding-left: 20px;
-    padding-top: 20px;
-}
 #levelprompt {
     width: 130px;
     margin: 0 auto;
@@ -11,7 +6,7 @@
     padding-right: 20px;
 }
 #helpIconLevel {
-    padding-right: 20px;
+    padding-right: 10px;
 }
 @font-face {
     font-family: Balsamiq; 
@@ -34,4 +29,23 @@ label {
     color: #cc0000;
     font-weight: bold;
     font-size: 30px !important;
+}
+
+#allLevelDivs {
+    display: inline-flex;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+#mincourseLevel {
+    padding-right: 20px;
+}
+#level_min {
+    padding-right: 20px;
+}
+#level_max { 
+    padding-right: 20px;
+}
+#maxcourseLevel {
+    padding-left: 10px;
+    padding-right: 20px;
 }
