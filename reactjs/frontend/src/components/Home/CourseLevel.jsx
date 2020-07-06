@@ -1,5 +1,8 @@
+/** DEPRECATED **/
+
 import React from 'react'; 
 import CreatableSelect from 'react-select/lib/Creatable';
+import Select from 'react-select';
 import './css/courselevel.css'; 
 
 class CourseLevel extends React.Component{
@@ -47,22 +50,22 @@ class CourseLevel extends React.Component{
                     <label for="level_min" class="lead">Minimum Course Level:</label>
                     { /* Select level between 100 and 800 */ }
                     <div id="level_min_option">
-                        <CreatableSelect 
-                                defaultValue={[{label: 'ANY', value: 'ANY'}]}
-                                id="level_min" 
-                                options={levelOptionsMin}
-                                onChange={level => this.setState({level_min: level.value})}       
+                        <Select 
+                            defaultValue={[{label: 'ANY', value: 'ANY'}]}
+                            id="level_min" 
+                            options={levelOptionsMin}
+                            onChange={level => this.setState({level_min: level.value})}       
                         />
                     </div>
                      {/* prompt for levels */ }
                     <label for="level_max" class="lead">Maximum Course Level</label>
                     { /* Select level between 100 and 800 */ }
                     <div id="level_max_option">
-                        <CreatableSelect 
-                                defaultValue={[{label: 'ANY', value: 'ANY'}]}
-                                id="level_max" 
-                                options={levelOptionsMax}
-                                onChange={level => this.setState({level_max: level.value})}      
+                        <Select 
+                            defaultValue={[{label: 'ANY', value: 'ANY'}]}
+                            id="level_max" 
+                            options={levelOptionsMax}
+                            onChange={level => this.setState({level_max: level.value})}      
                         />
                     </div>
                </div>
