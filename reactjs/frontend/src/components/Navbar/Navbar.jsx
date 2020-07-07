@@ -5,6 +5,7 @@ import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
 import './css/navbar.css';
 //import LoginPage from './Login/LoginPage';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import ReactDOM from 'react-dom';
 import jwt from 'jwt-decode';
 import logo from'./images/PackRanksLogo1.png'
@@ -86,6 +87,13 @@ class Navigation extends React.Component {
                             </div>
                             {/*<Nav.Link id="loginlink" href="/login">Login</Nav.Link>*/}
                             <div id="loginnavlink">
+                            </div>
+
+                            {/* GitHub icon for PackRanks page*/}
+                            <div id="githubPackRanksDiv">
+                                <a href="https://github.com/iiradia/PackRanks" target = "_blank"> 
+                                    <GitHubIcon id="githubPackRanks" fontSize="large" style={{ color: "white"}}/>
+                                </a>
                             </div>
                     </Nav>
                     </Navbar.Collapse>
