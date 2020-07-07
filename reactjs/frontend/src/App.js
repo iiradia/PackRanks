@@ -51,12 +51,15 @@ class App extends React.Component {
         <Router>
           { /* Route to main page */ }
           <Route exact path = "/">
+            <div id="body">
               <header className="App-header"> 
-                  <Navbar /> 
-                  <MainWelcome profile_data={this.state}/>
-                  <FirstPrompt />
-                  <Footer/>
+                  <div className="dynamic">
+                    <Navbar /> 
+                    <MainWelcome profile_data={this.state}/>
+                    <FirstPrompt />
+                  </div>
               </header>
+              </div>
           </Route>
           
 
@@ -89,27 +92,25 @@ class App extends React.Component {
           <Route exact path = "/contact">
             <Navbar />
             <Contact />
-            <Footer/>
+
           </Route>
 
           {/* Route to signup page. */}
           <Route exact path = "/signup">
             <Navbar />
             <SignUp />
-            <Footer/>
+
           </Route>
 
           {/* Route to user homepage */}
           <Route exact path = "/homepage">
             <ProtectedRoute component={UserPage}/>
-            <Footer/>
           </Route>
 
           {/* Route to user wishlist. */}
           {/* Protected so that you must be signed in to access wishlist */}
           <Route exact path = "/wishlist">
             <ProtectedRoute component={Wishlist}/>
-            <Footer/>
           </Route>
 
           {/* Route to selecting major/viewing easy courses*/}
@@ -123,21 +124,18 @@ class App extends React.Component {
           <Route exact path = "/forgotpassword">
             <Navbar />
             <ForgotPass />
-            <Footer/>
           </Route>
 
           { /* Route to reset password */ }
           <Route exact path = "/reset/:email/:token">
             <Navbar />
             <ResetPass />
-            <Footer/>
           </Route>
 
           { /* Route to forgot success */ }
           <Route exact path = "/forgotsuccess">
             <Navbar />
             <ForgotSuccess />
-            <Footer/>
           </Route>
         </Router>
       </div>

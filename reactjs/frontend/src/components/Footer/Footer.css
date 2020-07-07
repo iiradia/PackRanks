@@ -1,8 +1,12 @@
 #footer {
     background-color: #cc0000; 
-    color: white
+    color: white; 
 }
 
 #policyLink{
     color: white
+}
+
+#emptyDiv{
+    height: 50px;
 }

@@ -34,6 +34,7 @@
     "react-simplert": "0.0.2",
     "react-spring": "^8.0.27",
     "react-sticky-box": "^0.9.3",
+    "react-sticky-footer": "0.1.0-rc3",
     "react-tooltip": "^4.2.6",
     "react-ui-cards": "^2.0.0",
     "react-ui-cards-bootstrap": "^1.4.8",
