@@ -205,6 +205,7 @@ class table extends React.Component {
             var delHeader = ["Delete"];
             keys=delHeader.concat(keys);
         }
+        else {
         //else if (localStorage.token!==undefined){ 
             var wishlistHed = ["wishlist"];
             let keys_first = keys.slice(0, 5);
@@ -212,6 +213,7 @@ class table extends React.Component {
             keys = keys_first.concat(wishlistHed, keys_last);
             //keys = wishlistHed.concat(keys);
         //} 
+        }
         return keys.map((key, index)=>{
             //if rating, show help
             let help_rating = "90-100 = Very Likely A<br/>80-90 = EasyA<br/>70-80 = You get what you put in<br/>60-70 = Avoid if possible<br/><60 = Avoid";
@@ -238,6 +240,7 @@ class table extends React.Component {
                 items["Delete"] = "";
             }
         }
+        else {
         //else if (localStorage.token!==undefined){
             var wishlistHed = ["wishlist"];
             let keys_first = keys.slice(0,5);
@@ -247,6 +250,7 @@ class table extends React.Component {
             for (let i = 0; i < items.length; i++) {
                 items["wishlist"] = "";
             }
+        }
         //}
         return items.map((row, index)=>{
             let uniq_id = row["Catalog Link"][0] + row["RateMyProfessor Link"][0] + row["Section"] + row["Semester"];

@@ -43,7 +43,7 @@ class AboutPage extends React.Component {
                                     <Bio/>
                                 </div>
                                 
-                                <div class="contactUsAbout">
+                                <div id="contactUsAbout" class="contactUsAbout">
                                     <Link to="/contact">
                                         <Button
                                             class="btn btn-danger" 

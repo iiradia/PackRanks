@@ -19,7 +19,7 @@ class HelpPage extends React.Component {
                                 <FAQ/>
                                 <h2 id="howWeHelpYou">Instructions</h2>
                                 <Instruction/>
-                                <div class="contactUsAbout">
+                                <div id="contactUsAbout" class="contactUsAbout">
                                     <Link to="/contact">
                                         <Button
                                             class="btn btn-danger" 

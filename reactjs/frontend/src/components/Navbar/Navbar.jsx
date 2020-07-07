@@ -7,7 +7,6 @@ import './css/navbar.css';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import jwt from 'jwt-decode';
-import GitHubIcon from '@material-ui/icons/GitHub';
 import logo from'./images/PackRanksLogo1.png'
 
 class Navigation extends React.Component {
@@ -87,12 +86,6 @@ class Navigation extends React.Component {
                             </div>
                             {/*<Nav.Link id="loginlink" href="/login">Login</Nav.Link>*/}
                             <div id="loginnavlink">
-
-                            </div>
-                            <div id="githubPackRanksDiv">
-                                <a href="https://github.com/iiradia/PackRanks" target = "_blank"> 
-                                    <GitHubIcon id="githubPackRanks" fontSize="large" style={{ color: "white"}}/>
-                                </a>
                             </div>
                     </Nav>
                     </Navbar.Collapse>

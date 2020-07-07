@@ -82,3 +82,8 @@ nav {
     font-weight: bold;
     font-size: 22px;
 }
+
+#githubPackRanksDiv {
+    padding-left: 20px;
+    vertical-align: center;
+}

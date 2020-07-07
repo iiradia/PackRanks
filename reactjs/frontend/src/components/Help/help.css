@@ -1,6 +1,9 @@
 #aboutHeader {
     color: #cc3000;
 }
+html {
+    overflow-x: hidden;
+}
 h2 {
     margin : 3000px;
     font-weight: bold !important;

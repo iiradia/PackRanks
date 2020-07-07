@@ -92,15 +92,15 @@ class App extends React.Component {
           <Route exact path = "/contact">
             <Navbar />
             <Contact />
-
           </Route>
+           
 
           {/* Route to signup page. */}
           <Route exact path = "/signup">
             <Navbar />
             <SignUp />
-
           </Route>
+          
 
           {/* Route to user homepage */}
           <Route exact path = "/homepage">

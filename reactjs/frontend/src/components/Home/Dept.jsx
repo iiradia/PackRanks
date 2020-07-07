@@ -6,6 +6,8 @@ import './css/dept.css';
 //import Creatable from 'react-select/lib/Creatable';
 import './css/courselevel.css'; 
 import {Button} from "react-bootstrap";
+import HelpIcon from '@material-ui/icons/Help';
+import ReactTooltip from 'react-tooltip';
 
 class Dept extends React.Component {
     constructor() {
@@ -62,12 +64,15 @@ class Dept extends React.Component {
         else {
             let minimum = this.state.level_min;
             let maximum = this.state.level_max;
+            
             if (minimum === "ANY") {
                 minimum = "100";
             }
+
             if (maximum === "ANY") {
                 maximum = "899";
             }
+
             //Check if user has selected any dept option
             if (this.state.select_value === null) {
                 //If not, tell user to pick a dept.
@@ -76,10 +81,9 @@ class Dept extends React.Component {
                     document.getElementById('id_dept_table')
                 )
             }
+            
             //If so, explain no results.
             else {
-
-            
                 ReactDOM.render(
                     <h3>There is no course in {this.state.select_value} offered between level {minimum} and {maximum}.</h3>,
                     document.getElementById('id_dept_table')
@@ -92,7 +96,6 @@ class Dept extends React.Component {
         let dept_url = "http://packranks-backend.herokuapp.com/dept";
         this.setState({loading:true})
 
-        //new
         /* Quadruple if-block to call using correct states */
         if (this.state.inputValueMin !== "" && this.state.inputValueMax !== "") {
             //console.log("setting inputValueMax state")
@@ -172,7 +175,6 @@ class Dept extends React.Component {
                 data => this.parseData(data)
             )
         }
-        //new
     }
 
     /* Get List of departments and render select component */
@@ -186,7 +188,7 @@ class Dept extends React.Component {
                 method: "GET"
            }
         ).then(
-            response => response.json() // keep here (maybe)
+            response => response.json()
         ).then(
             (data) => {this.setState({all_dept_list: data},
                 () => ReactDOM.render(this.DeptList(), document.getElementById('deptlist'))
@@ -212,42 +214,40 @@ class Dept extends React.Component {
     DeptList(){
 
         // Returning the list of a default value 
-            const departments = this.state.all_dept_list;
-            const deptOptions = departments.dept.map((dept) => (
-                {label: dept}
-            ));
-            const deptValues = departments.dept_code.map((value_i) => (
-                {value: value_i}
-            ));
-            const deptFinal = [];
-            for (var i = 0; i < deptOptions.length; i++) {
-                deptFinal[i] = {label: deptOptions[i].label,
-                                value: deptValues[i].value}
-            }
+        const departments = this.state.all_dept_list;
+        const deptOptions = departments.dept.map((dept) => (
+            {label: dept}
+        ));
+        const deptValues = departments.dept_code.map((value_i) => (
+            {value: value_i}
+        ));
+        const deptFinal = [];
+        for (var i = 0; i < deptOptions.length; i++) {
+            deptFinal[i] = {label: deptOptions[i].label,
+                            value: deptValues[i].value}
+        }
 
-
-            return (
-            <div className="app">
-                <div className="container">
-                    <div style={{width:"400px", margin:"0 auto"}}>
-                        <Select className="deptSelect"
-                                id='dept_list_select' 
-                                options={deptFinal} 
-                                onChange={dept => {
-                                    this.setState({select_value:dept.value})
-                                }}
-                                placeholder="Search or Select"
-                                filterOption = {this.filterOption}
-                        />
-                    </div>
+        return (
+        <div className="app">
+            <div className="container">
+                <div style={{width:"400px", margin:"0 auto"}}>
+                    <Select className="deptSelect"
+                            id='dept_list_select' 
+                            options={deptFinal} 
+                            onChange={dept => {
+                                this.setState({select_value:dept.value})
+                            }}
+                            placeholder="Search or Select"
+                            filterOption = {this.filterOption}
+                    />
                 </div>
             </div>
-            )
+        </div>
+        )
 
  
     };
 
-    //new
     handleInputChangeMin(inputValueMin, action) {
         if (action.action !== "input-blur" && action.action !== "menu-close") {
             console.log({ inputValueMin });
@@ -260,22 +260,22 @@ class Dept extends React.Component {
             this.setState({ inputValueMax });
         }
     }
-    //new
+
 
     render() {
-          /* Save list of levels and options for dropdown */
-          const levelListMin = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
+        /* Save list of levels and options for dropdown */
+        const levelListMin = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
 
-          const levelOptionsMin = levelListMin.map((level) => (
-         {label: level, value: level}
-          )); 
+        const levelOptionsMin = levelListMin.map((level) => (
+        {label: level, value: level}
+        )); 
  
  
-          const levelListMax = ["ANY", "199", "299", "399", "499", "599", "699", "799","899"];
+        const levelListMax = ["ANY", "199", "299", "399", "499", "599", "699", "799","899"];
  
-          const levelOptionsMax = levelListMax.map((level) => (
-         {label: level, value: level}
-          )); 
+        const levelOptionsMax = levelListMax.map((level) => (
+        {label: level, value: level}
+        )); 
 
         const numCourses = [
             {label: 5, value: 5}, 
@@ -298,38 +298,49 @@ class Dept extends React.Component {
         const { inputValueMin } = this.state;
         const { inputValueMax } = this.state;
         // new
+
+        //message describing course levels
+        let help_levels = "To search for a specific course, type the same course number in both dropdowns.";   
         
         return(
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
 
                 {/* Gives options for specific department the user is looking for */}
-                <label for="typeofdept" class="lead"><strong>Please select the department of the course/elective you are looking for.</strong></label>
+                <label for="typeofdept" class="lead"><strong>Please search for or select the department of the course/elective you are looking for.</strong></label>
                     <div id="deptlist">
 
                     </div>
 
-                    <div> 
-                        {/* prompt for levels */ }
-                            <label for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
-                            { /* Select level between 100 and 800 */ }
-                            <div id="level_min_option">
+                    <div id="allLevelDivs"> 
+                            {/* Help message to user about dept levels. */}
+                            <span id="helpIconLevel">
+                                    <HelpIcon data-for="ctool" data-tip={help_levels} style={{color: '#cc0000'}}/>
+                                    <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/>
+                            </span>
+
+                            {/* prompt for levels 
+                            <span id="level_min_option">*/}
+                                
+                                { /* Select level between 100 and 800 */ } 
+                                <label id="mincourseLevel" for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
+                        
                                 <Select
                                     id="level_min"
                                     defaultValue={[{label: 'ANY', value: 'ANY'}]}
                                     options={levelOptionsMin}
-                                    onChange={level => this.setState({level_min: level.value})}
+                                    onChange={level => level ? this.setState({level_min: level.value}) : this.setState({level_min: 'ANY'})}
                                     inputValue={inputValueMin}
                                     onInputChange={this.handleInputChangeMin.bind(this)}
                                     noOptionsMessage={() => null}
                                 />
-                            </div>
+                            {/*</span>*/}
 
-                            {/* prompt for levels */ }
-                            <label for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
+                            {/* Prompt for max level */ }
+                            <label id="maxcourseLevel" for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
 
-                            { /* Select level between 100 and 800 */ }
-                            <div id="level_max_option">
+                            { /* Select level between 199 and 899 */ }
+                            {/*<span id="level_max_option">*/}
                                 <Select
                                     id="level_max" 
                                     defaultValue={[{label: 'ANY', value: 'ANY'}]}
@@ -339,20 +350,24 @@ class Dept extends React.Component {
                                     onInputChange={this.handleInputChangeMax.bind(this)}
                                     noOptionsMessage={() => null}
                                 />
-                            </div>
+                            {/*</span>*/}
                     </div>
                 
+                {/* parent div of label and how many courses dropdown */}
+                <div>
                     {/* Asks user how many courses they would like to view */}
                     <label for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
                         <Select className="numCourseSelect"
                                 id='num_course_select' 
                                 options={numCourses}
+                                isSearchable={false}
                                 defaultValue={[{label: 5, value: 5}]} 
                                 //defaultValue={numCourses[0]}
                                 onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
                         />
                     </div>
+                </div>
 
                 {/* Button to generate table */}
                 <div id="whichdeptdiv">
@@ -366,8 +381,10 @@ class Dept extends React.Component {
                     </Button>
                 </div>
 
+                {/* Div to display notes above the table */}
                 <div id ="tableNote">
                 </div>
+
                 { /* Div for course table */ }
                 <div id="id_dept_table">
 

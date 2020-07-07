@@ -115,11 +115,12 @@ class GEP extends React.Component {
                     </div>
 
                     {/* Asks user how many courses they would like to view */}
-                    <label for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
+                    <label id="howmanylabel" for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
                     <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
                         <Select className="numCourseSelect"
                                 id='num_course_select' 
-                                options={numCourses} 
+                                options={numCourses}
+                                isSearchable={false}
                                 defaultValue={[{label:5, value:5}]}
                                 onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
                         />

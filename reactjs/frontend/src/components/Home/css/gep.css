@@ -25,3 +25,6 @@
 p, em {
     font-family: 'Exo 2', sans-serif !important;
 }
+#howmanylabel {
+    padding-top: 20px;
+}
