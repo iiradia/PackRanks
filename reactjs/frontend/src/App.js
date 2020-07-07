@@ -22,6 +22,11 @@ import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
+import ReactGA from "react-ga"
+
+ReactGA.initialize('UA-171857417-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 
 
 
