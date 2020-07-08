@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Table from "./Table";
 import './css/dept.css';
 //import Creatable from 'react-select/lib/Creatable';
+import {isMobile} from 'react-device-detect';
 import './css/courselevel.css'; 
 import {Button} from "react-bootstrap";
 import HelpIcon from '@material-ui/icons/Help';
@@ -33,6 +34,89 @@ class Dept extends React.Component {
         this.getDepts();
     }
 
+    //Get minimum and maximum dropdown.
+    getMinMax(divName) {
+        /* Save list of levels and options for dropdown */
+        const levelListMin = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
+
+        const levelOptionsMin = levelListMin.map((level) => (
+        {label: level, value: level}
+        )); 
+ 
+ 
+        const levelListMax = ["ANY", "199", "299", "399", "499", "599", "699", "799","899"];
+ 
+        const levelOptionsMax = levelListMax.map((level) => (
+        {label: level, value: level}
+        )); 
+        // new
+        const { inputValueMin } = this.state;
+        const { inputValueMax } = this.state;
+        // new
+
+        //message describing course levels
+        let help_levels = "To search for a specific course, type the same course number in both dropdowns.";   
+        
+
+        return( <div id={divName}>
+        {/* Help message to user about dept levels. */}
+        <span id="helpIconLevel">
+                <HelpIcon data-for="ctool" data-tip={help_levels} style={{color: '#cc0000'}}/>
+                <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/>
+        </span>
+
+        {/* prompt for levels 
+        <span id="level_min_option">*/}
+            
+            { /* Select level between 100 and 800 */ } 
+            <label id="mincourseLevel" for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
+    
+            <Select
+                id="level_min"
+                defaultValue={[{label: 'ANY', value: 'ANY'}]}
+                options={levelOptionsMin}
+                onChange={level => level ? this.setState({level_min: level.value}) : this.setState({level_min: 'ANY'})}
+                inputValue={inputValueMin}
+                onInputChange={this.handleInputChangeMin.bind(this)}
+                noOptionsMessage={() => null}
+            />
+        {/*</span>*/}
+
+        {/* Prompt for max level */ }
+        <label id="maxcourseLevel" for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
+
+        { /* Select level between 199 and 899 */ }
+        {/*<span id="level_max_option">*/}
+            <Select
+                id="level_max" 
+                defaultValue={[{label: 'ANY', value: 'ANY'}]}
+                options={levelOptionsMax}
+                onChange={level => this.setState({level_max: level.value})}
+                inputValue={inputValueMax}
+                onInputChange={this.handleInputChangeMax.bind(this)}
+                noOptionsMessage={() => null}
+            />
+        </div>
+        )
+    }
+
+    componentDidMount() {
+
+        // If on mobile, show department levels on two lines.
+        if (isMobile) {
+            ReactDOM.render(
+                this.getMinMax("allLevelDivsMobile"),
+                document.getElementById("allLevelDivsMobile")
+            )
+        }
+        // Else, show it inline.
+        else {
+            ReactDOM.render(
+            this.getMinMax("allLevelDivs"),
+            document.getElementById("allLevelDivs")
+            )
+        }
+    }
 
     parseData(data) {
         console.log(data);
@@ -263,19 +347,6 @@ class Dept extends React.Component {
 
 
     render() {
-        /* Save list of levels and options for dropdown */
-        const levelListMin = ["ANY", "100", "200", "300", "400", "500", "600", "700","800"];
-
-        const levelOptionsMin = levelListMin.map((level) => (
-        {label: level, value: level}
-        )); 
- 
- 
-        const levelListMax = ["ANY", "199", "299", "399", "499", "599", "699", "799","899"];
- 
-        const levelOptionsMax = levelListMax.map((level) => (
-        {label: level, value: level}
-        )); 
 
         const numCourses = [
             {label: 5, value: 5}, 
@@ -285,23 +356,14 @@ class Dept extends React.Component {
             {label: 9, value: 9},
             {label: 10, value:10}
         ]
-          
+
         if(this.state.loading) {
             this.setState({loading:false})
             ReactDOM.render(
-                <p id="loadingMsg" class="lead">Loading...</p>,
+                <div id="loadingMsgDivvv"><p id="loadingMsg" class="lead">Loading...</p></div>,
                 document.getElementById("id_dept_table")
             )
         }
-
-        // new
-        const { inputValueMin } = this.state;
-        const { inputValueMax } = this.state;
-        // new
-
-        //message describing course levels
-        let help_levels = "To search for a specific course, type the same course number in both dropdowns.";   
-        
         return(
             <div class="text-center">
                 <h2 class="mt-5">Select a Department</h2>
@@ -313,44 +375,8 @@ class Dept extends React.Component {
                     </div>
 
                     <div id="allLevelDivs"> 
-                            {/* Help message to user about dept levels. */}
-                            <span id="helpIconLevel">
-                                    <HelpIcon data-for="ctool" data-tip={help_levels} style={{color: '#cc0000'}}/>
-                                    <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/>
-                            </span>
-
-                            {/* prompt for levels 
-                            <span id="level_min_option">*/}
-                                
-                                { /* Select level between 100 and 800 */ } 
-                                <label id="mincourseLevel" for="level_min" class="lead"><strong>Minimum Course Level</strong></label>
-                        
-                                <Select
-                                    id="level_min"
-                                    defaultValue={[{label: 'ANY', value: 'ANY'}]}
-                                    options={levelOptionsMin}
-                                    onChange={level => level ? this.setState({level_min: level.value}) : this.setState({level_min: 'ANY'})}
-                                    inputValue={inputValueMin}
-                                    onInputChange={this.handleInputChangeMin.bind(this)}
-                                    noOptionsMessage={() => null}
-                                />
-                            {/*</span>*/}
-
-                            {/* Prompt for max level */ }
-                            <label id="maxcourseLevel" for="level_max" class="lead"><strong>Maximum Course Level</strong></label>
-
-                            { /* Select level between 199 and 899 */ }
-                            {/*<span id="level_max_option">*/}
-                                <Select
-                                    id="level_max" 
-                                    defaultValue={[{label: 'ANY', value: 'ANY'}]}
-                                    options={levelOptionsMax}
-                                    onChange={level => this.setState({level_max: level.value})}
-                                    inputValue={inputValueMax}
-                                    onInputChange={this.handleInputChangeMax.bind(this)}
-                                    noOptionsMessage={() => null}
-                                />
-                            {/*</span>*/}
+                    </div>
+                    <div id="allLevelDivsMobile">
                     </div>
                 
                 {/* parent div of label and how many courses dropdown */}

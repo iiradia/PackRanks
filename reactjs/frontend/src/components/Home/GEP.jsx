@@ -4,6 +4,7 @@ import Table from "./Table";
 import ReactDOM from "react-dom";
 import './css/gep.css'
 import {Button} from 'react-bootstrap';
+import {isMobile} from 'react-device-detect';
 
 class GEP extends React.Component {
 
@@ -19,16 +20,6 @@ class GEP extends React.Component {
         };
 
     }
-
-    /*renderTable() {
-        this.setState({
-            loading: false
-        },
-        ReactDOM.render(
-            <Table data={this.state.courses}/>,
-            document.getElementById("id_table")
-        ))
-    }*/
 
     getTable() {
         const GEP = this;
@@ -93,7 +84,7 @@ class GEP extends React.Component {
         if(this.state.loading) {
             this.setState({loading:false})
             ReactDOM.render(
-                <p id="loadingMsg" class="lead">Loading...</p>,
+                <div id="loadingMsgDivvv"><p id="loadingMsg" class="lead">Loading...</p></div>,
                 document.getElementById("tableNote")
             )
         }

@@ -5,19 +5,10 @@ import ReactTooltip from 'react-tooltip';
 import {Checkbox} from "@material-ui/core";
 import ReactDOM from 'react-dom';   
 import Instruction from '../Help/Instructions/Instruction.jsx'
-
+import {isMobile} from 'react-device-detect';
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css'
 import HelpIcon from '@material-ui/icons/Help';
-
-function hsl_col_perc(percent, start, end) {
-    var a = percent / 100,
-        b = (end - start) * a,
-        c = b + start;
-  
-    // Return a CSS HSL string
-    return ('hsl('+c+', 100%, 50%)');
-}
 
 //when delete checkbox is checked
 const checkDelete= (props) => {
@@ -44,15 +35,12 @@ const checkDelete= (props) => {
             let sem = props.data.Semester;
             let section = props.data.Section;
             if (course[0] === currS[i].Course[0] && sem===currS[i].Semester && section===currS[i].Section) {
-                console.log("remove")
                 currS.splice(i, 1);
                 break;
             }
         }
         localStorage.setItem("checkedCourses", JSON.stringify(currS));
     }
-    console.log("set to")
-    console.log(localStorage.getItem("checkedCourses"));
 }
 
 //when wishlist button is pressed
@@ -184,12 +172,23 @@ class table extends React.Component {
     }
     componentDidMount() {
         if (this.props.type !== "homepage") {
-            ReactDOM.render(
-                <p id="bugFlawMsg" class="lead">
-                    If you notice any bugs or flaws in our product, please contact us using the link at the top right of this page!
-                </p>,
-                document.getElementById("renderContactForBugs")
-            )
+            if(isMobile) {
+                
+                ReactDOM.render(
+                    <p id="bugFlawMsgMobile" class="lead">
+                        If you notice any bugs or flaws in our product, please contact us using the link at the top right of this page!
+                    </p>,
+                    document.getElementById("renderContactForBugs")
+                )
+            }
+            else {
+                ReactDOM.render(
+                    <p id="bugFlawMsg" class="lead">
+                        If you notice any bugs or flaws in our product, please contact us using the link at the top right of this page!
+                    </p>,
+                    document.getElementById("renderContactForBugs")
+                )
+            }
         }
     }
     // Gets the keys of the whole table 
@@ -214,6 +213,12 @@ class table extends React.Component {
             //keys = wishlistHed.concat(keys);
         //} 
         }
+
+        //if on mobile, switch keys to only include minimalistic interface
+        if (isMobile) {
+            keys = ["Rating", "Catalog Link", "RateMyProfessor Link"];
+        }
+
         return keys.map((key, index)=>{
             //if rating, show help
             let help_rating = "90-100 = Very Likely A<br/>80-90 = EasyA<br/>70-80 = You get what you put in<br/>60-70 = Avoid if possible<br/><60 = Avoid";
@@ -251,6 +256,12 @@ class table extends React.Component {
                 items["wishlist"] = "";
             }
         }
+        
+        //if on mobile, switch keys to only include minimalistic interface
+        if (isMobile) {
+            keys = ["Rating", "Catalog Link", "RateMyProfessor Link"];
+        }
+
         //}
         return items.map((row, index)=>{
             let uniq_id = row["Catalog Link"][0] + row["RateMyProfessor Link"][0] + row["Section"] + row["Semester"];

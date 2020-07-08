@@ -76,6 +76,12 @@
     margin: 0 auto;
 }
 
+#bugFlawMsgMobile {
+    word-wrap: break-word;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
 #successWish {
     color: green
 }

@@ -30,10 +30,15 @@ label {
     font-weight: bold;
     font-size: 30px !important;
 }
+#loadingMsgDivvv {
+    max-width: 50%;
+}
 
 #allLevelDivs {
     display: inline-flex;
-    padding-top: 30px;
+    padding-top: 15px;
+}
+#allLevelDivsMobile {
     padding-bottom: 20px;
 }
 #mincourseLevel {

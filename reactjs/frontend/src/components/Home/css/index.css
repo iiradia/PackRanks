@@ -10,6 +10,10 @@ h1 {
     color: #cc0000;
     font-size: 69.420px; /* Nice */
 }
+#welcomeMobile {
+    color: #cc0000;
+    font-size: 49.620px;
+}
 #lab {
     padding-top: 0px !important;
     color: #cc0000;
@@ -45,10 +49,16 @@ button {
 #gepDivLabel {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 90%;
 }
 #termDivLabel {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 90%;
 }
 #goButton {
     display: flex;
@@ -75,6 +85,16 @@ button {
     color: #cc0000 !important;
     padding-bottom: 30px;
     font-size: 31.415926535897932384626433833px;
+    padding-top: 0px !important;
+    font-family: 'Exo 2', sans-serif;
+    padding-left: 25px;
+}
+#labGradientMobile {
+    max-width: 800px;
+    margin: auto;
+    color: #cc0000 !important;
+    padding-bottom: 30px;
+    font-size: 22.45px;
     padding-top: 0px !important;
     font-family: 'Exo 2', sans-serif;
     padding-left: 25px;

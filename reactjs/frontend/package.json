@@ -18,6 +18,7 @@
     "react-alert": "^7.0.1",
     "react-bootstrap": "^1.0.1",
     "react-bootstrap-table-next": "^4.0.2",
+    "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-ga": "^3.1.2",
     "react-google-button": "^0.7.1",
