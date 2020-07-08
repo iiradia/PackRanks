@@ -28,11 +28,26 @@ class Dept extends React.Component {
             loading: false,
             inputValueMin: "",  //new
             inputValueMax: "" , //new
-            numCourses_value: 5, 
+            numCourses_value: 5
         }
         /* Call depts function */
         this.getDepts();
     }
+    
+
+    handleInputChangeMin(inputValueMin, action) {
+        if (action.action !== "input-blur" && action.action !== "menu-close") {
+            console.log({ inputValueMin });
+            this.setState({ inputValueMin });
+        }
+    }
+    handleInputChangeMax(inputValueMax, action) {
+        if (action.action !== "input-blur" && action.action !== "menu-close") {
+            console.log({ inputValueMax });
+            this.setState({ inputValueMax });
+        }
+    }
+
 
     //Get minimum and maximum dropdown.
     getMinMax(divName) {
@@ -98,24 +113,6 @@ class Dept extends React.Component {
             />
         </div>
         )
-    }
-
-    componentDidMount() {
-
-        // If on mobile, show department levels on two lines.
-        if (isMobile) {
-            ReactDOM.render(
-                this.getMinMax("allLevelDivsMobile"),
-                document.getElementById("allLevelDivsMobile")
-            )
-        }
-        // Else, show it inline.
-        else {
-            ReactDOM.render(
-            this.getMinMax("allLevelDivs"),
-            document.getElementById("allLevelDivs")
-            )
-        }
     }
 
     parseData(data) {
@@ -332,21 +329,19 @@ class Dept extends React.Component {
  
     };
 
-    handleInputChangeMin(inputValueMin, action) {
-        if (action.action !== "input-blur" && action.action !== "menu-close") {
-            console.log({ inputValueMin });
-            this.setState({ inputValueMin });
-        }
-    }
-    handleInputChangeMax(inputValueMax, action) {
-        if (action.action !== "input-blur" && action.action !== "menu-close") {
-            console.log({ inputValueMax });
-            this.setState({ inputValueMax });
-        }
-    }
-
-
     render() {
+
+        let minMax = "";
+         // If on mobile, show department levels on two lines.
+         if (isMobile) {
+           
+            minMax = this.getMinMax("allLevelDivsMobile")
+        }
+        // Else, show it inline.
+        else {
+            
+            minMax = this.getMinMax("allLevelDivs");
+        }
 
         const numCourses = [
             {label: 5, value: 5}, 
@@ -373,11 +368,7 @@ class Dept extends React.Component {
                     <div id="deptlist">
 
                     </div>
-
-                    <div id="allLevelDivs"> 
-                    </div>
-                    <div id="allLevelDivsMobile">
-                    </div>
+                {minMax}
                 
                 {/* parent div of label and how many courses dropdown */}
                 <div>

@@ -9,6 +9,8 @@ import json
 import jwt
 from collections import defaultdict
 from packranks_app import app
+import datetime
+import requests
 
 DBSTR = ""
 with open ("packranks_app/email_data.json", "r") as data:
@@ -22,6 +24,43 @@ SECRET = 'lCObatvHLVE4v514SS54YQ'
 In the future, maybe add a feature that sends user confirmation email about
 wishlist update and then sends recommended similar courses to user?
 """
+def get_current_time():
+    """
+    Helper method to return current time as string.
+    """
+    return str(datetime.datetime.now())
+
+def get_location_info(ip_addr):
+    """
+    Helper method to get location info based on ip.
+    """
+    loc_url = f'http://ip-api.com/json/{ip_addr}'
+    try:
+        response = requests.get(loc_url)
+        return eval(response.text)
+    except:
+        return {}
+
+def add_analytics_wishlist(type_of_wishlist, email, first_name, last_name, os_info, ip_addr):
+    """
+    Helper method that takes in all parameters and inserts analytics in db.
+    """
+    timestamp = get_current_time()
+
+    # write calls to analytics for google signup
+    analytics_to_add = {
+        "type_of_call": "Wishlist",
+        "type_of_wishlist": type_of_wishlist,
+        "email": email,
+        "first_name": first_name,
+        "last_name": last_name,
+        "timestamp": timestamp,
+        "os_info": os_info, 
+        "ip_address": ip_addr,
+        "location": get_location_info(ip_addr)
+    }
+    # add analytics to db
+    grades_db.analytics_user_data.insert_one(analytics_to_add)
 
 @app.route("/resetWishlist", methods=["POST"])
 def reset_wishlist():
@@ -60,6 +99,11 @@ def add_course_to_wishlist():
     """
     #save data
     data = eval(request.get_data())
+    ip_addr = request.access_route[0]
+    
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
 
     #decode token and save course to add to wishlist
     wishlist_course_data = data["course_data"]
@@ -94,8 +138,9 @@ def add_course_to_wishlist():
         upsert=True
     )
 
-    #print(wishlist_course_data)
-    #print(user_data)
+    # write calls to analytics for google signup
+    add_analytics_wishlist("Add", user_data["email"], user_data["first_name"], user_data["last_name"], os_info, ip_addr)
+
     #return true if successful
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
@@ -107,6 +152,12 @@ def view_wishlist():
     token is sent by the frontend.
     """
     token = request.headers["Token"]
+    ip_addr = request.access_route[0]
+    
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
+
     user_data = jwt.decode(token, SECRET, algorithms=['HS256'])["identity"]
     
     user_query = {
@@ -118,7 +169,7 @@ def view_wishlist():
     user_db_data = grades_db.users.find_one(
         user_query
     )
-
+    
     #collect wishlist from data
     wishlist = user_db_data["wishlist"]
 
@@ -130,6 +181,10 @@ def view_wishlist():
         #to be rendered to the user.
         if len(wishlist[term]) == 0:
             del wishlist[term] 
+
+    # write calls to analytics for google signup
+    add_analytics_wishlist("View", user_data["email"], user_data["first_name"], user_data["last_name"], os_info, ip_addr)
+
 
     #print(wishlist)
     return json.dumps(wishlist), 200, {'ContentType':'application/json'}

@@ -13,3 +13,4 @@ passlib
 gunicorn
 flask_cors
 pandas
+requests

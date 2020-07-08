@@ -8,12 +8,32 @@ from math import log10
 import re
 from packranks_app.Course.prep_course_for_table import prepare_course
 from packranks_app import app
+import datetime
+import requests
 
 NUM_COURSES = 20
 HARD_MAX = 10
 DBSTR = ""
 with open("packranks_app/email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
+
+def get_current_time():
+    """
+    Helper method to return current time as string.
+    """
+    return str(datetime.datetime.now())
+
+def get_location_info(ip_addr):
+    """
+    Helper method to get location info based on ip.
+    """
+    loc_url = f'http://ip-api.com/json/{ip_addr}'
+    try:
+        response = requests.get(loc_url)
+        return eval(response.text)
+    except:
+        return {}
+
 
 def save_course_data(catalog_data, num_to_show):
     """
@@ -129,13 +149,23 @@ def gepRoute():
     gep_requested = request.headers.get("GEP")
     term_requested = request.headers.get("term")
     num_to_show = int(request.headers.get("num_courses"))
+    ip_addr = request.access_route[0]
+    loc_info = get_location_info(ip_addr)
+
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
     
     # write calls to analytics
     analytics_to_add = {
         "type_of_call": "GEP",
         "gep_requested": gep_requested,
         "term_requested": term_requested,
-        "num_courses": num_to_show
+        "num_courses": num_to_show,
+        "timestamp": get_current_time(),
+        "os_info": os_info,
+        "ip_address": ip_addr,
+        "location": loc_info
     }
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
@@ -298,6 +328,12 @@ def deptRoute():
     level_min = request.headers.get("level_min")
     level_max = request.headers.get("level_max")
     num_to_show = int(request.headers.get("num_courses"))
+    ip_addr = request.access_route[0]
+    loc_info = get_location_info(ip_addr)
+    
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
 
     # write calls to analytics
     analytics_to_add = {
@@ -306,7 +342,11 @@ def deptRoute():
         "term_requested": term_requested,
         "level_min": level_min,
         "level_max": level_max,
-        "num_courses": num_to_show
+        "num_courses": num_to_show,
+        "timestamp": get_current_time(),
+        "os_info": os_info,
+        "ip_address": ip_addr,
+        "location": loc_info
     }
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)

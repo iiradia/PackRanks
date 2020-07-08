@@ -3,6 +3,8 @@ from flask import request
 from pymongo import MongoClient
 import json
 from packranks_app import app
+import datetime
+import requests
 # import the hash algorithm
 from passlib.hash import pbkdf2_sha256
 NUM_ROUNDS =  100000
@@ -18,6 +20,45 @@ from packranks_app.Authentication.auth_helpers import (
     get_user_token, send_signup_email
 )
 
+def get_current_time():
+    """
+    Helper method to return current time as string.
+    """
+    return str(datetime.datetime.now())
+
+def get_location_info(ip_addr):
+    """
+    Helper method to get location info based on ip.
+    """
+    loc_url = f'http://ip-api.com/json/{ip_addr}'
+    try:
+        response = requests.get(loc_url)
+        return eval(response.text)
+    except:
+        return {}
+
+
+def add_analytics_auth(type_of_call, type_of_auth, email, first_name, last_name, os_info, ip_addr):
+    """
+    Helper method that takes in all parameters and inserts analytics in db.
+    """
+    timestamp = get_current_time()
+
+    # write calls to analytics for google signup
+    analytics_to_add = {
+        "type_of_call": type_of_call,
+        "type_of_auth": type_of_auth,
+        "email": email,
+        "first_name": first_name,
+        "last_name": last_name,
+        "timestamp": timestamp,
+        "os_info": os_info,
+        "ip_address": ip_addr,
+        "location": get_location_info(ip_addr)
+    }
+    # add analytics to db
+    grades_db.analytics_user_data.insert_one(analytics_to_add)
+
 @app.route("/googleauth", methods=["POST"])
 def google_auth():
     """
@@ -26,6 +67,14 @@ def google_auth():
     or create a new account for them.
     """
     google_user_data = eval(request.get_data())
+    ip_addr = request.access_route[0]
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
+    
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
 
     user_query = {
         "email": google_user_data["email"]
@@ -72,6 +121,9 @@ def google_auth():
         #get user info
         user_info = get_user_token(current_user)
         user_info["type"] = "SignUp"
+
+        # write calls to analytics for google signup
+        add_analytics_auth("SignUp", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
         
         #return that user was signed up
         return json.dumps(user_info), 200, {"ContentType":"application/json"}
@@ -82,15 +134,8 @@ def google_auth():
         """
         user_info = get_user_token(google_user)
 
-            # write calls to analytics
-        analytics_to_add = {
-            "type_of_call": "Login",
-            "email": google_user_data["email"],
-            "first_name": google_user_data["first_name"],
-            "last_name": google_user_data["last_name"]
-        }
-        # add analytics to db
-        grades_db.analytics_user_data.insert_one(analytics_to_add)
+        # write calls to analytics for google signup
+        add_analytics_auth("Login", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
 
         return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
@@ -108,6 +153,10 @@ def login():
     #get user data
     login_data = eval(request.get_data())
     login_pwd = login_data["password"].encode("utf-8")
+    ip_addr = request.access_route[0]
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
     #print(login_data)
 
     #save user information
@@ -135,6 +184,9 @@ def login():
         #get current user's info
         user_info = get_user_token(current_user)
 
+        # write calls to analytics
+        add_analytics_auth("Login", "PackRanks", login_data["email"], current_user["first_name"], current_user["last_name"], os_info, ip_addr)
+
         return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
 
@@ -147,6 +199,10 @@ def sign_up():
     """
     #get user data
     user_data = eval(request.get_data())
+    ip_addr = request.access_route[0]
+    # get user agent
+    user_agent = str(request.headers.get("User-Agent"))
+    os_info = user_agent.split(')')[0].split('(')[1].strip()
     #print(user_data)
 
     #use hash library to hash the password
@@ -180,5 +236,8 @@ def sign_up():
 
         #send an email to user who signed up
         send_signup_email(first_name, email)
+
+        # write calls to analytics
+        add_analytics_auth("SignUp", "PackRanks", user_data["email"], user_data["first_name"], user_data["last_name"], os_info, ip_addr)
 
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
