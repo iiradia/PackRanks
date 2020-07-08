@@ -82,6 +82,16 @@ def google_auth():
         """
         user_info = get_user_token(google_user)
 
+            # write calls to analytics
+        analytics_to_add = {
+            "type_of_call": "Login",
+            "email": google_user_data["email"],
+            "first_name": google_user_data["first_name"],
+            "last_name": google_user_data["last_name"]
+        }
+        # add analytics to db
+        grades_db.analytics_user_data.insert_one(analytics_to_add)
+
         return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
 

@@ -129,6 +129,16 @@ def gepRoute():
     gep_requested = request.headers.get("GEP")
     term_requested = request.headers.get("term")
     num_to_show = int(request.headers.get("num_courses"))
+    
+    # write calls to analytics
+    analytics_to_add = {
+        "type_of_call": "GEP",
+        "gep_requested": gep_requested,
+        "term_requested": term_requested,
+        "num_courses": num_to_show
+    }
+    # add analytics to db
+    grades_db.analytics_user_data.insert_one(analytics_to_add)
 
     #if additional breadth, either hum or ss
     if gep_requested == "ADDTL":
@@ -288,6 +298,18 @@ def deptRoute():
     level_min = request.headers.get("level_min")
     level_max = request.headers.get("level_max")
     num_to_show = int(request.headers.get("num_courses"))
+
+    # write calls to analytics
+    analytics_to_add = {
+        "type_of_call": "Dept",
+        "dept_requested": dept_requested,
+        "term_requested": term_requested,
+        "level_min": level_min,
+        "level_max": level_max,
+        "num_courses": num_to_show
+    }
+    # add analytics to db
+    grades_db.analytics_user_data.insert_one(analytics_to_add)
     
     
     if (not str.isnumeric(level_min) and level_min!="ANY") or (not str.isnumeric(level_max) and level_max!="ANY") :
