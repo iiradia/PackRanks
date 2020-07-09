@@ -17,26 +17,12 @@ crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
 #import helpers
 from packranks_app.Authentication.auth_helpers import (
-    get_user_token, send_signup_email
+    get_user_token, 
+    send_signup_email,
+    update_os_ip,
+    get_current_time,
+    get_location_info
 )
-
-def get_current_time():
-    """
-    Helper method to return current time as string.
-    """
-    return str(datetime.datetime.now())
-
-def get_location_info(ip_addr):
-    """
-    Helper method to get location info based on ip.
-    """
-    loc_url = f'http://ip-api.com/json/{ip_addr}'
-    try:
-        response = requests.get(loc_url)
-        return eval(response.text)
-    except:
-        return {}
-
 
 def add_analytics_auth(type_of_call, type_of_auth, email, first_name, last_name, os_info, ip_addr):
     """
@@ -92,22 +78,23 @@ def google_auth():
             where they can enter a password
         """
         #save user information
-        try:
-            user = {
-                "first_name": google_user_data["first_name"],
-                "last_name": google_user_data["last_name"],
-                "email": google_user_data["email"],
-                "hashed_pw":"",
-                "wishlist": {}
-            }
-        except:
-            user = {
+        user = {
                 "first_name": google_user_data["first_name"],
                 "last_name": "",
                 "email": google_user_data["email"],
                 "hashed_pw":"",
-                "wishlist": {}
+                "wishlist": {},
+                "os_info": [os_info],
+                "ip_address_list": [ip_addr],
+                "timestamp": get_current_time(),
+                "location": get_location_info(ip_addr),
+                "account_type": "Google"
             }
+        
+        try:
+            user["last_name"] = google_user_data["last_name"]
+        except:
+            pass
 
         #add user to db
         grades_db.users.insert_one(user)
@@ -133,6 +120,9 @@ def google_auth():
         Send user to their homepage
         """
         user_info = get_user_token(google_user)
+
+        # update os and ip address in db
+        update_os_ip(google_user, os_info, ip_addr)
 
         # write calls to analytics for google signup
         add_analytics_auth("Login", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
@@ -172,6 +162,9 @@ def login():
     else:
         # verifying the password
         user_hashed_pw = current_user["hashed_pw"]
+
+        # update os and ip information
+        update_os_ip(current_user, os_info, ip_addr)
         
         #if user is using google, must sign in through google instead.
         if user_hashed_pw == "":
@@ -217,7 +210,12 @@ def sign_up():
         "last_name":user_data["last_name"],
         "email":user_data["email"],
         "hashed_pw":hashed_pw,
-        "wishlist": {}
+        "wishlist": {},
+        "os_info": [os_info],
+        "ip_address_list": [ip_addr],
+        "timestamp": get_current_time(),
+        "location": get_location_info(ip_addr),
+        "account_type": "PackRanks"
     }
 
     #try to find existing user
