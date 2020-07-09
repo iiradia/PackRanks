@@ -103,16 +103,21 @@ const RenderRow = (props) =>{
                 /* Else, return hyperlink that opens in new tab. 
                 */
                 if(key === "RateMyProfessor Link"){
-                    const overall_prof = "Quality: " + props.data[key][2] + " <br/>Difficulty: " + props.data[key][3]
-                    return <td key={props.data[key][0]}>
-                                <a id="tablelinks" className="tablelinks" href={props.data[key][1]} target="_blank" data-for="ctool" data-tip={overall_prof}>
-        
-                                    <strong>{props.data[key][0]}</strong>
-                                    <div id="cdiv">
-                                        <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/> 
-                                    </div>
-                                </a>
-                            </td>
+                    if (props.data[key][1].includes("ratemyprof")) {
+                        const overall_prof = "Quality: " + props.data[key][2] + " <br/>Difficulty: " + props.data[key][3]
+                        return <td key={props.data[key][0]}>
+                                    <a id="tablelinks" className="tablelinks" href={props.data[key][1]} target="_blank" data-for="ctool" data-tip={overall_prof}>
+            
+                                        <strong>{props.data[key][0]}</strong>
+                                        <div id="cdiv">
+                                            <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/> 
+                                        </div>
+                                    </a>
+                                </td>
+                    }
+                    else {
+                        return <td key={props.data[key][0]}><strong>{props.data[key][0]}</strong></td>
+                    }
                 }
                 
                 else{

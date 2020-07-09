@@ -84,9 +84,10 @@ def prepare_course(record):
     try:
         ratemyprof_link = record[relevant_keys[-2]]
     except:
-        ratemyprof_link = ""
+        ratemyprof_link = "None"
         
-    if ratemyprof_link == "":
+    if ratemyprof_link == "None" or ratemyprof_link == "":
+        ratemyprof_link == "None"
         course_data["RateMyProfessor Link"] = [record[relevant_keys[1]],ratemyprof_link]
     else:
         try:
