@@ -156,7 +156,7 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
 
 #### Table Links
 * <strong>Rating</strong>
-    * The Rating column, sorted in descending order, displays a conclusive rating based on grade distribution data from <a target="_blank" href="https://tools.wolftech.ncsu.edu/gradient">Wolftech Gradient</a>, North Carolina State University's official source for professor and course section grading data. More information on our rating can be found in our [Rating](#rating-system) section.
+    * The Rating column, sorted in descending order, displays a conclusive rating based on grade distribution data from North Carolina State University's Registration & Records department. More information on our rating can be found in our [Rating](#rating-system) section.
 <!--* Name
     * The Name column contains the name of the course listed in order to provide more information about its contents.-->
 * <strong>Catalog Link</strong>
@@ -182,7 +182,7 @@ Get an email notification whenever a seat in a waitlisted or closed class in you
 
 ### Rating System
 * We designed the <a target="_blank" href="http://www.packranks.com/about">rating system</a> to be simple for users to understand as well as to be the most <strong>accurate measure of difficulty</strong> for NC State courses.
-* We use newly updated data from <a target="_blank" href="https://tools.wolftech.ncsu.edu/gradient">Wolftech Gradient</a> to compute a rating of each course that measures how easy or difficult the class is.
+* We use newly updated grade distribution data provided by NC State Registration & Records to compute a rating of each course that measures how easy or difficult the class is.
 * We sort our course results for GEPs and specific courses by that rating, providing users with a simple and effective way to find the easiest GEPs or any courses they are looking for!
 
 ### Wishlist
