@@ -75,10 +75,10 @@ class Dept extends React.Component {
 
         return( <div id={divName}>
         {/* Help message to user about dept levels. */}
-        <span id="helpIconLevel">
+        {/*<span id="helpIconLevel">
                 <HelpIcon data-for="ctool" data-tip={help_levels} style={{color: '#cc0000'}}/>
                 <ReactTooltip id="ctool" multiline={true} effect="solid" place="top"/>
-        </span>
+        </span>*/}
 
         {/* prompt for levels 
         <span id="level_min_option">*/}
@@ -368,6 +368,9 @@ class Dept extends React.Component {
                     <div id="deptlist">
 
                     </div>
+                <div id="specificCourseDiv">
+                <em>You can search for a specific course by typing in the same course number for both dropdowns.</em>
+                </div>
                 {minMax}
                 
                 {/* parent div of label and how many courses dropdown */}

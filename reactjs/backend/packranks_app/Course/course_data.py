@@ -97,11 +97,6 @@ def save_course_data(catalog_data, num_to_show):
                         if prof_data["professor"] == course["professor"] and prof_data["course_name"] == course["course_name"] and prof_data["section"] == course["section"] and prof_data["semester"] == course["semester"]:
                             dup = True
 
-                    print("Duplicate")
-                    print(dup)
-                    print("Record")
-                    print(rec["_id"])
-                    print(rect["section"][sec])
                     #if course is not duplicate and should be added, add it
                     if not dup and len(catalog)<num_to_show:
                         catalog.append(prof_data) 
@@ -115,10 +110,15 @@ def save_course_data(catalog_data, num_to_show):
         
         #prepare course using helper method
         course_data = prepare_course(record)
-        
         relevant_data.append(course_data)
     
+    # sorting must be done with 0 ratings
     relevant_data = sorted(relevant_data, key=lambda k: k['Rating'], reverse=True) 
+
+    # once rating is 0, change to no rating
+    for item in relevant_data:
+        if item['Rating'] == 0:
+            item['Rating'] = 'No Rating'
     
     # removed all duplicates - python one-liner
     return relevant_data
@@ -367,6 +367,12 @@ def deptRoute():
         if len([i for i in level_l if i<100 or i>899 and i!="ANY"])>0: 
             return ["NotNumeric"]
 
+    # check if health
+    if "HES" in dept_requested:
+        course_types = ["Lecture", "Problem Session"]
+    else:
+        course_types = ["Lecture"]
+
     #access  collection with the correct data
     if level_min != "ANY" and level_max != "ANY":
         level_min = int(level_min)
@@ -380,7 +386,7 @@ def deptRoute():
                             "$gte": level_min,
                             "$lte": level_max
                         },
-                        "course_type": "Lecture", 
+                        "course_type": {"$in": course_types}, 
                         "semester": {"$regex": term_requested},
                         "professor": { "$ne": "Staff"}
                     }
@@ -421,7 +427,7 @@ def deptRoute():
                         "course_number": {
                             "$lte": level_max
                         },
-                        "course_type": "Lecture", 
+                        "course_type": {"$in": course_types}, 
                         "semester": {"$regex": term_requested},
                         "professor": { "$ne": "Staff"}
                     }
@@ -464,7 +470,7 @@ def deptRoute():
                         "course_number": {
                             "$gte": level_min
                         },
-                        "course_type": "Lecture", 
+                        "course_type": {"$in": course_types}, 
                         "semester": {"$regex": term_requested},
                         "professor": { "$ne": "Staff"}
                     }
@@ -503,7 +509,7 @@ def deptRoute():
                 {
                     "$match" : {
                         "department" : dept_requested,
-                        "course_type": "Lecture", 
+                        "course_type": {"$in": course_types}, 
                         "semester": {"$regex": term_requested},
                         "professor": { "$ne": "Staff"}
                     }

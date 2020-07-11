@@ -35,7 +35,7 @@ def prepare_course(record):
     p = 10**DIGITS
     
     #print(record)
-    no_rating_msg = "No Rating"
+    no_rating_msg = 0
     MAX_RATING = 100
 
     try:

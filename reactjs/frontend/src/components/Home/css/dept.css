@@ -37,6 +37,7 @@ label {
 #allLevelDivs {
     display: inline-flex;
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 #allLevelDivsMobile {
     padding-bottom: 20px;
@@ -53,4 +54,7 @@ label {
 #maxcourseLevel {
     padding-left: 10px;
     padding-right: 20px;
+}
+#specificCourseDiv {
+    padding-top: 25px;
 }
