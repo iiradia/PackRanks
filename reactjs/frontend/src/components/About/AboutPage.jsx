@@ -19,7 +19,7 @@ class AboutPage extends React.Component {
                                     <h6 id="aboutPack">Here at NC State, we as students have many resources to help us find the best fit classes to register for. However, these resources are scattered and there is no efficient way to filter through the data we have available.
                                     </h6>
                                     <h6 id="aboutPack">With PackRanks, we solved that issue by compiling a list of the best possible classes that are offered in a certain term and creating a simple way for you to filter through the options. In addition, we provide all of the information you need in one convenient place, so you never have to 
-                                        spend hours looking through Gradient, MyPack, and the GEP List again.</h6>
+                                        spend hours looking through grade distributions, MyPack, and the GEP List again.</h6>
                                     <h6 id="aboutPack">Now, you can find the classes that are the most beneficial for you simply by searching for a specific term and course department.
                                         Also, you can save the classes you are most interested in to your personalized Wishlist so that you don't forget your course plans!
                                     </h6>
@@ -33,7 +33,7 @@ class AboutPage extends React.Component {
                                 <h2>Our Rating System</h2>
                                 <div id="aboutratingDiv">
                                 <h6 id="aboutPack">
-                                    <h6 id="aboutPack" class="about-paddingB">We take the thinking out of the equation, just do! We use newly updated data from <a target="_blank" href="https://tools.wolftech.ncsu.edu/gradient/" ><span id="bolderGradient">Wolftech Gradient</span></a> <em>(we received permission from NC State officials to use Gradient data)</em> to compute a rating of each course that measures how easy or difficult the class is. We then sort our course results for GEPs and specific courses by that rating, providing you with a simple and effective way to find the easiest GEPs or any courses you are looking for!
+                                    <h6 id="aboutPack" class="about-paddingB">We take the thinking out of the equation, just do! We use newly updated grade distribution data <em>(we received permission from NC State Registration &amp; Records to use said data)</em> to compute a rating of each course that measures how easy or difficult the class is. We then sort our course results for GEPs and specific courses by that rating, providing you with a simple and effective way to find the easiest GEPs or any courses you are looking for!
                                     </h6>
                                     <h6 id="aboutPack">At this stage, in order to prioritize the safety and integrity of our information, we are in stealth mode and cannot disclose any specific details about our rating formula. However, we provide links to RateMyProfessor for each professor so that you can see if it is right for you! The intended use of this application is to consolidate all of the data that is available on NC State courses and make it easier for you to register for the classes that are best for you! Our ultimate goal as PackRanks developers and NC State students is to provide a meaningful service for the entire wolf_pack community, and that's why we had ease of course selection and fit as our first priority when building pack_ranks. For further serious inquiries, contact us using the link provided below.
                                     </h6>
@@ -42,7 +42,7 @@ class AboutPage extends React.Component {
                                 <div id="aboutDiv" class="row">
                                     <Bio/>
                                 </div>
-                                
+                                <div id="btns">
                                 <div id="contactUsAbout" class="contactUsAbout">
                                     <Link to="/contact">
                                         <Button
@@ -54,6 +54,19 @@ class AboutPage extends React.Component {
                                             Contact Us
                                         </Button>
                                     </Link>
+                                </div>
+                                <div id="contactUsAbout" class="contactUsAbout">
+                                    <Link to="/privacypolicy">
+                                        <Button
+                                            class="btn btn-danger" 
+                                            id="contactusbtn" 
+                                            name="contactusbtn" 
+                                            onClick={this.getTable}
+                                            size="lg">
+                                            Privacy Policy
+                                        </Button>
+                                    </Link>
+                                </div>
                                 </div>
 
                         </div>

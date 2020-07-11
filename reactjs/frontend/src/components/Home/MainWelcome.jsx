@@ -27,24 +27,24 @@ class MainWelcome extends React.Component {
             let profile_data = this.props.profile_data.data;
             if (isMobile)  {
                 userwelcome = <h1 id="welcomeMobile" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name}</strong>!</h1>
-                introducePackRanks = <p id="labGradientMobile" class="lead">Gradient, MyPack, RateMyProfessor... all in one place.</p>
+                introducePackRanks = <p id="labGradientMobile" class="lead">Bringing students all course selection resources in one convenient place.</p>
             }
             else {
                 userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name}</strong>!</h1>
-                introducePackRanks = <p id="labGradient" class="lead">Gradient, MyPack, RateMyProfessor... all in one place.</p>
+                introducePackRanks = <p id="labGradient" class="lead">Bringing students all course selection resources in one convenient place.</p>
             }
         }
         else {
             if (isMobile) {
                 userwelcome = <h1 id="welcomeMobile" class="mt-5">Welcome to {orgName}!</h1>
-                introducePackRanks = <p id="labGradientMobile" class="lead">Gradient, MyPack, RateMyProfessor... all in one place.
-                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature!</p>
+                introducePackRanks = <p id="labGradientMobile" class="lead">Bringing students all course selection resources in one convenient place.
+                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!</p>
             </p>
             }
             else {
                 userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}!</h1>
-                introducePackRanks = <p id="labGradient" class="lead">Gradient, MyPack, RateMyProfessor... all in one place.
-                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature!</p>
+                introducePackRanks = <p id="labGradient" class="lead">Bringing students all course selection resources in one convenient place.
+                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!</p>
             </p>
             } 
         }

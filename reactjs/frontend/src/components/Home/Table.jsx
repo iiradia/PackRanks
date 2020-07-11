@@ -221,7 +221,7 @@ class table extends React.Component {
 
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {
-            keys = ["Rating", "Catalog Link", "RateMyProfessor Link"];
+            keys = ["Rating", "Catalog Link", "RateMyProfessor Link", "wishlist"];
         }
 
         return keys.map((key, index)=>{
@@ -264,7 +264,7 @@ class table extends React.Component {
         
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {
-            keys = ["Rating", "Catalog Link", "RateMyProfessor Link"];
+            keys = ["Rating", "Catalog Link", "RateMyProfessor Link", "wishlist"];
         }
 
         //}

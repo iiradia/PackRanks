@@ -37,11 +37,6 @@ p {
 #contactUsAbout {
     padding-top:30px !important;
     padding-bottom: 30px !important;
-    padding-right: 20px;
-    padding-left: 20px;
-}
-#btns {
-    display: inline-block;
 }
 
 .paddingTB60 {padding:60px 0px 60px 0px;}
@@ -70,7 +65,8 @@ p {
 }
 #howwehelpdiv {
     max-width: 730px;
-    margin: auto;
+    margin: 0 auto !important;
+    align-items: center !important;
     text-align: left !important;
 }
 #bolderGradient {

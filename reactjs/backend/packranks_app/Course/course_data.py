@@ -97,6 +97,11 @@ def save_course_data(catalog_data, num_to_show):
                         if prof_data["professor"] == course["professor"] and prof_data["course_name"] == course["course_name"] and prof_data["section"] == course["section"] and prof_data["semester"] == course["semester"]:
                             dup = True
 
+                    print("Duplicate")
+                    print(dup)
+                    print("Record")
+                    print(rec["_id"])
+                    print(rect["section"][sec])
                     #if course is not duplicate and should be added, add it
                     if not dup and len(catalog)<num_to_show:
                         catalog.append(prof_data) 

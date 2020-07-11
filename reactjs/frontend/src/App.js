@@ -18,6 +18,7 @@ import ResetPass from './components/ResetPassword/ResetPass';
 import Major from './components/Major/Major.jsx';
 import ForgotSuccess from './components/ForgotPassword/ForgotSuccess/ForgotSuccess';
 import Footer from './components/Footer/Footer';
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy';
 import {
   BrowserRouter as Router,
   Route
@@ -141,6 +142,12 @@ class App extends React.Component {
           <Route exact path = "/forgotsuccess">
             <Navbar />
             <ForgotSuccess />
+          </Route>
+
+          { /* Route to Privacy Policy */ }
+          <Route exact path = "/privacypolicy">
+            <Navbar />
+            <PrivacyPolicy />
           </Route>
         </Router>
       </div>
