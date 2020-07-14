@@ -218,7 +218,7 @@ class table extends React.Component {
             //keys = wishlistHed.concat(keys);
         //} 
         }
-
+        
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {
             keys = ["Rating", "Catalog Link", "RateMyProfessor Link", "wishlist"];
@@ -269,7 +269,7 @@ class table extends React.Component {
 
         //}
         return items.map((row, index)=>{
-            let uniq_id = row["Catalog Link"][0] + row["RateMyProfessor Link"][0] + row["Section"] + row["Semester"];
+            let uniq_id = row["Catalog Link"][0] + row["RateMyProfessor Link"][0] + row["Section"];
             if (uniq_id === "None") {
                 uniq_id = Math.random();
             }

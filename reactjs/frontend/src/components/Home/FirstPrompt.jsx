@@ -28,15 +28,21 @@ class FirstPrompt extends React.Component {
     }
     goToGEPorDept() {
         let FirstPrompt = this;
-        //console.log(document.getElementById("gepornot").value);
-        if (document.getElementById('gepornot').value === "/gep") {
-            //If gep was selected, show it.s
+        const dropdownVal = document.getElementById('gepornot').value;
+        
+        if (dropdownVal === "/gep") {
+            //If gep was selected, show it
             this.setState({gep: true});
             this.setState({dept: false})
         }
-        else {
+        else if (dropdownVal === "/dept") {
             //If dept was selected, show it.
             this.setState({dept: true});
+            this.setState({gep: false})
+        }
+        else {
+            //Hide both if neither was selected
+            this.setState({dept: false});
             this.setState({gep: false})
         }
         //this.setState({goClicked})
@@ -68,7 +74,7 @@ class FirstPrompt extends React.Component {
                             class="bg-light"
                             onChange={this.goToGEPorDept}>
                                 {/* options for user to select */}
-                                <option>None</option>
+                                <option value="/">None</option>
                                 <option value="/gep">GEP</option>
                                 <option value="/dept">Course Department</option>
                             </select>

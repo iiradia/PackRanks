@@ -151,6 +151,8 @@ def prepare_course(record):
         course_data["Seats"] = "Closed"
 
     course_data["Times"] = record["meeting_time"]
+    
+    # comment out semester column
     course_data["Semester"] = record[relevant_keys[3]]
 
     other_notes = record["other_notes"]
