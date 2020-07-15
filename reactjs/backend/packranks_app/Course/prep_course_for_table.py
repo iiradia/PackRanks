@@ -155,11 +155,15 @@ def prepare_course(record):
     # comment out semester column
     course_data["Semester"] = record[relevant_keys[3]]
 
-    other_notes = record["other_notes"]
-    course_data["Notes"] = "None"
-    for note in other_notes:
-        if "paired with" in note:
-            course_data["Notes"] = note
-            break
+
+    # show course type
+    course_data["Course Type"] = record["course_type"]
+
+    #other_notes = record["other_notes"]
+    #course_data["Notes"] = "None"
+    #for note in other_notes:
+    #    if "paired with" in note:
+    #        course_data["Notes"] = note
+    #        break
 
     return course_data

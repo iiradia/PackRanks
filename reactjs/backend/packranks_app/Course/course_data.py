@@ -6,6 +6,7 @@ import json
 import pandas as pd
 from math import log10
 import re
+import bson
 from packranks_app.Course.prep_course_for_table import prepare_course
 from packranks_app import app
 import datetime
@@ -93,10 +94,11 @@ def save_course_data(catalog_data, num_to_show):
 
                     #iterate through catalog
                     for course in catalog:
+
                         #ensure that courses are not duplicates
                         if prof_data["professor"] == course["professor"] and prof_data["course_name"] == course["course_name"] and prof_data["section"] == course["section"] and prof_data["semester"] == course["semester"]:
                             dup = True
-
+                    
                     #if course is not duplicate and should be added, add it
                     if not dup and len(catalog)<num_to_show:
                         catalog.append(prof_data) 
@@ -107,7 +109,7 @@ def save_course_data(catalog_data, num_to_show):
     
     #iterate through top 5
     for record in catalog:
-        
+
         #prepare course using helper method
         course_data = prepare_course(record)
         relevant_data.append(course_data)
@@ -179,139 +181,52 @@ def gepRoute():
     if gep_requested == "ADDTL":
         #print("ADDLT")
         geps_req = ["HUM", "SS"]
-    #print(gep_requested)
-    #access  collection with the correct data
-    if gep_requested != "HES" and gep_requested != "ADDTL":
-        catalog_data = grades_db.catalogncsu.aggregate([
-                {
-                    "$match" : {
-                        "gep" :{"$regex": gep_requested},
-                        "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
-                },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
-                },
-                {
-                    "$unwind": "$raw_official_score"
-                },
-                {
-                    "$sort": {"raw_official_score":-1}
-                },
-                {
-                    "$limit": NUM_COURSES
-                }
-        ])
-        
-        relevant_data = save_course_data(catalog_data, num_to_show)
-        return relevant_data
-    elif gep_requested == "ADDTL":
-        #print("Searching addtl")
-        catalog_data = grades_db.catalogncsu.aggregate([
-                {
-                    "$match" : {
-                        "gep" : {"$in": ["['HUM']", "['SS']"]},
-                        "course_type": "Lecture", 
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
-                },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
-                },
-                {
-                    "$unwind": "$raw_official_score"
-                },
-                {
-                    "$sort": {"raw_official_score":-1}
-                },
-                {
-                    "$limit": NUM_COURSES
-                }
-        ])
-        relevant_data = save_course_data(catalog_data, num_to_show)
-        return relevant_data
-
+        geps_regex = '|'.join(geps_req)
     else:
-        catalog_data = grades_db.catalogncsu.aggregate([
-                {
-                    "$match" : {
-                        "gep" : {"$regex": gep_requested},
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
+        geps_regex = gep_requested
+
+    print(geps_regex)
+    #access  collection with the correct data
+    catalog_data = grades_db.catalogncsu.aggregate([
+        {
+            "$match" : {
+                "gep" :{"$regex": geps_regex},
+                "course_type": "Lecture", 
+                "semester": {"$regex": term_requested},
+                "professor": { "$ne": "Staff"}
+            }
+        },
+        #group by professor and add unique sections and raw_official_scores 
+        #to aggregation
+        {
+            "$group": {
+                "_id": {
+                    "course_name": "$course_name",
+                    "professor": "$professor",
+                    "semester": "$semester"
                 },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
+                "section": {
+                    "$addToSet": "$section"
                 },
-                {
-                    "$unwind": "$raw_official_score"
-                },
-                {
-                    "$sort": {"raw_official_score": -1}
-                },
-                {
-                    "$limit": NUM_COURSES
+                "raw_official_score": {
+                    "$addToSet": "$raw_official_score"
                 }
-        ])
+            }
+        },
+        {
+            "$unwind": "$raw_official_score"
+        },
+        {
+            "$sort": {"raw_official_score":-1}
+        },
+        {
+            "$limit": NUM_COURSES
+        }
+    ])
         
-        relevant_data = save_course_data(catalog_data, num_to_show)
-        return relevant_data
-
-    #print("Saving")
-    #for i in catalog_data:
-    #    print(f"Found {i}")
-    #save data to dictionary
     relevant_data = save_course_data(catalog_data, num_to_show)
-    #print(relevant_data)
-    #del catalog_data["_id"]
     return relevant_data
-
-
+    
 
 @app.route("/dept")
 def deptRoute():
@@ -322,6 +237,9 @@ def deptRoute():
     It takes into account the level, department, and term that 
     the course is offered in.
     """
+    # set valid coures types
+    VALID_COURSE_TYPES = ["Lecture", "Problem Session"]
+
     #access MongoDb database
     crowdsourced = MongoClient(DBSTR)
     grades_db = crowdsourced.Coursesnc
@@ -370,178 +288,66 @@ def deptRoute():
     # check if health
     if "HES" in dept_requested:
         course_types = ["Lecture", "Problem Session"]
-    else:
+
+    # temporary fix, still need to figure out which depts
+    # should not show problem sessions
+    elif 'ACC' in dept_requested:
         course_types = ["Lecture"]
+    else:
+        course_types = VALID_COURSE_TYPES
+
+    course_type_search = '|'.join(course_types)
+
+    # convert level min and max to valid
+    if level_min == 'ANY':
+        level_min = 100
+    if level_max == 'ANY':
+        level_max = 899
+
+    level_min = int(level_min)
+    level_max = int(level_max)
 
     #access  collection with the correct data
-    if level_min != "ANY" and level_max != "ANY":
-        level_min = int(level_min)
-        level_max = int(level_max)
-        print(level_min, level_max)
-        catalog_data = grades_db.catalogncsu.aggregate([
-                {
-                    "$match" : {
-                        "department" : dept_requested,
-                        "course_number": {
-                            "$gte": level_min,
-                            "$lte": level_max
-                        },
-                        "course_type": {"$in": course_types}, 
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
+    catalog_data = grades_db.catalogncsu.aggregate([
+        {
+            "$match" : {
+                "department" : dept_requested,
+                "course_number": {
+                    "$gte": level_min,
+                    "$lte": level_max
                 },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
+                "course_type": {"$regex": course_type_search}, 
+                "semester": {"$regex": term_requested},
+                "professor": { "$ne": "Staff"}
+            }
+        },
+        #group by professor and add unique sections and raw_official_scores 
+        #to aggregation
+        {
+            "$group": {
+                "_id": {
+                    "course_name": "$course_name",
+                    "professor": "$professor",
+                    "semester": "$semester"
                 },
-                {
-                    "$unwind": "$raw_official_score"
+                "section": {
+                    "$addToSet": "$section"
                 },
-                {
-                    "$sort": {"raw_official_score":-1}
-                },
-                {
-                    "$limit": NUM_COURSES
+                "raw_official_score": {
+                    "$addToSet": "$raw_official_score"
                 }
-        ])
-    elif level_min == "ANY" and level_max != "ANY":
-        level_max = int(level_max)
-        catalog_data = grades_db.catalogncsu.aggregate([
-                {
-                    "$match" : {
-                        "department" : dept_requested,
-                        "course_number": {
-                            "$lte": level_max
-                        },
-                        "course_type": {"$in": course_types}, 
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
-                },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
-                },
-                {
-                    "$unwind": "$raw_official_score"
-                },
-                {
-                    "$sort": {"raw_official_score":-1}
-                },
-                {
-                    "$limit": NUM_COURSES
-                }
-        ])
-        
-
-    elif level_max == "ANY" and level_min != "ANY":
-        level_min = int(level_min)
-        catalog_data = grades_db.catalogncsu.aggregate([
-                {
-                    "$match" : {
-                        "department" : dept_requested,
-                        "course_number": {
-                            "$gte": level_min
-                        },
-                        "course_type": {"$in": course_types}, 
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
-                },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
-                },
-                {
-                    "$unwind": "$raw_official_score"
-                },
-                {
-                    "$sort": {"raw_official_score":-1}
-                },
-
-                {
-                    "$limit": NUM_COURSES
-                }
-        ])
-    else:
-        catalog_data = grades_db.catalogncsu.aggregate([
-                #match dept as needed
-                {
-                    "$match" : {
-                        "department" : dept_requested,
-                        "course_type": {"$in": course_types}, 
-                        "semester": {"$regex": term_requested},
-                        "professor": { "$ne": "Staff"}
-                    }
-                },
-                #group by professor and add unique sections and raw_official_scores 
-                #to aggregation
-                {
-                    "$group": {
-                        "_id": {
-                            "course_name": "$course_name",
-                            "professor": "$professor",
-                            "semester": "$semester"
-                        },
-                        "section": {
-                            "$addToSet": "$section"
-                        },
-                        "raw_official_score": {
-                            "$addToSet": "$raw_official_score"
-                        }
-                    }
-                },
-                {
-                    "$unwind": "$raw_official_score"
-                },
-                #sort by raw_official_scores for each professor/course
-                {
-                    "$sort": {"raw_official_score":-1}
-                },
-                {
-                    "$limit": NUM_COURSES
-                }
-        ])
+            }
+        },
+        {
+            "$unwind": "$raw_official_score"
+        },
+        {
+            "$sort": {"raw_official_score":-1}
+        },
+        {
+            "$limit": NUM_COURSES
+        }
+    ])
             
     #save data to dictionary
     relevant_data = save_course_data(catalog_data, num_to_show)
