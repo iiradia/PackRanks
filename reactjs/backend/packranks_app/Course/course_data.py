@@ -18,6 +18,21 @@ DBSTR = ""
 with open("packranks_app/email_data.json", "r") as data:
     DBSTR = json.load(data)["DBSTR"]
 
+def is_duplicate(prof_data, catalog):
+    """
+    Helper method to check if two courses are duplicate.
+    """
+    dup = False
+
+    #iterate through catalog
+    for course in catalog:
+
+        #ensure that courses are not duplicates
+        if prof_data["professor"] == course["professor"] and prof_data["course_name"] == course["course_name"] and prof_data["section"] == course["section"] and prof_data["semester"] == course["semester"]:
+            dup = True
+
+    return dup
+
 def get_current_time():
     """
     Helper method to return current time as string.
@@ -69,7 +84,10 @@ def save_course_data(catalog_data, num_to_show):
             )
             try: 
                 if (prof_data["seats_open"] > 0 or prof_data["seats_status"] == "Waitlisted" or prof_data["seats_status"] == "Reserved"):
-                    if len(catalog) < num_to_show:
+                    
+                    #set duplicate to false
+                    dup = is_duplicate(prof_data, catalog)
+                    if not dup and len(catalog) < num_to_show:
                         catalog.append(prof_data)
                     break
                 else:
@@ -90,15 +108,7 @@ def save_course_data(catalog_data, num_to_show):
                 )
                 try:
                     #set duplicate to false
-                    dup = False
-
-                    #iterate through catalog
-                    for course in catalog:
-
-                        #ensure that courses are not duplicates
-                        if prof_data["professor"] == course["professor"] and prof_data["course_name"] == course["course_name"] and prof_data["section"] == course["section"] and prof_data["semester"] == course["semester"]:
-                            dup = True
-                    
+                    dup = is_duplicate(prof_data, catalog)
                     #if course is not duplicate and should be added, add it
                     if not dup and len(catalog)<num_to_show:
                         catalog.append(prof_data) 
@@ -106,16 +116,34 @@ def save_course_data(catalog_data, num_to_show):
                     continue
 
     relevant_data = []
+    problem_sessions = []
+    lectures = []
     
     #iterate through top 5
     for record in catalog:
 
         #prepare course using helper method
         course_data = prepare_course(record)
-        relevant_data.append(course_data)
+
+        print(record['course_type'])
+        if record['course_type'] == 'Lecture':
+            lectures.append(course_data)
+        else:
+            problem_sessions.append(course_data)
     
-    # sorting must be done with 0 ratings
-    relevant_data = sorted(relevant_data, key=lambda k: k['Rating'], reverse=True) 
+    #print(problem_sessions)
+    # sort such that lectures are above problem sessions
+    if len (problem_sessions) > 0:
+        problem_sessions = sorted(problem_sessions, key=lambda k: k['Rating'], reverse=True)
+    lectures = sorted(lectures, key=lambda k: k['Rating'], reverse=True)
+
+    # add problem sessiosn to lectures
+    if len(lectures) > 0:
+        lectures.extend(problem_sessions)
+        relevant_data = lectures.copy()
+    else:
+        # if no lectures, show prob sessions
+        relevant_data = problem_sessions.copy()
 
     # once rating is 0, change to no rating
     for item in relevant_data:

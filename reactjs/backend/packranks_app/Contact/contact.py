@@ -15,6 +15,24 @@ with open("packranks_app/email_data.json", "r") as data:
     EMAIL = json_data["EMAIL"]
     PASS = json_data["PASS"]
 
+def send_confirmation_email(sender, password, recipient, name):
+    """
+    Method to send confirmation email regarding
+    contact when user fills out form.
+    """
+    subject = 'Automated Reply - PackRanks Contact Us Form Submission'
+    msg = f"Hey {name},\n\nThank you for contacting PackRanks! We have received your message and will get back to you as soon as possible!\n\nBest Regards,\nPackRanks Team"
+    full_msg = f"Subject: {subject}\n\n{msg}"
+
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.ehlo()
+    server.login(sender, password)
+
+    server.sendmail(sender, recipient, full_msg)
+    server.close()
+
+    return
+
 @app.route("/contact", methods=["POST"])
 def contact_us():
     """
@@ -51,5 +69,7 @@ def contact_us():
     #server.starttls()
     server.sendmail(sender, recipient, message)
     server.close()
+
+    send_confirmation_email(sender, PASS, email, first_name)
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 

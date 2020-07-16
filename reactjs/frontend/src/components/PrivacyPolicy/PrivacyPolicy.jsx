@@ -41,6 +41,7 @@ class PrivacyPolicy extends React.Component {
                                 <div id="howwehelpdiv">
                                     <p>
                                         We may use your Personal Information to contact you with newsletters, marketing or promotional materials and other information that may be useful to you.
+                                        We do not sell your Personal Information or Log Data to any third party sources.
                                     </p>
                                 </div>
                                 <h3 id="howWeHelpYou">Security</h3>
