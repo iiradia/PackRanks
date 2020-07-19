@@ -61,6 +61,18 @@ def prepare_course(record):
         except:
             course_data["Rating"] = no_rating_msg
 
+    
+    # try to get user upvotes
+    try:
+        user_upvotes = record['user_upvotes']
+        course_data['Rating'] = [course_data['Rating'],user_upvotes]
+    except:
+        """
+        Add code here that returns original upvotes as 0
+        """
+        pass
+
+
     course_data["Name"] = record[new_key_features[1]]
     #create course with tooltip info
     try:

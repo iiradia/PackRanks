@@ -22,7 +22,7 @@ jwt = JWTManager(app)
 #import flask files within project
 from packranks_app.Contact import contact
 from packranks_app.Authentication import auth
-from packranks_app.Course import course_data
+from packranks_app.Course import course_data, rating_upvotes
 from packranks_app.Wishlist import wishlist
 #from packranks_app.Wishlist.wishlist_reminder import check_wishlist_courses
 from packranks_app.ForgotPass import forgot_password

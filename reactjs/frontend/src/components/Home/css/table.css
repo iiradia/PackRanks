@@ -89,3 +89,10 @@
     font-size: 25px;
     text-align: center;
 }
+#iconUpvote{ 
+    display: inline-block !important;
+    background-color: white;
+}
+.IconButton {
+    color: #cc0000;
+}

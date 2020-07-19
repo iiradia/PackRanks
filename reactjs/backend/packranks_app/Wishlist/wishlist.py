@@ -13,12 +13,14 @@ import datetime
 import requests
 
 DBSTR = ""
+SECRET = ""
 with open ("packranks_app/email_data.json", "r") as data:
-    DBSTR = json.load(data)["DBSTR"]
-#save to database
+    d = json.load(data)
+    DBSTR = d["DBSTR"]
+    SECRET = d["SECRET_KEY"]
+#save to databas
 crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
-SECRET = 'lCObatvHLVE4v514SS54YQ'
 
 """
 In the future, maybe add a feature that sends user confirmation email about

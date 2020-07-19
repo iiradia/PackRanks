@@ -31,8 +31,17 @@ def update_os_ip(user, os, ip):
     Helper method to check if current os and ip is recorded for user. 
     If not, record it in database for that user.
     """
-    os_recorded = user["os_info"]
-    ip_address_list = user["ip_address_list"]
+    try:
+        os_recorded = user["os_info"]
+        ip_address_list = user["ip_address_list"]
+
+    except:
+        # if user did not exist
+        grades_db.users.update_one(user, {"$push": {"os_info": os}})
+        grades_db.users.update_one(user, {"$push": {"ip_address_list":ip}})
+
+        return 
+        
     update_user = {}
 
     if os not in os_recorded:

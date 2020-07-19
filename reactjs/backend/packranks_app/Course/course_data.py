@@ -125,7 +125,7 @@ def save_course_data(catalog_data, num_to_show):
         #prepare course using helper method
         course_data = prepare_course(record)
 
-        print(record['course_type'])
+        #print(record['course_type'])
         if record['course_type'] == 'Lecture':
             lectures.append(course_data)
         else:
@@ -205,21 +205,27 @@ def gepRoute():
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
 
+    course_types = ['Lecture']
+    if gep_requested == "HES":
+        course_types.append("Problem Session")
+    course_type_s = '|'.join(course_types)
     #if additional breadth, either hum or ss
     if gep_requested == "ADDTL":
         #print("ADDLT")
         geps_req = ["HUM", "SS"]
         geps_regex = '|'.join(geps_req)
     else:
-        geps_regex = gep_requested
+        geps_req = [gep_requested]
+        geps_regex = "|".join(geps_req)
 
-    print(geps_regex)
+    #print(geps_regex)
+    #print(course_type_s)
     #access  collection with the correct data
     catalog_data = grades_db.catalogncsu.aggregate([
         {
             "$match" : {
                 "gep" :{"$regex": geps_regex},
-                "course_type": "Lecture", 
+                "course_type": {"$regex": course_type_s}, 
                 "semester": {"$regex": term_requested},
                 "professor": { "$ne": "Staff"}
             }

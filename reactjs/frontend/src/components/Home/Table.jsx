@@ -9,6 +9,38 @@ import {isMobile} from 'react-device-detect';
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css'
 import HelpIcon from '@material-ui/icons/Help';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import {Button} from 'react-bootstrap';
+import IconButton from '@material-ui/core/IconButton';
+
+// upvote specific course based on user information
+const upvote = (props) => {
+    console.log(props);
+    let url = "http://packranks-backend.herokuapp.com/upvoteCourse"
+    fetch( 
+        url, {
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    course_data:props,
+                    token: localStorage.token
+                }
+            )
+        }
+    ).then(
+       response => response.json()
+    ).then(
+    (data) => {
+        if (data.success) {
+            toast.notify(<h5 id="successWish">Thanks for upvoting this rating! We appreciate your feedback.</h5>)
+        }
+        else {
+            toast.notify(<h5 style={{color: '#cc0000'}}>You have already upvoted this course!</h5>)
+        }
+        
+        //localStorage.setItem(props['Rating'][0], props['Rating'][1]+1);
+    })
+}
 
 //when delete checkbox is checked
 const checkDelete= (props) => {
@@ -152,9 +184,28 @@ const RenderRow = (props) =>{
         }
 
         else if (key==="Rating") {
-            let currRating = props.data[key];
-            //console.log(keyColor);
-            return <td id="ratingTable" key={props.data[key]}><strong>{props.data[key]}</strong></td>
+            let currRating = props.data[key][0];
+            localStorage.setItem(currRating, props.data[key][1]);
+            let counter = localStorage.getItem(currRating);
+            //const counter = props.data[key][1];
+            let login_increment = "Please login to upvote this rating!";
+
+            // if user is logged in, allow upvote
+            if (localStorage.token !== undefined) {
+                return <td id="ratingTable" key={props.data[key]}>
+                            <strong>{currRating}</strong>
+                            <div id="iconUpvote"><IconButton color="red" size="small" aria-label="delete" onClick={()=>{upvote(props.data)}}><ThumbUpIcon/></IconButton> {counter}</div>
+                        </td>
+            }
+            // if user is not logged in, prompt login
+            else {
+                return <td id="ratingTable" key={props.data[key]}>
+                            <strong>{currRating}</strong>
+                            <div><ThumbUpIcon data-for="logintool" data-tip={login_increment}/> {counter}</div>
+                            <ReactTooltip id="logintool" multiline={true} effect="solid" place="top" />
+                        </td>
+            }
+            
         }
         else{
             return <td key={props.data[key]}><strong>{props.data[key]}</strong></td>
@@ -163,8 +214,7 @@ const RenderRow = (props) =>{
    }
 
 class table extends React.Component {
- 
-    
+  
     constructor(props){
         super(props);
         this.getHeader = this.getHeader.bind(this);
