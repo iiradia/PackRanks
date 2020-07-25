@@ -38,6 +38,7 @@ class GEP extends React.Component {
                 courses: data
             },
             () => {
+                
                 if (!this.state.courses || this.state.courses.length < 1) {
                     ReactDOM.render(<p id="tableNoteMsg" class="lead"><em>Select a GEP to view the course table.</em></p>,
                     document.getElementById("tableNote"))

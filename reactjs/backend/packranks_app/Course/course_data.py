@@ -8,7 +8,7 @@ from math import log10
 import re
 import bson
 from packranks_app.Course.prep_course_for_table import prepare_course
-from packranks_app import app
+from packranks_app import app, limiter
 import datetime
 import requests
 
@@ -169,6 +169,7 @@ def getDeptList():
     return depts_dict
 
 @app.route("/gep")
+@limiter.limit("50/hour")
 def gepRoute():
     """
     This function receives a call from the GEP component of 
@@ -263,6 +264,7 @@ def gepRoute():
     
 
 @app.route("/dept")
+@limiter.limit("100/day;50/hour")
 def deptRoute():
     """
     This function receives a call from the Dept component of 

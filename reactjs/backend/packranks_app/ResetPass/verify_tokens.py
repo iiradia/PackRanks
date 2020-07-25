@@ -47,7 +47,7 @@ def verify_age(db_token, token_time):
     is_token = token_age <= TOKEN_EXPIRATION
 
     #remove this token from db
-    grades_db.reset_tokens.delete_one(db_token)
+    #grades_db.reset_tokens.delete_one(db_token)
 
     return is_token
 

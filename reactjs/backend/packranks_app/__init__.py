@@ -5,8 +5,17 @@ import datetime
 from flask_jwt_extended import JWTManager
 from multiprocessing import Process
 import json
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 app = FlaskAPI(__name__)
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = datetime.timedelta(days=1)
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=['1000 per day', '200 per hour']
+)
+
 
 SECRET_KEY=""
 
