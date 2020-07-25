@@ -224,6 +224,10 @@ class table extends React.Component {
         //} 
         }
         
+        //Remove Semester column
+        var index = keys.indexOf("Semester");
+        keys.splice(index, 1);
+        
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {
             keys = ["Rating", "Catalog Link", "RateMyProfessor Link", "wishlist"];
@@ -266,6 +270,10 @@ class table extends React.Component {
                 items["wishlist"] = "";
             }
         }
+        
+        //Remove Semester column
+        var index = keys.indexOf("Semester");
+        keys.splice(index, 1);
         
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {

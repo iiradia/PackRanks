@@ -171,6 +171,21 @@ def prepare_course(record):
     # show course type
     course_data["Course Type"] = record["course_type"]
 
+    # add double counting for GEPs
+    #print(record)
+    course_data['Counts For'] = ""
+    geps_valid = record['gep'].split(" ")
+    for gep in geps_valid:
+
+        gep_abbrv = gep.strip('[').strip(']').strip("'") + ", "
+        course_data['Counts For'] += gep_abbrv
+
+    # remove trailing comma
+    course_data['Counts For'] = course_data['Counts For'][:-2]
+
+    # check if course data counts for is empty
+    if len(course_data['Counts For']) < 1:
+        course_data['Counts For'] = 'None'
     #other_notes = record["other_notes"]
     #course_data["Notes"] = "None"
     #for note in other_notes:
