@@ -74,15 +74,16 @@ def prepare_course(record):
 
 
     course_data["Name"] = record[new_key_features[1]]
+    course_string = record[relevant_keys[0]] + " - " + record[relevant_keys[2]]
     #create course with tooltip info
     try:
         course_data["Catalog Link"] = [
-            record[relevant_keys[0]],
+            course_string,
             record[new_key_features[4]]
         ]
     except:
         course_data["Catalog Link"] = [
-            record[relevant_keys[0]],
+            course_string,
             None
         ]
     
@@ -174,15 +175,17 @@ def prepare_course(record):
     # add double counting for GEPs
     #print(record)
     course_data['Counts For'] = ""
-    geps_valid = record['gep'].split(" ")
-    for gep in geps_valid:
+    try:
+        geps_valid = record['gep'].split(" ")
+        for gep in geps_valid:
 
-        gep_abbrv = gep.strip('[').strip(']').strip("'") + ", "
-        course_data['Counts For'] += gep_abbrv
+            gep_abbrv = gep.strip('[').strip(']').strip("'") + ", "
+            course_data['Counts For'] += gep_abbrv
 
-    # remove trailing comma
-    course_data['Counts For'] = course_data['Counts For'][:-2]
-
+        # remove trailing comma
+        course_data['Counts For'] = course_data['Counts For'][:-2]
+    except:
+        pass
     # check if course data counts for is empty
     if len(course_data['Counts For']) < 1:
         course_data['Counts For'] = 'None'

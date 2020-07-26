@@ -227,6 +227,9 @@ class table extends React.Component {
         //Remove Semester column
         var index = keys.indexOf("Semester");
         keys.splice(index, 1);
+
+        var section_idx = keys.indexOf("Section");
+        keys.splice(section_idx, 1);
         
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {
@@ -274,6 +277,8 @@ class table extends React.Component {
         //Remove Semester column
         var index = keys.indexOf("Semester");
         keys.splice(index, 1);
+        var section_idx = keys.indexOf("Section");
+        keys.splice(section_idx, 1);
         
         //if on mobile, switch keys to only include minimalistic interface
         if (isMobile) {
