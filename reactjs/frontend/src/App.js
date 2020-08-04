@@ -19,6 +19,8 @@ import Major from './components/Major/Major.jsx';
 import ForgotSuccess from './components/ForgotPassword/ForgotSuccess/ForgotSuccess';
 import Footer from './components/Footer/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy';
+import TermsOfUse from './components/TermsOfUse/TermsOfUse';
+//import LoaderTest from './components/Loader/LoaderTest';
 import {
   BrowserRouter as Router,
   Route
@@ -149,9 +151,26 @@ class App extends React.Component {
             <Navbar />
             <PrivacyPolicy />
           </Route>
-        </Router>
+
+         { /* Route to Privacy Policy */ }
+          <Route exact path = "/termsofuse">
+            <Navbar />
+            <TermsOfUse />
+          </Route>
+          
+      </Router>
+
+        {/* Route for loader.io testing
+        <Route exact path = '/loaderio-b47f4b399f60d85a4243a7c09c46c54c'>
+          <LoaderTest />
+        </Route>
+
+        {/* Route for loader.io testing
+        <Route exact path = '/loaderio'>
+          <LoaderTest />
+        </Route>*/}
       </div>
-    );
+    )
   }
 }
 

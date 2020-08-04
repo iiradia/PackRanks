@@ -66,6 +66,16 @@ class AboutPage extends React.Component {
                                             Privacy Policy
                                         </Button>
                                     </Link>
+                                    <Link to="/termsofuse" id="termsofusebtn">
+                                        <Button
+                                            class="btn btn-danger" 
+                                            id="contactusbtn" 
+                                            name="contactusbtn" 
+                                            onClick={this.getTable}
+                                            size="lg">
+                                            Terms of Use
+                                        </Button>
+                                    </Link>
                                 </div>
                                 </div>
 
