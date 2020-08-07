@@ -71,7 +71,7 @@ def reset_wishlist():
     after deleting selected items.
     """
     #save data
-    data = eval(request.get_data())
+    data = json.loads(request.get_data())
 
     #decode token and save new wishlist data
     new_wishlist = data["wishlist"]
@@ -100,7 +100,7 @@ def add_course_to_wishlist():
     to add to wishlist and which user the course is for.
     """
     #save data
-    data = eval(request.get_data())
+    data = json.loads(request.get_data())
     ip_addr = request.access_route[0]
     
     # get user agent

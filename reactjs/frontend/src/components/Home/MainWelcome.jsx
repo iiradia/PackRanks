@@ -39,12 +39,14 @@ class MainWelcome extends React.Component {
                 userwelcome = <h1 id="welcomeMobile" class="mt-5">Welcome to {orgName}!</h1>
                 introducePackRanks = <p id="labGradientMobile" class="lead">Bringing students all course selection resources in one convenient place.
                 <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!</p>
+                <br/><em>Note: PackRanks is currently under maintenance and the course search is temporarily unavailable. We expect to be back online by the end of tonight. We apologize for any inconvenience this may cause.</em>
             </p>
             }
             else {
                 userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}!</h1>
                 introducePackRanks = <p id="labGradient" class="lead">Bringing students all course selection resources in one convenient place.
                 <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!</p>
+                <br/><em>Note: PackRanks is currently under maintenance and the course search is temporarily unavailable. We expect to be back online by the end of tonight. We apologize for any inconvenience this may cause.</em>
             </p>
             } 
         }

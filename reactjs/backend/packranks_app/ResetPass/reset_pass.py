@@ -37,7 +37,7 @@ def reset_password():
     their password has been changed.
     """
     #save user data
-    user_data = eval(request.get_data())
+    user_data = json.loads(request.get_data())
 
     #save each piece of info
     user_email = user_data["email"]

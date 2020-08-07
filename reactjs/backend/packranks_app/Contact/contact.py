@@ -1,8 +1,5 @@
 from flask_api import FlaskAPI
 from flask import request
-from pymongo import MongoClient
-import pandas as pd
-from math import log10
 import re
 import json
 import smtplib

@@ -37,7 +37,7 @@ def send_reset_link():
     """
     try:
         #save user data
-        user_data = eval(request.get_data())
+        user_data = json.loads(request.get_data())
         #save current host url
         host_url = request.origin
         #print(host_url)

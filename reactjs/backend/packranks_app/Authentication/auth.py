@@ -7,6 +7,12 @@ import datetime
 import requests
 # import the hash algorithm
 from passlib.hash import pbkdf2_sha256
+
+# import helper for cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import
+(validate_analytics_auth, is_clean_email, is_clean_query)
+
+
 NUM_ROUNDS =  100000
 
 DBSTR = ""
@@ -42,8 +48,15 @@ def add_analytics_auth(type_of_call, type_of_auth, email, first_name, last_name,
         "ip_address": ip_addr,
         "location": get_location_info(ip_addr)
     }
+
+    # check that analytics is valid
+    if not validate_analytics_auth(analytics_to_add):
+        return False
+
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
+
+    return True
 
 @app.route("/googleauth", methods=["POST"])
 def google_auth():
@@ -52,7 +65,7 @@ def google_auth():
     This method will either connect the user to their account in the database,
     or create a new account for them.
     """
-    google_user_data = eval(request.get_data())
+    google_user_data = json.loads(request.get_data())
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
@@ -65,6 +78,13 @@ def google_auth():
     user_query = {
         "email": google_user_data["email"]
     }
+
+    # protects against noSQL injection
+    if not is_clean_email(user_query['email']):
+
+        #return that user made invalid email
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
     #attempt to find user with information given
     google_user = grades_db.users.find_one(user_query)
 
@@ -95,6 +115,10 @@ def google_auth():
             user["last_name"] = google_user_data["last_name"]
         except:
             pass
+        
+        # check that user info is valid
+        if not validate_analytics_auth(user):
+            return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
 
         #add user to db
         grades_db.users.insert_one(user)
@@ -110,8 +134,12 @@ def google_auth():
         user_info["type"] = "SignUp"
 
         # write calls to analytics for google signup
-        add_analytics_auth("SignUp", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
+        analytics = add_analytics_auth("SignUp", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
         
+        # if analytics was malicious, return false
+        if not analytics:
+            return json.dumps({"success":False}), 400, {"ContentType":'application/json'}
+
         #return that user was signed up
         return json.dumps(user_info), 200, {"ContentType":"application/json"}
 
@@ -121,11 +149,19 @@ def google_auth():
         """
         user_info = get_user_token(google_user)
 
+        # ensure that os and ip are clean
+        if not is_clean_query(os_info) or not is_clean_query(ip_addr):
+            return json.dumps({"success":True}), 400, {"ContentType":"application/json"}
+
         # update os and ip address in db
         update_os_ip(google_user, os_info, ip_addr)
 
         # write calls to analytics for google signup
-        add_analytics_auth("Login", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
+        analytics = add_analytics_auth("Login", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
+
+        # if analytics was malicious, return false
+        if not analytics:
+            return json.dumps({"success":False}), 400, {"ContentType":'application/json'}
 
         return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
@@ -141,7 +177,7 @@ def login():
     frontend.
     """
     #get user data
-    login_data = eval(request.get_data())
+    login_data = json.loads(request.get_data())
     login_pwd = login_data["password"].encode("utf-8")
     ip_addr = request.access_route[0]
     # get user agent
@@ -159,10 +195,7 @@ def login():
         return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
 
     #if no existing user, add to db
-    else:
-        # verifying the password
-        user_hashed_pw = current_user["hashed_pw"]
-
+    else: 
         # update os and ip information
         update_os_ip(current_user, os_info, ip_addr)
         
@@ -178,7 +211,11 @@ def login():
         user_info = get_user_token(current_user)
 
         # write calls to analytics
-        add_analytics_auth("Login", "PackRanks", login_data["email"], current_user["first_name"], current_user["last_name"], os_info, ip_addr)
+        analytics = add_analytics_auth("Login", "PackRanks", login_data["email"], current_user["first_name"], current_user["last_name"], os_info, ip_addr)
+
+        # if analytics was malicious, return false
+        if not analytics:
+            return json.dumps({"success":False}), 400, {"ContentType":'application/json'}
 
         return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
@@ -191,7 +228,7 @@ def sign_up():
     database and hash authenticated password.
     """
     #get user data
-    user_data = eval(request.get_data())
+    user_data = json.loads(request.get_data())
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
@@ -236,6 +273,10 @@ def sign_up():
         send_signup_email(first_name, email)
 
         # write calls to analytics
-        add_analytics_auth("SignUp", "PackRanks", user_data["email"], user_data["first_name"], user_data["last_name"], os_info, ip_addr)
+        analytics = add_analytics_auth("SignUp", "PackRanks", user_data["email"], user_data["first_name"], user_data["last_name"], os_info, ip_addr)
+
+        # if analytics was malicious, return false
+        if not analytics:
+            return json.dumps({"success":False}), 400, {"ContentType":'application/json'}
 
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
