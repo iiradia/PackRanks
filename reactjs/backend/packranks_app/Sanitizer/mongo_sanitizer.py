@@ -24,11 +24,14 @@ def is_clean_query(query):
     """
     query = str(query)
 
+    # set of valid characters to include in inputs and queries
+    valid_chars = [";", ".", "-", ",", "(", ")"]
+
     # iterate through char, ensure it is valid
     for char in query:
 
         # return False if char is not clean
-        if (not re.search("\w", char)) and char != ";" and char != ".":
+        if (not re.search("\w", char)) and char not in valid_chars:
             return False
 
     return True

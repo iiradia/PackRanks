@@ -4,6 +4,7 @@ import re
 import json
 import smtplib
 from packranks_app import app
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_email, is_clean_query)
 
 EMAIL = ""
 PASS = ""
@@ -48,6 +49,9 @@ def contact_us():
     email = contact_data["email"]
     phone = contact_data["phone_no"]
     msg = contact_data["message"]
+
+    if not is_clean_query(first_name) or not is_clean_query(last_name) or not is_clean_email(email) or not is_clean_query(phone) or not is_clean_query(msg):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
 
     sender = EMAIL
     recipient = EMAIL
