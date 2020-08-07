@@ -12,6 +12,9 @@ from packranks_app import app, limiter
 import datetime
 import requests
 
+# import helper method for cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import (validate_analytics_auth, is_clean_query, is_clean_email)
+
 NUM_COURSES = 20
 HARD_MAX = 10
 DBSTR = ""
@@ -203,6 +206,11 @@ def gepRoute():
         "ip_address": ip_addr,
         "location": loc_info
     }
+
+    # check that analytics is clean
+    if not validate_analytics_auth(analytics_to_add):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
 
@@ -219,8 +227,6 @@ def gepRoute():
         geps_req = [gep_requested]
         geps_regex = "|".join(geps_req)
 
-    #print(geps_regex)
-    #print(course_type_s)
     #access  collection with the correct data
     catalog_data = grades_db.catalogncsu.aggregate([
         {
@@ -307,6 +313,11 @@ def deptRoute():
         "ip_address": ip_addr,
         "location": loc_info
     }
+
+    # check that analytics is clean
+    if not validate_analytics_auth(analytics_to_add):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
     

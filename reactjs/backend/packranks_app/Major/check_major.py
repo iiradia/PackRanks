@@ -9,6 +9,10 @@ import json
 import jwt
 from packranks_app import app
 
+# import cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_email,is_clean_query,validate_analytics_auth)
+
+
 DBSTR = ""
 SECRET = ""
 with open ("packranks_app/email_data.json", "r") as data:
@@ -38,6 +42,10 @@ def check_user_major():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    if not validate_analytics_auth(user_query):
+        return json.dumps({"success":False}),400,{"ContentType":"application/json"}
+
     #find wishlist for user
     user_db_data = grades_db.users.find_one(
         user_query
@@ -83,6 +91,9 @@ def get_major_list():
     college_query = {
         "college": college
     }
+
+    if not is_clean_query(college_query):
+        return json.dumps({"success":False}),400,{"ContentType":"application/json"}
 
     #save majors based on college
     major_list = grades_db.majordatancsu.find(college_query)

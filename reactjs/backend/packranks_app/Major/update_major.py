@@ -9,6 +9,10 @@ import json
 import jwt
 from packranks_app import app
 
+# import cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_email,is_clean_query,validate_analytics_auth)
+
+
 DBSTR = ""
 SECRET = ""
 with open ("packranks_app/email_data.json", "r") as data:
@@ -36,6 +40,9 @@ def save_user_major():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    if not validate_analytics_auth(user_query):
+        return json.dumps({"success":False}),400,{"ContentType":"application/json"}
 
     #save new user major information
     major = request.headers["Major"]

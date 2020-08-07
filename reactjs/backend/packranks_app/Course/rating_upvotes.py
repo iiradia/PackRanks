@@ -8,6 +8,8 @@ from packranks_app import app
 import datetime
 import jwt
 
+from packranks_app.Sanitizer.mongo_sanitizer import (validate_analytics_auth)
+
 DBSTR = ""
 SECRET = ""
 with open("packranks_app/email_data.json", "r") as data:
@@ -55,9 +57,14 @@ def add_analytics_upvote(course, email, first_name, last_name, os_info, ip_addr)
         "ip_address": ip_addr,
         "location": get_location_info(ip_addr)
     }
+
+    if not validate_analytics_auth(analytics_to_add):
+        return False
+
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
 
+    return True
 
 
 @app.route('/upvoteCourse', methods=['POST'])
@@ -82,6 +89,9 @@ def upvote_course():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    if not validate_analytics_auth(user_query):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
     
     # save information to uniquely identify course
     course_query = {
@@ -118,8 +128,11 @@ def upvote_course():
             break
 
     # add analytics for the upvote
-    add_analytics_upvote(course_query, user_data['email'], user_data['first_name'], user_data['last_name'], os_info, ip_addr)
+    analytics = add_analytics_upvote(course_query, user_data['email'], user_data['first_name'], user_data['last_name'], os_info, ip_addr)
     
+    if not analytics:
+        return json.dumps({"success":False}),400,{"ContentType":"application/json"}
+
     if not user_has_upvoted:
         # add course to list of courses user has upvoted
         grades_db.users.update_one(user_query, {"$push": {"user_upvoted_courses": course_data}})

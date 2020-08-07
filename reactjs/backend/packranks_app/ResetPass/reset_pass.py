@@ -11,6 +11,10 @@ from packranks_app import app
 from packranks_app.ResetPass.send_confirmation_reset import send_confirmation_reset
 from packranks_app.ResetPass.verify_tokens import verify_token
 
+# import cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_email,is_clean_query,validate_analytics_auth)
+
+
 # import the hash algorithm
 from passlib.hash import pbkdf2_sha256
 NUM_ROUNDS =  100000
@@ -56,6 +60,10 @@ def reset_password():
     user_query = {
         "email": user_email
     }
+
+    if not is_clean_email(user_query['email']):
+        return json.dumps({"success":False}),400,{"ContentType":"application/json"}
+    
     #save new hashed pw
     custom_algo = pbkdf2_sha256.using(rounds=NUM_ROUNDS)
     new_hashed_pw = custom_algo.hash(new_password.encode("utf-8"))

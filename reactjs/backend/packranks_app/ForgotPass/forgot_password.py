@@ -12,6 +12,9 @@ NUM_ROUNDS =  100000
 #import send reset email
 from packranks_app.ForgotPass.send_reset_email import send_reset_email
 
+# import cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_email,is_clean_query,validate_analytics_auth)
+
 #get database string and email pass
 DBSTR = ""
 EMAIL = ""
@@ -43,9 +46,14 @@ def send_reset_link():
         #print(host_url)
         #save recipient email
         recipient_email = user_data["email"]
+        
         user_query = {
             "email": recipient_email
         }
+
+        if not is_clean_email(user_query['email']):
+            return json.dumps({"success":False}), 400, {"ContentType":"application/json"} 
+
         #find user via email
         user = grades_db.users.find_one(user_query)
 

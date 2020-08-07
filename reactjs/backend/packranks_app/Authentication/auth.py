@@ -9,8 +9,7 @@ import requests
 from passlib.hash import pbkdf2_sha256
 
 # import helper for cleanliness
-from packranks_app.Sanitizer.mongo_sanitizer import
-(validate_analytics_auth, is_clean_email, is_clean_query)
+from packranks_app.Sanitizer.mongo_sanitizer import (validate_analytics_auth, is_clean_email, is_clean_query)
 
 
 NUM_ROUNDS =  100000
@@ -151,7 +150,7 @@ def google_auth():
 
         # ensure that os and ip are clean
         if not is_clean_query(os_info) or not is_clean_query(ip_addr):
-            return json.dumps({"success":True}), 400, {"ContentType":"application/json"}
+            return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
 
         # update os and ip address in db
         update_os_ip(google_user, os_info, ip_addr)
@@ -189,6 +188,14 @@ def login():
     user_query = {
         "email":login_data["email"]
     }
+
+    # protects against noSQL injection
+    if not is_clean_email(user_query['email']):
+
+        #return that user made invalid email
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
+
     #try to find existing user
     current_user = grades_db.users.find_one(user_query)
     if current_user == None:
@@ -196,6 +203,11 @@ def login():
 
     #if no existing user, add to db
     else: 
+
+        # ensure that os and ip are clean
+        if not is_clean_query(os_info) or not is_clean_query(ip_addr):
+            return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
         # update os and ip information
         update_os_ip(current_user, os_info, ip_addr)
         
@@ -254,6 +266,10 @@ def sign_up():
         "location": get_location_info(ip_addr),
         "account_type": "PackRanks"
     }
+
+    # check that user info is valid
+    if not validate_analytics_auth(user):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
 
     #try to find existing user
     current_user = grades_db.users.find_one({"email":user["email"]})

@@ -12,6 +12,10 @@ from packranks_app import app
 import datetime
 import requests
 
+# import cleanliness
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_email,is_clean_query,validate_analytics_auth)
+
+
 DBSTR = ""
 SECRET = ""
 with open ("packranks_app/email_data.json", "r") as data:
@@ -61,6 +65,10 @@ def add_analytics_wishlist(type_of_wishlist, email, first_name, last_name, os_in
         "ip_address": ip_addr,
         "location": get_location_info(ip_addr)
     }
+
+    if not validate_analytics_auth(analytics_to_add):
+        return False
+
     # add analytics to db
     grades_db.analytics_user_data.insert_one(analytics_to_add)
 
@@ -76,7 +84,6 @@ def reset_wishlist():
     #decode token and save new wishlist data
     new_wishlist = data["wishlist"]
     user_data = jwt.decode(data["token"], SECRET, algorithms=["HS256"])["identity"]
-    #print(user_data)
     
     #use user_query as it removes wishlist and searches
     #for the correct user whose info was provided
@@ -85,6 +92,10 @@ def reset_wishlist():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    if not validate_analytics_auth(user_query):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
     #update db with new wishlist
     update_wishlist = grades_db.users.update_one(
         user_query,
@@ -116,6 +127,9 @@ def add_course_to_wishlist():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    if not validate_analytics_auth(user_query):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
 
     #current wishlist
     current_wishlist = grades_db.users.find_one(user_query)["wishlist"]
@@ -167,6 +181,10 @@ def view_wishlist():
         "last_name": user_data["last_name"],
         "email": user_data["email"]
     }
+
+    if not validate_analytics_auth(user_query):
+        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
+
     #find wishlist for user
     user_db_data = grades_db.users.find_one(
         user_query

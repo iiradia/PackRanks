@@ -12,6 +12,8 @@ from passlib.hash import pbkdf2_sha256
 import datetime
 from packranks_app import app
 
+from packranks_app.Sanitizer.mongo_sanitizer import (is_clean_query, is_clean_email)
+
 EMAIL = ""
 PASS = ""
 DBSTR = ""
@@ -92,6 +94,11 @@ def send_signup_email(first_name, email):
     Helper method to send an email to a user who just signed up 
     welcoming them to PackRanks.
     """
+
+    # if not valid queries, just return without sending email
+    if not is_clean_query(first_name) or not is_clean_email(email):
+        return 
+
     #create sender, recipient, and subject
     sender = f"PackRanks <{EMAIL}>"
     recipient =  email

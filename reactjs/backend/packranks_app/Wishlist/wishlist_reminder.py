@@ -1,3 +1,12 @@
+"""
+Wishlist_reminder.py is now DEPRECATED.
+
+Currently, the wishlist remidner scraping is running on 
+a different Heroku dyno, which is separate from the process
+of running the Flask back-end.
+"""
+
+
 #imports
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver import Chrome

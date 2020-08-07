@@ -50,7 +50,7 @@ def contact_us():
     phone = contact_data["phone_no"]
     msg = contact_data["message"]
 
-    if not is_clean_query(first_name) or not is_clean_query(last_name) or not is_clean_email(email) or not is_clean_query(phone) or not is_clean_query(msg):
+    if not is_clean_query(first_name) or not is_clean_query(last_name) or not is_clean_email(email) or not is_clean_query(phone):
         return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
 
     sender = EMAIL

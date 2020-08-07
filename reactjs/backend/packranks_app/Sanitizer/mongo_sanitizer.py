@@ -9,6 +9,10 @@ def validate_analytics_auth(analytics_auth):
         if key == 'email':
             if not is_clean_email(val):
                 return False
+        elif key == "location":
+            for k,v in val.items():
+                if not is_clean_query(v):
+                    return False
         else:
             if not is_clean_query(val):
                 return False
@@ -25,7 +29,7 @@ def is_clean_query(query):
     query = str(query)
 
     # set of valid characters to include in inputs and queries
-    valid_chars = [";", ".", "-", ",", "(", ")"]
+    valid_chars = [";", ".", "-", ",", "(", ")", " ", ":", "/"]
 
     # iterate through char, ensure it is valid
     for char in query:
