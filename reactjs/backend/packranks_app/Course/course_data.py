@@ -193,8 +193,10 @@ def gepRoute():
 
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
-    
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
     # write calls to analytics
     analytics_to_add = {
         "type_of_call": "GEP",
@@ -298,7 +300,10 @@ def deptRoute():
     
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     # write calls to analytics
     analytics_to_add = {

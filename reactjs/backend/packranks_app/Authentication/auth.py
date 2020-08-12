@@ -68,11 +68,10 @@ def google_auth():
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
-    
-    # get user agent
-    user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     user_query = {
         "email": google_user_data["email"]
@@ -181,8 +180,10 @@ def login():
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
-    #print(login_data)
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     #save user information
     user_query = {
@@ -244,8 +245,10 @@ def sign_up():
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
-    #print(user_data)
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     #use hash library to hash the password
     # generate new salt, and hash a password

@@ -29,7 +29,7 @@ def is_clean_query(query):
     query = str(query)
 
     # set of valid characters to include in inputs and queries
-    valid_chars = [";", ".", "-", ",", "(", ")", " ", ":", "/"]
+    valid_chars = [";", ".", "-", ",", "(", ")", " ", ":", "/", "&"]
 
     # iterate through char, ensure it is valid
     for char in query:

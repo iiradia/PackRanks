@@ -116,7 +116,10 @@ def add_course_to_wishlist():
     
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     #decode token and save course to add to wishlist
     wishlist_course_data = data["course_data"]
@@ -172,7 +175,10 @@ def view_wishlist():
     
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     user_data = jwt.decode(token, SECRET, algorithms=['HS256'])["identity"]
     

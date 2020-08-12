@@ -78,7 +78,10 @@ def upvote_course():
     
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
-    os_info = user_agent.split(')')[0].split('(')[1].strip()
+    try:
+        os_info = user_agent.split(')')[0].split('(')[1].strip()
+    except:
+        os_info = "Unknown"
 
     #decode token and save course to add to wishlist
     course_data = data["course_data"]
