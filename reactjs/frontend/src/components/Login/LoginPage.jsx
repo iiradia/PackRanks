@@ -106,8 +106,9 @@ class LoginPage extends React.Component {
   googleSuccess(response) {
 
     //get data from google
-    const profile_obj = response.profileObj;
-    
+    let profile_obj = response.profileObj
+    let id_token = response.tokenId
+
     let url = "http://packranks-backend.herokuapp.com/googleauth";
     //call Flask API with google user data.
     fetch(url,
@@ -116,7 +117,8 @@ class LoginPage extends React.Component {
               body: JSON.stringify({
                 first_name: profile_obj.givenName,
                 last_name: profile_obj.familyName,
-                email: profile_obj.email
+                email: profile_obj.email,
+                token: id_token
               })
       }).then(
           (response) => (response.json())

@@ -4,9 +4,12 @@ from pymongo import MongoClient
 import json
 from packranks_app import app
 import datetime
-import requests
 # import the hash algorithm
 from passlib.hash import pbkdf2_sha256
+
+# for OAuth verification
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 # import helper for cleanliness
 from packranks_app.Sanitizer.mongo_sanitizer import (validate_analytics_auth, is_clean_email, is_clean_query)
@@ -15,8 +18,13 @@ from packranks_app.Sanitizer.mongo_sanitizer import (validate_analytics_auth, is
 NUM_ROUNDS =  100000
 
 DBSTR = ""
+CLIENT_ID = ""
+
 with open ("packranks_app/email_data.json", "r") as data:
-    DBSTR = json.load(data)["DBSTR"]
+    dat = json.load(data)
+
+    DBSTR = dat["DBSTR"]
+    CLIENT_ID = dat["CLIENT_ID"]
 
 crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
@@ -57,6 +65,7 @@ def add_analytics_auth(type_of_call, type_of_auth, email, first_name, last_name,
 
     return True
 
+
 @app.route("/googleauth", methods=["POST"])
 def google_auth():
     """
@@ -65,6 +74,30 @@ def google_auth():
     or create a new account for them.
     """
     google_user_data = json.loads(request.get_data())
+
+    try:
+        token = google_user_data['token']
+
+         # Specify the CLIENT_ID of the app that accesses the backend:
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
+
+        # save information based on token
+        user_email = idinfo['email']
+        user_first = idinfo['given_name']
+        user_last = idinfo['family_name']
+
+    except ValueError:
+        return 'Invalid token', 400
+     
+    user_query = {
+        "email": google_user_data["email"]
+    }
+
+    # check that the user email is equivalent to the token
+    if user_query['email'] != user_email or google_user_data['first_name'] != user_first or google_user_data['last_name'] != user_last:
+        
+        return 'Account does not match token', 400
+
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
@@ -72,10 +105,6 @@ def google_auth():
         os_info = user_agent.split(')')[0].split('(')[1].strip()
     except:
         os_info = "Unknown"
-
-    user_query = {
-        "email": google_user_data["email"]
-    }
 
     # protects against noSQL injection
     if not is_clean_email(user_query['email']):
@@ -166,6 +195,7 @@ def google_auth():
 
 
     return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
+
 
 @app.route("/login", methods=["POST"])
 def login():

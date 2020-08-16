@@ -16,3 +16,4 @@ pandas
 requests
 Flask-Limiter
 flask_limiter
+google-auth
