@@ -92,12 +92,12 @@ def google_auth():
     user_query = {
         "email": google_user_data["email"]
     }
-
+    
     # check that the user email is equivalent to the token
-    if user_query['email'] != user_email or google_user_data['first_name'] != user_first or google_user_data['last_name'] != user_last:
-        
+    if user_query['email'] != user_email:
+    
         return 'Account does not match token', 400
-
+    
     ip_addr = request.access_route[0]
     # get user agent
     user_agent = str(request.headers.get("User-Agent"))
@@ -105,16 +105,16 @@ def google_auth():
         os_info = user_agent.split(')')[0].split('(')[1].strip()
     except:
         os_info = "Unknown"
-
+    
     # protects against noSQL injection
     if not is_clean_email(user_query['email']):
-
+    
         #return that user made invalid email
-        return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
-
+        return json.dumps({"success":False, "message": "email was not clean."}), 400, {"ContentType":"application/json"}
+    
     #attempt to find user with information given
     google_user = grades_db.users.find_one(user_query)
-
+    
     if google_user == None:
         """
         Options:  
@@ -142,7 +142,7 @@ def google_auth():
             user["last_name"] = google_user_data["last_name"]
         except:
             pass
-        
+
         # check that user info is valid
         if not validate_analytics_auth(user):
             return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
@@ -175,21 +175,23 @@ def google_auth():
         Send user to their homepage
         """
         user_info = get_user_token(google_user)
-
+        
         # ensure that os and ip are clean
         if not is_clean_query(os_info) or not is_clean_query(ip_addr):
-            return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
-
+        
+            return json.dumps({"success":False, "message": "IP/OS was not clean."}), 400, {"ContentType":"application/json"}
+        
         # update os and ip address in db
         update_os_ip(google_user, os_info, ip_addr)
 
         # write calls to analytics for google signup
         analytics = add_analytics_auth("Login", "Google", google_user_data["email"], google_user_data["first_name"], google_user_data["last_name"], os_info, ip_addr)
-
+        
         # if analytics was malicious, return false
         if not analytics:
-            return json.dumps({"success":False}), 400, {"ContentType":'application/json'}
-
+        
+            return json.dumps({"success":False, "message": "Analytics was not clean."}), 400, {"ContentType":'application/json'}
+        
         return json.dumps(user_info), 200,
         {'ContentType':'application/json'}
 

@@ -13,10 +13,35 @@ def validate_analytics_auth(analytics_auth):
             for k,v in val.items():
                 if not is_clean_query(v):
                     return False
+        elif key == "wishlist":
+            if not is_clean_wishlist(val):
+                return False
+        elif key == 'os_info' or key == 'ip_address_list':
+            for i in val:
+                if not is_clean_query(i):
+                    return False
         else:
             if not is_clean_query(val):
                 return False
     
+    return True
+
+def is_clean_wishlist(query):
+    """
+    Given a wishlist, determine if it is valid.
+    """
+    query = str(query)
+
+    # set of valid characters to include in inputs and queries
+    valid_chars = [";", ".", "-", ",", "(", ")", " ", ":", "/", "&", "{", "}"]
+
+    # iterate through char, ensure it is valid
+    for char in query:
+
+        # return False if char is not clean
+        if (not re.search("\w", char)) and char not in valid_chars:
+            return False
+
     return True
 
 def is_clean_query(query):
