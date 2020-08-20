@@ -44,8 +44,6 @@ class SignUp extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        
-        let validInput = true;
 
         {/* Set variables to form values */}
         let email = this.state.email;
@@ -57,62 +55,59 @@ class SignUp extends React.Component {
         {/* Check for valid email */}
         if (!(new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).test(email))) {  
             toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a valid email address.</h5>)
-            validInput = false;
+            return
         }
 
         {/* Check for valid First Name and Last Name*/}
         if (!first_name || !last_name) {
             toast.notify(<h5 style={{color: '#cc0000'}}>Please enter a valid first name and last name.</h5>)
-            validInput = false;
+            return
         }
 
         {/* Check for password match */}
         if (pwd !== confirm_pwd) {
             toast.notify(<h5 style={{color: '#cc0000'}}>Passwords do not match!</h5>)
-            validInput = false;
+            return
         }
 
         { /* Check for valid password length */ }
         if (pwd.length < 8) {
             toast.notify(<h5 style={{color: '#cc0000'}}>Password must be 8 or more characters!</h5>)
-            validInput = false;
+            return
         }
 
         {/* Check for recaptcha completion */}
         if (!this.state.re_captcha) {
             toast.notify(<h5 style={{color: '#cc0000'}}>Please complete the ReCaptcha.</h5>)
-            validInput = false;
+            return
         }
 
-        if (validInput) {
-            console.log(this.state);
-
-            let url = "http://packranks-backend.herokuapp.com/signup";
-            fetch(url,
-            {
-                    method: "POST",
-                    body: JSON.stringify({
-                        first_name: first_name,
-                        last_name: last_name,
-                        email: email,
-                        password:pwd
-                    })
-            }).then(
-                (response) => (response.json())
-            ).then((data) => {
-                console.log(data);
-                if (data.success === true) {
-                    toast.notify(<h5 style={{color: 'green'}}>You have successfully signed up for PackRanks! Login to access your homepage!</h5>)
-                    this.props.history.push({
-                        pathname: "/login"
-                    })
-                }
-                else {
-                    //Handle duplicate emails/usernames here.
-                    toast.notify(<h5 style={{color: '#cc0000'}}>Email already exists in database. Please try logging in instead.</h5>)
-                }
-            })
-        }
+        // Call back-end to sign up user.
+        let url = "http://packranks-backend.herokuapp.com/signup";
+        fetch(url,
+        {
+                method: "POST",
+                body: JSON.stringify({
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    password:pwd
+                })
+        }).then(
+            (response) => (response.json())
+        ).then((data) => {
+            console.log(data);
+            if (data.success === true) {
+                toast.notify(<h5 style={{color: 'green'}}>You have successfully signed up for PackRanks! Login to access your homepage!</h5>)
+                this.props.history.push({
+                    pathname: "/login"
+                })
+            }
+            else {
+                //Handle duplicate emails/usernames here.
+                toast.notify(<h5 style={{color: '#cc0000'}}>Email already exists in database. Please try logging in instead.</h5>)
+            }
+        })
     }
 
     onFirstNameChange(event) {

@@ -40,6 +40,7 @@ def is_clean_wishlist(query):
 
         # return False if char is not clean
         if (not re.search("\w", char)) and char not in valid_chars:
+            print(f'char {char} in query {query} is invalid')
             return False
 
     return True
@@ -61,6 +62,7 @@ def is_clean_query(query):
 
         # return False if char is not clean
         if (not re.search("\w", char)) and char not in valid_chars:
+            print(f'char {char} in query {query} is invalid')
             return False
 
     return True
@@ -84,6 +86,7 @@ def is_clean_email(email):
 
         # return false if char is not clean
         if (not re.search("\w", char)) and char != '.' and char !='@':
+            print(f'char {char} in query {email} is invalid')
             return False
 
     return True

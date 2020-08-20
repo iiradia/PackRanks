@@ -18,13 +18,13 @@ from packranks_app.Sanitizer.mongo_sanitizer import (validate_analytics_auth, is
 NUM_ROUNDS =  100000
 
 DBSTR = ""
-CLIENT_ID = ""
+CLIENT_IDS = ""
 
 with open ("packranks_app/email_data.json", "r") as data:
     dat = json.load(data)
 
     DBSTR = dat["DBSTR"]
-    CLIENT_ID = dat["CLIENT_ID"]
+    CLIENT_IDS = dat["CLIENT_IDS"]
 
 crowdsourced = MongoClient(DBSTR)
 grades_db = crowdsourced.Coursesnc
@@ -77,16 +77,21 @@ def google_auth():
 
     try:
         token = google_user_data['token']
-
+        idinfo = {}
+        
          # Specify the CLIENT_ID of the app that accesses the backend:
-        idinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
-
+        for client_id in CLIENT_IDS:
+            try:
+                idinfo = id_token.verify_token(token, requests.Request(), client_id)
+                break
+            except: pass
+    
         # save information based on token
         user_email = idinfo['email']
         user_first = idinfo['given_name']
         user_last = idinfo['family_name']
 
-    except ValueError:
+    except:
         return 'Invalid token', 400
      
     user_query = {
@@ -237,6 +242,18 @@ def login():
     #if no existing user, add to db
     else: 
 
+        # try to find hashed pw
+        try:
+            user_hashed_pw = current_user['hashed_pw']
+        except: 
+            user_hashed_pw = ""
+        
+        # try to find dollar sign indices
+        try:
+            dollar_sign_indices = current_user['dollar_sign_indices']
+        except:
+            dollar_sign_indices = []
+
         # ensure that os and ip are clean
         if not is_clean_query(os_info) or not is_clean_query(ip_addr):
             return json.dumps({"success":False}), 400, {"ContentType":"application/json"}
@@ -248,6 +265,12 @@ def login():
         if user_hashed_pw == "":
             return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
         
+        # modify the user hashed pwd to include indices
+        user_hashed_pw = list(user_hashed_pw)
+        for idx in dollar_sign_indices:
+            user_hashed_pw.insert(idx, '$')
+
+        user_hashed_pw = ''.join(user_hashed_pw)
         is_authenticated = pbkdf2_sha256.verify(login_pwd, user_hashed_pw)
         if not is_authenticated:
             return json.dumps({'success':False}), 404, {"ContentType":"application/json"}
@@ -286,7 +309,10 @@ def sign_up():
     # generate new salt, and hash a password
     custom_algo = pbkdf2_sha256.using(rounds=NUM_ROUNDS)
     hashed_pw = custom_algo.hash(user_data["password"].encode("utf-8"))
-    #print(hashed_pw)
+
+    # remove dollar sign and save indices
+    dollar_sign_indices = [i for i,j in enumerate(list(hashed_pw)) if j=='$']    
+    hashed_pw = hashed_pw.replace('$', '')
 
     #save user information
     user = {
@@ -313,6 +339,9 @@ def sign_up():
 
     #if no existing user, add to db
     else:
+        
+        # save dollar sign indices and save in db
+        user['dollar_sign_indices'] = dollar_sign_indices
         grades_db.users.insert_one(user)
 
         #send user confirmation email!
