@@ -29,7 +29,7 @@ class GEP extends React.Component {
             url, {
                 method: "GET",
                 //headers: {"GEP": document.getElementById("gep_list_select").value, "term": this.props.whichterm}
-                headers: {"GEP": this.state.select_value, "num_courses": this.state.numCourses_value, "term": this.props.whichterm}
+                headers: {"GEP": this.state.select_value, "num_courses": 15, "term": this.props.whichterm}
            }
         ).then(
            response => response.json()
@@ -72,15 +72,6 @@ class GEP extends React.Component {
                            value: gepValues[i].value}
         }
 
-        const numCourses = [
-            {label: 5, value: 5}, 
-            {label: 6, value: 6},
-            {label: 7, value: 7},
-            {label: 8, value: 8},
-            {label: 9, value: 9},
-            {label: 10, value:10}
-        ]
-
         if(this.state.loading) {
             this.setState({loading:false})
             ReactDOM.render(
@@ -105,17 +96,6 @@ class GEP extends React.Component {
                         />
                     </div>
 
-                    {/* Asks user how many courses they would like to view */}
-                    <label id="howmanylabel" for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
-                    <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
-                        <Select className="numCourseSelect"
-                                id='num_course_select' 
-                                options={numCourses}
-                                isSearchable={false}
-                                defaultValue={[{label:5, value:5}]}
-                                onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
-                        />
-                    </div>
                     {/* {console.log(this.state.select_value)} */}
                     {/* button to select a specific GEP TODO: implement onclick */}
                     <div id="whichgepdiv">
@@ -125,7 +105,7 @@ class GEP extends React.Component {
                             name="whichgep" 
                             onClick={this.getTable}
                             size="lg">
-                            Select
+                            View Courses
                         </Button>
                     </div>
                     

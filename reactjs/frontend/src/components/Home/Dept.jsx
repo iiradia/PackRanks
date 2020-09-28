@@ -190,7 +190,7 @@ class Dept extends React.Component {
                         "term": this.props.whichterm,
                         "level_min": this.state.inputValueMin,
                         "level_max": this.state.inputValueMax,
-                        "num_courses": this.state.numCourses_value
+                        "num_courses": 6
                     }
             }
             ).then(
@@ -228,7 +228,7 @@ class Dept extends React.Component {
                         "term": this.props.whichterm,
                         "level_min": this.state.level_min,
                         "level_max": this.state.inputValueMax,
-                        "num_courses": this.state.numCourses_value
+                        "num_courses": 6
                     }
             }
             ).then(
@@ -343,15 +343,6 @@ class Dept extends React.Component {
             minMax = this.getMinMax("allLevelDivs");
         }
 
-        const numCourses = [
-            {label: 5, value: 5}, 
-            {label: 6, value: 6},
-            {label: 7, value: 7},
-            {label: 8, value: 8},
-            {label: 9, value: 9},
-            {label: 10, value:10}
-        ]
-
         if(this.state.loading) {
             this.setState({loading:false})
             ReactDOM.render(
@@ -373,21 +364,6 @@ class Dept extends React.Component {
                 </div>
                 {minMax}
                 
-                {/* parent div of label and how many courses dropdown */}
-                <div>
-                    {/* Asks user how many courses they would like to view */}
-                    <label for="howmanycourses" class="lead"><strong>How many courses would you like to view?</strong></label>
-                    <div id="howmanycourses" style={{width:"300px", margin:"0 auto"}}>
-                        <Select className="numCourseSelect"
-                                id='num_course_select' 
-                                options={numCourses}
-                                isSearchable={false}
-                                defaultValue={[{label: 5, value: 5}]} 
-                                //defaultValue={numCourses[0]}
-                                onChange={optionValue => this.setState({numCourses_value: optionValue.value})}
-                        />
-                    </div>
-                </div>
 
                 {/* Button to generate table */}
                 <div id="whichdeptdiv">
@@ -397,7 +373,7 @@ class Dept extends React.Component {
                             name="whichdept" 
                             onClick={this.courseTable}
                             size="lg">
-                        Select
+                        View Courses
                     </Button>
                 </div>
 

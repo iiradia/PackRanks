@@ -57,9 +57,10 @@ class FirstPrompt extends React.Component {
                         <div id="termDiv">
                             <select id="whichterm" name="whichterm" class="bg-light" onChange={this.setTerm}>
                                 {/* options for user to select */}
-                                <option value="Summer Term 1">2020 Summer Session 1</option>
-                                <option value="Summer Term 2">2020 Summer Session 2</option>
+				<option value="2021 Spring Term">2021 Spring Term</option>
                                 <option value="Fall">2020 Fall Term</option>
+                                <option value="Summer Term 2">2020 Summer Session 2</option>
+                                <option value="Summer Term 1">2020 Summer Session 1</option>
                             </select>
                         </div>
                     </div>
