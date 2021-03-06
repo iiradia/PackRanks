@@ -28,13 +28,13 @@ class MainWelcome extends React.Component {
             if (isMobile)  {
                 userwelcome = <h1 id="welcomeMobile" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name}</strong>!</h1>
                 introducePackRanks = <p id="labGradientMobile" class="lead">Bringing students all course selection resources in one convenient place.
-                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course! <br/><br/><h3>ANNOUNCEMENT: Spring 2021 Classes are OUT!!</h3><mark>(Unreleased on catalog - subject to change by NCSU)</mark></p>
+                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!<h4><mark>ANNOUNCEMENT: PackRanks is under maintenance until 3/8, check back soon for Fall 2021 Courses and some exciting changes!</mark></h4></p>
             </p>
             }
             else {
                 userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}, <strong>{identity.first_name}</strong>!</h1>
                 introducePackRanks = <p id="labGradient" class="lead">Bringing students all course selection resources in one convenient place.
-                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course! <br/><br/><h3>ANNOUNCEMENT: Spring 2021 Classes are OUT!!</h3><mark>(Unreleased on catalog - subject to change by NCSU)</mark></p>
+                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!<h4><mark>ANNOUNCEMENT: PackRanks is under maintenance until 3/8, check back soon for Fall 2021 Courses and some exciting changes!</mark></h4></p>
             </p>
             }
         }
@@ -42,13 +42,13 @@ class MainWelcome extends React.Component {
             if (isMobile) {
                 userwelcome = <h1 id="welcomeMobile" class="mt-5">Welcome to {orgName}!</h1>
                 introducePackRanks = <p id="labGradientMobile" class="lead">Bringing students all course selection resources in one convenient place.
-                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course! <br/><br/><h3>ANNOUNCEMENT: Spring 2021 Classes are OUT!!</h3><mark>(Unreleased on catalog - subject to change by NCSU)</mark></p>
+                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!<h4><mark>ANNOUNCEMENT: PackRanks is under maintenance until 3/8, check back soon for Fall 2021 Courses and some exciting changes!</mark></h4></p>
             </p>
             }
             else {
                 userwelcome = <h1 id="welcome" class="mt-5">Welcome to {orgName}!</h1>
                 introducePackRanks = <p id="labGradient" class="lead">Bringing students all course selection resources in one convenient place.
-                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course! <br/><br/><h3>ANNOUNCEMENT: Spring 2021 Classes are OUT!!</h3><mark>(Unreleased on catalog - subject to change by NCSU)</mark></p>
+                <br/><p id="lab" class="lead">Please <a id="labLink" class="lead" href="/login">sign up or login</a> to use the Wishlist feature and receive email notifications when a seat opens up in a closed or waitlisted course!<h4><mark>ANNOUNCEMENT: PackRanks is under maintenance until 3/8, check back soon for Fall 2021 Courses and some exciting changes!</mark></h4></p>
             </p>
             } 
         }
