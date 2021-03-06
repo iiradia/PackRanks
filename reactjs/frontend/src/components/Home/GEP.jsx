@@ -24,6 +24,7 @@ class GEP extends React.Component {
     getTable() {
         const GEP = this;
         let url = "http://packranks-backend.herokuapp.com/gep";
+        
         this.setState({loading: true})
         fetch( 
             url, {

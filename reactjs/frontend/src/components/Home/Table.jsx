@@ -10,6 +10,10 @@ import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css'
 import HelpIcon from '@material-ui/icons/Help';
 
+import { Chart } from "react-google-charts";
+
+
+
 //when delete checkbox is checked
 const checkDelete= (props) => {
     //If item was checked, process
@@ -157,10 +161,48 @@ const RenderRow = (props) =>{
         }
 
         else if (key==="Rating") {
-            let currRating = props.data[key];
             //console.log(keyColor);
-            return <td id="ratingTable" key={props.data[key]}><strong>{props.data[key]}</strong></td>
+
+            // only pass values greater than 0 to grades
+            return <td id="ratingTable" key={props.data[key]}>                    
+                    <div data-tip data-for="gtool">
+                     <strong>{props.data[key]}</strong>
+                    </div>     
+                   </td>
         }
+        
+        else if (key==='Grade Data') {  
+            
+            console.log(props.data[key])
+            return <td id="ratingTable" key={props.data[key]}>           
+                        <Chart
+                            width={'300px'}
+                            height={'300px'}
+                            chartType="PieChart"
+                            loader={<div>Loading Chart</div>}
+                            data={props.data[key]}
+                            rootProps={{ 'data-testid': '1' }}
+                            options={{'chartArea': {'width': '100%', 'height': '80%'},
+                                    'legend': 'top'
+                            }}
+                        />           
+            </td>   
+        }
+        // Temporary, checking if can combine location/seats/times
+        /*
+        else if (key==="Logistics") {
+            let loc = String(props.data[key][0]);
+            loc = loc.replace("None", "");
+
+            return <td key={props.data[key]}><strong>{loc}</strong><br/><br/>
+            <strong>{props.data[key][1]}</strong><br/><br/><strong>{props.data[key][2]}</strong>
+            <br/><br/><strong>{props.data[key][3]}</strong><br/><br/><strong>{props.data[key][4]}</strong></td>
+        }
+        else if (key==="Basic Info") {
+             return <td key={props.data[key]}><strong>{props.data[key][0]}</strong><br/><br/>
+            <strong>{props.data[key][1]}</strong></td>
+        }
+        */
         else{
             return <td key={props.data[key]}><strong>{props.data[key]}</strong></td>
         }
