@@ -13,7 +13,7 @@ yarn.lock
 
 # ignore __pycache__
 reactjs/__pycache__
-#reactjs/backend/__pycache__
+reactjs/backend/__pycache__
 reactjs/backend/packranks_app/email_data.json
 
 # ignore environment
@@ -21,3 +21,4 @@ reactjs/myenv
 
 # ignore 
 #reactjs/backend/Procfile
+myenv
