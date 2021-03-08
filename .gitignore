@@ -20,5 +20,7 @@ reactjs/backend/packranks_app/email_data.json
 reactjs/myenv
 myenv
 
+.DS_Store
+
 # ignore 
 #reactjs/backend/Procfile
